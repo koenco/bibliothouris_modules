@@ -6,8 +6,7 @@
 
 include_once 'bibliotouris_book.features.inc';
 
-function bibliotouris_books_form_alter(&$form, $form_state, $form_id) {
-echo test;
+function bibliotouris_book_form_alter(&$form, $form_state, $form_id) {
     if($form_id == 'views_exposed_form' && $form['#id'] == 'views-exposed-form-view-all-books-page') {
 
     $form['field_isbn_value'] = array(
@@ -19,7 +18,7 @@ echo test;
 
 }
 
-function bibliotouris_books_menu() {
+function bibliotouris_book_menu() {
 $items['autocomplete/book/isbn'] = array(
 'page callback' => 'autocomplete_book_isbn',
 'access callback' => TRUE,
