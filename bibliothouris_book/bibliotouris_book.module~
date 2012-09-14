@@ -1,0 +1,46 @@
+<?php
+/**
+ * @file
+ * Code for the Bibliotouris_book feature.
+ */
+
+include_once 'bibliotouris_book.features.inc';
+
+function bibliotouris_books_form_alter(&$form, $form_state, $form_id) {
+echo test;
+    if($form_id == 'views_exposed_form' && $form['#id'] == 'views-exposed-form-view-all-books-page') {
+
+    $form['field_isbn_value'] = array(
+    '#type' => 'textfield',
+    '#autocomplete_path' => 'autocomplete/book/isbn'
+    );
+
+    }
+
+}
+
+function bibliotouris_books_menu() {
+$items['autocomplete/book/isbn'] = array(
+'page callback' => 'autocomplete_book_isbn',
+'access callback' => TRUE,
+'weight' => 1,
+);
+return $items;
+}
+
+function autocomplete_book_isbn($string) {
+$items = array();
+
+$query = db_select('field_data_field_isbn', 'i');
+$value = $query->fields('i', array('entity_id','field_isbn_value', ));
+$value = $query->condition('field_isbn_value', '%' . db_like($string) . '%', 'LIKE')
+->orderRandom()
+->execute();
+$data = array();
+$i = 0;
+foreach ($value as $val) {
+$items[$val->field_isbn_value] = check_plain($val->field_isbn_value);
+}
+print drupal_json_output($items);
+exit();
+}

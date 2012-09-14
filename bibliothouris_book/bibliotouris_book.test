@@ -1,0 +1,87 @@
+<?php
+/**
+ * Created by JetBrains PhpStorm.
+ * User: koenc
+ * Date: 13-9-12
+ * Time: 10:46
+ * To change this template use File | Settings | File Templates.
+ */
+class Bibliotouris_bookTestCase extends DrupalWebTestCase {
+
+  public static function getInfo() {
+  return array('name' => 'Bibliotouris_book functionality',
+  'description' => 'Test the books implementation',
+  'group' => 'Bibliotouris',
+  );
+  }
+
+  public function setUp() {
+    parent::setup('bibliotouris_book');
+      $roles = user_roles();
+      $role = 'medewerker';
+
+      // Find the index for the role we want to assign to the user.
+      $index = array_search($role, $roles);
+
+
+      // Get the permissions for the role.
+      $permissions = user_role_permissions(array(array_search($role, $roles) => $role));
+
+
+      // Create the user with the permissions.
+      $user = $this->drupalCreateUser(array_keys($permissions[$index]));
+
+
+      // Assign the role.
+      $user->roles[$index] = $role;
+
+    // Return the user we have created.
+    $this->medewerker = $this->drupalCreateUser(array('create book content'));
+
+    /*
+     * $permissions = array(
+      'access content',
+      'create page content',
+      'edit own page content',
+      'create story content',
+      'edit own story content',
+    );
+    $basic_user = $this->drupalCreateUserRolePerm($permissions);
+
+    // Create an admin user that can bypass revision moderation.
+    $permissions = array(
+      'access content',
+      'administer nodes',
+    );
+    $admin_user = $this->drupalCreateUserRolePerm($permissions);
+
+    // Assign users to their test suite-wide properties.
+    $this->basic_user = $basic_user;
+    $this->admin_user = $admin_user;
+     */
+
+  }
+
+  public function testInsertBookWithoutTitle() {
+    //$this->drupalLogin($this->medewerker);
+  /*  $this->drupalCreateNode(array(
+    'title' => 'mybook',
+    'isbn' => '12-45-156-156',
+    'changed' => REQUEST_TIME,
+    'promote' => 0,
+    'type' => 'book',
+    ));
+*/
+   // $result = db_query("SELECT nid FROM {node} WHERE title = :title", array('title' => 'mybook'));
+    //$this->assertNull($result);
+
+  //  $this->drupalGet("/node/2");
+    //$this->drupalGet("/node/add/book");
+
+   // $this->assertNoText("mybook", "FAIL");
+
+   // $this->assertTrue(TRUE, "TRUE");
+  }
+
+
+}
