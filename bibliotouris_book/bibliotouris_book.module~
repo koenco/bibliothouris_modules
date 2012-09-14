@@ -11,7 +11,8 @@ function bibliotouris_book_form_alter(&$form, $form_state, $form_id) {
 
     $form['field_isbn_value'] = array(
     '#type' => 'textfield',
-    '#autocomplete_path' => 'autocomplete/book/isbn'
+    '#autocomplete_path' => 'autocomplete/book/isbn',
+    '#attributes' => array('class'=> array('auto_submit')),
     );
 
     }

@@ -22,7 +22,7 @@ function bibliotouris_book_menu_default_menu_links() {
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
-    'weight' => '-48',
+    'weight' => '0',
   );
   // Exported menu link: navigation:node/add
   $menu_links['navigation:node/add'] = array(
@@ -34,9 +34,9 @@ function bibliotouris_book_menu_default_menu_links() {
     'module' => 'system',
     'hidden' => '1',
     'external' => '0',
-    'has_children' => '1',
+    'has_children' => '0',
     'expanded' => '0',
-    'weight' => '-49',
+    'weight' => '0',
   );
   // Exported menu link: navigation:node/add/article
   $menu_links['navigation:node/add/article'] = array(
@@ -62,18 +62,14 @@ function bibliotouris_book_menu_default_menu_links() {
     'menu_name' => 'navigation',
     'link_path' => 'node/add/book',
     'router_path' => 'node/add/book',
-    'link_title' => 'New book',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-    ),
+    'link_title' => 'Book',
+    'options' => array(),
     'module' => 'system',
     'hidden' => '0',
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
-    'weight' => '-50',
+    'weight' => '0',
   );
   // Exported menu link: navigation:node/add/page
   $menu_links['navigation:node/add/page'] = array(
@@ -87,7 +83,7 @@ function bibliotouris_book_menu_default_menu_links() {
       ),
     ),
     'module' => 'system',
-    'hidden' => '0',
+    'hidden' => '1',
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
@@ -106,7 +102,7 @@ function bibliotouris_book_menu_default_menu_links() {
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
-    'weight' => '-47',
+    'weight' => '0',
   );
   // Exported menu link: navigation:view-all-books
   $menu_links['navigation:view-all-books'] = array(
@@ -120,15 +116,15 @@ function bibliotouris_book_menu_default_menu_links() {
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
-    'weight' => '-46',
+    'weight' => '0',
   );
   // Translatables
   // Included for use with string extractors like potx.
   t('Add content');
   t('Article');
   t('Basic page');
+  t('Book');
   t('Compose tips');
-  t('New book');
   t('Search');
   t('View all books');
 
