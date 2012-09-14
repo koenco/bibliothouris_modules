@@ -10,7 +10,7 @@
 function bibliotouris_book_views_default_views() {
   $export = array();
 
-  $view = new view();
+  $view = new view;
   $view->name = 'view_all_books';
   $view->description = '';
   $view->tag = 'default';
@@ -24,10 +24,10 @@ function bibliotouris_book_views_default_views() {
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'View all books';
   $handler->display->display_options['use_ajax'] = TRUE;
-  $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['query']['options']['query_comment'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['exposed_form']['options']['autosubmit'] = TRUE;
   $handler->display->display_options['exposed_form']['options']['autosubmit_hide'] = FALSE;
@@ -122,41 +122,13 @@ function bibliotouris_book_views_default_views() {
   $handler->display->display_options['filters']['field_isbn_value']['expose']['label'] = 'ISBN';
   $handler->display->display_options['filters']['field_isbn_value']['expose']['operator'] = 'field_isbn_value_op';
   $handler->display->display_options['filters']['field_isbn_value']['expose']['identifier'] = 'field_isbn_value';
-  $handler->display->display_options['filters']['field_isbn_value']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    3 => 0,
-  );
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $handler->display->display_options['exposed_block'] = TRUE;
   $handler->display->display_options['path'] = 'view-all-books';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'View all books';
-  $translatables['view_all_books'] = array(
-    t('Master'),
-    t('View all books'),
-    t('more'),
-    t('Apply'),
-    t('Reset'),
-    t('Sort by'),
-    t('Asc'),
-    t('Desc'),
-    t('Items per page'),
-    t('- All -'),
-    t('Offset'),
-    t('« first'),
-    t('‹ previous'),
-    t('next ›'),
-    t('last »'),
-    t('ISBN'),
-    t('Title'),
-    t('Last name'),
-    t('First name'),
-    t('Page'),
-  );
   $export['view_all_books'] = $view;
 
   return $export;
