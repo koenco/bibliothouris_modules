@@ -21,6 +21,7 @@ features[field][] = node-book-field_cover_image
 features[field][] = node-book-field_isbn
 features[field][] = node-page-body
 features[menu_custom][] = navigation
+features[menu_links][] = navigation:autocomplete/book/isbn
 features[menu_links][] = navigation:filter/tips
 features[menu_links][] = navigation:node/add
 features[menu_links][] = navigation:node/add/article

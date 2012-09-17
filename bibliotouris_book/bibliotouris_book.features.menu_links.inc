@@ -10,6 +10,20 @@
 function bibliotouris_book_menu_default_menu_links() {
   $menu_links = array();
 
+  // Exported menu link: navigation:autocomplete/book/isbn
+  $menu_links['navigation:autocomplete/book/isbn'] = array(
+    'menu_name' => 'navigation',
+    'link_path' => 'autocomplete/book/isbn',
+    'router_path' => 'autocomplete/book/isbn',
+    'link_title' => '',
+    'options' => array(),
+    'module' => 'system',
+    'hidden' => '1',
+    'external' => '0',
+    'has_children' => '0',
+    'expanded' => '0',
+    'weight' => '1',
+  );
   // Exported menu link: navigation:filter/tips
   $menu_links['navigation:filter/tips'] = array(
     'menu_name' => 'navigation',
@@ -32,9 +46,9 @@ function bibliotouris_book_menu_default_menu_links() {
     'link_title' => 'Add content',
     'options' => array(),
     'module' => 'system',
-    'hidden' => '0',
+    'hidden' => '1',
     'external' => '0',
-    'has_children' => '1',
+    'has_children' => '0',
     'expanded' => '0',
     'weight' => '0',
   );
@@ -50,7 +64,7 @@ function bibliotouris_book_menu_default_menu_links() {
       ),
     ),
     'module' => 'system',
-    'hidden' => '0',
+    'hidden' => '1',
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
@@ -83,7 +97,7 @@ function bibliotouris_book_menu_default_menu_links() {
       ),
     ),
     'module' => 'system',
-    'hidden' => '0',
+    'hidden' => '1',
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
