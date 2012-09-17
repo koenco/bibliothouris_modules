@@ -7,40 +7,186 @@
 include_once 'bibliotouris_book.features.inc';
 
 function bibliotouris_book_form_alter(&$form, $form_state, $form_id) {
-    if($form_id == 'views_exposed_form' && $form['#id'] == 'views-exposed-form-view-all-books-page') {
+  if ($form_id == 'views_exposed_form' && $form['#id'] == 'views-exposed-form-view-all-books-page') {
+    drupal_add_js(drupal_get_path('module', 'bibliotouris_book') . '/autocomplete_autosubmit.js', array('group' => JS_THEME));
 
     $form['field_isbn_value'] = array(
-    '#type' => 'textfield',
-    '#autocomplete_path' => 'autocomplete/book/isbn',
-    '#attributes' => array('class'=> array('auto_submit')),
+      '#type' => 'textfield',
+      '#autocomplete_path' => 'autocomplete/book/isbn',
+      '#attributes' => array('class' => array('auto_submit')),
     );
+    $form['title'] = array(
+      '#type' => 'textfield',
+      '#autocomplete_path' => 'autocomplete/book/title',
+      '#attributes' => array('class' => array('auto_submit')),
+    );
+// $form['#validate'][] = 'bibliotouris_book_isbn_validate';
 
+  }
+  else {
+    //$form['#submit'][] = 'my_validation_function';
+  }
+}
+
+function bibliotouris_book_node_alter(&$form, $form_state, $form_id) {
+  $form['#validate'][] = 'my_validation_function';
+}
+
+
+function bibliotouris_book_node_validate($node, $form, &$form_state) {
+  if ($node->type == 'book') {
+
+    if ($form_state['values']['field_isbn']['und']['0']['value'] == NULL) {
+      form_set_error('isbn', 'Please fill in a valid ISBN.');
+    }
+    else {
+      $isbn = str_replace(array('-', '/', ' '), '', $form_state['values']['field_isbn']['und']['0']['value']);
+      if (!checkisbn($isbn)) {
+        form_set_error('field_isbn', 'A validation error has occurred. Please check the isbn.');
+      }
     }
 
+
+  }
+  /* kpr($node);
+ kpr($form); die;*/
+  //die;
+  /*if (isset($node->end) && isset($node->start)) {
+    if ($node->start > $node->end) {
+      form_set_error('time', t('An event may not end before it starts.'));
+    }
+  }*/
 }
 
 function bibliotouris_book_menu() {
-$items['autocomplete/book/isbn'] = array(
-'page callback' => 'autocomplete_book_isbn',
-'access callback' => TRUE,
-'weight' => 1,
-);
-return $items;
+  $items['autocomplete/book/isbn'] = array(
+    'page callback' => 'autocomplete_book_isbn',
+    'access callback' => TRUE,
+    'weight' => 1,
+  );
+  $items['autocomplete/book/title'] = array(
+    'page callback' => 'autocomplete_book_title',
+    'access callback' => TRUE,
+    'weight' => 1,
+  );
+  return $items;
 }
 
 function autocomplete_book_isbn($string) {
-$items = array();
+  if ($_GET['q'] == "autocomplete/book/isbn") {
+    return drupal_not_found();
+  }
+  else {
+    $items = array();
+    if (isset($string)) {
 
-$query = db_select('field_data_field_isbn', 'i');
-$value = $query->fields('i', array('entity_id','field_isbn_value', ));
-$value = $query->condition('field_isbn_value', '%' . db_like($string) . '%', 'LIKE')
-->orderRandom()
-->execute();
-$data = array();
-$i = 0;
-foreach ($value as $val) {
-$items[$val->field_isbn_value] = check_plain($val->field_isbn_value);
+
+      $query = db_select('field_data_field_isbn', 'i');
+      $value = $query->fields('i', array('entity_id', 'field_isbn_value',));
+      $value = $query->condition('field_isbn_value', '%' . db_like($string) . '%', 'LIKE');
+      $value = $query->range(0, 10)
+        ->execute();
+      $data = array();
+      $i = 0;
+      foreach ($value as $val) {
+        $items[$val->field_isbn_value] = check_plain($val->field_isbn_value);
+      }
+
+      if (count($items) == 0) {
+        $items[$string] = check_plain("No books found with this isbn");
+      }
+    }
+    print drupal_json_output($items);
+    exit();
+  }
 }
-print drupal_json_output($items);
-exit();
+
+function autocomplete_book_title($string) {
+  if ($_GET['q'] == "autocomplete/book/title") {
+    return drupal_not_found();
+  }
+  else {
+    $items = array();
+
+    $query = db_select('node', 'n');
+    $value = $query->fields('n', array('nid', 'title',));
+    $value = $query->condition('title', '%' . db_like($string) . '%', 'LIKE');
+    $value = $query->range(0, 10)
+      ->execute();
+    $data = array();
+    $i = 0;
+    foreach ($value as $val) {
+      $items[$val->title] = check_plain($val->title);
+    }
+
+    if (count($items) == 0) {
+      $items[$string] = check_plain("No books found with this title");
+    }
+
+    print drupal_json_output($items);
+    exit();
+  }
+}
+
+function my_validation_function(&$form, &$form_state) {
+  kpr($form);
+}
+
+function checkisbn($isbn) {
+
+  $isbn = str_replace(array(' ', '-', '.'), '', $isbn);
+  $length = strlen($isbn);
+  $checkdigit = substr($isbn, -1);
+  if ($length == 10) {
+    if (!is_numeric(substr($isbn, -10, 9))) {
+      form_set_error('isbn', "Your isbn does not only contain numbers.");
+      return FALSE;
+    }
+    $checkdigit = (!is_numeric($checkdigit)) ? $checkdigit : strtoupper($checkdigit);
+    $checkdigit = ($checkdigit == "X") ? "10" : $checkdigit;
+
+    $sum = 0;
+
+    for ($i = 0; $i < 9; $i++) {
+      $sum = $sum + ($isbn[$i] * (10 - $i));
+    }
+
+    $sum = $sum + $checkdigit;
+    $mod = $sum % 11;
+
+    if ($mod == 0) {
+      return TRUE;
+    } else {
+      form_set_error('field_isbn', "Your isbn contains a bad checkdigit.");
+      return FALSE;
+    }
+  } else {
+    if ($length == 13) {
+      $sum = $isbn[0] + ($isbn[1] * 3) + $isbn[2] + ($isbn[3] * 3) +
+        $isbn[4] + ($isbn[5] * 3) + $isbn[6] + ($isbn[7] * 3) +
+        $isbn[8] + ($isbn[9] * 3) + $isbn[10] + ($isbn[11] * 3);
+
+
+      $mod = $sum % 10;
+
+      $correct_checkdigit = 10 - $mod;
+
+      $correct_checkdigit = ($correct_checkdigit == "10") ? "0" : $correct_checkdigit;
+
+
+      if ($checkdigit == $correct_checkdigit) {
+        return TRUE;
+      }
+
+      else {
+        form_set_error('field_isbn', "Your isbn contains a bad checkdigit.");
+        return FALSE;
+      }
+
+    }
+    else {
+      form_set_error('field_isbn', "Your isbn has an invalid length.");
+      return FALSE;
+    }
+  }
 }
