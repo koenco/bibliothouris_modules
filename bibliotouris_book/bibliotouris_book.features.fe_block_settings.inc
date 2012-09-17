@@ -18,7 +18,7 @@ function bibliotouris_book_default_fe_block_settings() {
     'delta' => '-exp-view_all_books-page',
     'theme' => 'bartik',
     'status' => '1',
-    'weight' => '-8',
+    'weight' => '11',
     'region' => 'sidebar_first',
     'custom' => '0',
     'visibility' => '1',

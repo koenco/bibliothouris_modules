@@ -122,7 +122,6 @@ function bibliotouris_book_views_default_views() {
   $handler->display->display_options['filters']['field_isbn_value']['expose']['label'] = 'ISBN';
   $handler->display->display_options['filters']['field_isbn_value']['expose']['operator'] = 'field_isbn_value_op';
   $handler->display->display_options['filters']['field_isbn_value']['expose']['identifier'] = 'field_isbn_value';
-  $handler->display->display_options['filters']['field_isbn_value']['expose']['weight'] = 10;
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
