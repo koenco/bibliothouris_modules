@@ -10,6 +10,12 @@
 function bibliotouris_book_menu_default_menu_custom() {
   $menus = array();
 
+  // Exported menu: menu-navigation-custom.
+  $menus['menu-navigation-custom'] = array(
+    'menu_name' => 'menu-navigation-custom',
+    'title' => 'Navigation',
+    'description' => '',
+  );
   // Exported menu: navigation.
   $menus['navigation'] = array(
     'menu_name' => 'navigation',
