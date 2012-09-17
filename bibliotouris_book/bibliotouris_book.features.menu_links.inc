@@ -48,7 +48,7 @@ function bibliotouris_book_menu_default_menu_links() {
     'module' => 'system',
     'hidden' => '1',
     'external' => '0',
-    'has_children' => '1',
+    'has_children' => '0',
     'expanded' => '0',
     'weight' => '0',
   );
@@ -64,7 +64,7 @@ function bibliotouris_book_menu_default_menu_links() {
       ),
     ),
     'module' => 'system',
-    'hidden' => '0',
+    'hidden' => '1',
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
