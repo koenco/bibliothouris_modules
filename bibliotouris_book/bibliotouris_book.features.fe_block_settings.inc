@@ -14,26 +14,26 @@ function bibliotouris_book_default_fe_block_settings() {
   $theme = array();
 
   $theme['menu-menu-navigation-custom'] = array(
-    'cache' => -1,
     'module' => 'menu',
     'delta' => 'menu-navigation-custom',
     'theme' => 'bartik',
+    'status' => '1',
+    'weight' => '0',
+    'region' => 'sidebar_first',
+    'custom' => '0',
+    'visibility' => '0',
     'pages' => '',
-    'weight' => 0,
-    'status' => 0,
-    'region' => '',
-    'custom' => 0,
-    'visibility' => 0,
     'title' => '',
+    'cache' => -1,
   );
 
   $theme['system-navigation'] = array(
     'module' => 'system',
     'delta' => 'navigation',
     'theme' => 'bartik',
-    'status' => '1',
+    'status' => 0,
     'weight' => '0',
-    'region' => 'sidebar_first',
+    'region' => '',
     'custom' => '0',
     'visibility' => '0',
     'pages' => '',
@@ -61,17 +61,17 @@ function bibliotouris_book_default_fe_block_settings() {
   $theme = array();
 
   $theme['menu-menu-navigation-custom'] = array(
-    'cache' => -1,
     'module' => 'menu',
     'delta' => 'menu-navigation-custom',
     'theme' => 'seven',
-    'pages' => '',
-    'weight' => 0,
     'status' => 0,
+    'weight' => '0',
     'region' => '',
-    'custom' => 0,
-    'visibility' => 0,
+    'custom' => '0',
+    'visibility' => '0',
+    'pages' => '',
     'title' => '',
+    'cache' => -1,
   );
 
   $theme['system-navigation'] = array(
