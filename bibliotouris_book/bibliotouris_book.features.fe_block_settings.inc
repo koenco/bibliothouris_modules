@@ -27,6 +27,20 @@ function bibliotouris_book_default_fe_block_settings() {
     'cache' => -1,
   );
 
+  $theme['system-navigation'] = array(
+    'module' => 'system',
+    'delta' => 'navigation',
+    'theme' => 'bartik',
+    'status' => '1',
+    'weight' => '0',
+    'region' => 'sidebar_first',
+    'custom' => '0',
+    'visibility' => '1',
+    'pages' => '',
+    'title' => '',
+    'cache' => -1,
+  );
+
   $theme['views--exp-view_all_books-page'] = array(
     'module' => 'views',
     'delta' => '-exp-view_all_books-page',
@@ -55,6 +69,20 @@ function bibliotouris_book_default_fe_block_settings() {
     'region' => '',
     'custom' => '0',
     'visibility' => '0',
+    'pages' => '',
+    'title' => '',
+    'cache' => -1,
+  );
+
+  $theme['system-navigation'] = array(
+    'module' => 'system',
+    'delta' => 'navigation',
+    'theme' => 'seven',
+    'status' => 0,
+    'weight' => '0',
+    'region' => '',
+    'custom' => '0',
+    'visibility' => '1',
     'pages' => '',
     'title' => '',
     'cache' => -1,
