@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by JetBrains PhpStorm.
- * User: koenc
+ * User: laurentm
  * Date: 13-9-12
  * Time: 10:46
  * To change this template use File | Settings | File Templates.
@@ -17,7 +17,7 @@ class Bibliotouris_bookTestCase extends DrupalWebTestCase {
 
   public function setUp() {
     parent::setup('bibliotouris_book');
-      $roles = user_roles();
+      /*$roles = user_roles();
       $role = 'medewerker';
 
       // Find the index for the role we want to assign to the user.
@@ -80,7 +80,8 @@ class Bibliotouris_bookTestCase extends DrupalWebTestCase {
 
    // $this->assertNoText("mybook", "FAIL");
 
-   // $this->assertTrue(TRUE, "TRUE");
+   //$this->assertTrue(TRUE, "TRUE");
+   $this->assertTrue(checkisbn(978055359316), "Incorrect isbn");
   }
 
 
