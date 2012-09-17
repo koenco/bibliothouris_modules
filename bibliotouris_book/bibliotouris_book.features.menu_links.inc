@@ -10,19 +10,41 @@
 function bibliotouris_book_menu_default_menu_links() {
   $menu_links = array();
 
-  // Exported menu link: navigation:autocomplete/book/isbn
-  $menu_links['navigation:autocomplete/book/isbn'] = array(
-    'menu_name' => 'navigation',
-    'link_path' => 'autocomplete/book/isbn',
-    'router_path' => 'autocomplete/book/isbn',
-    'link_title' => '',
-    'options' => array(),
-    'module' => 'system',
-    'hidden' => '1',
+  // Exported menu link: menu-navigation-custom:node/add/book
+  $menu_links['menu-navigation-custom:node/add/book'] = array(
+    'menu_name' => 'menu-navigation-custom',
+    'link_path' => 'node/add/book',
+    'router_path' => 'node/add/book',
+    'link_title' => 'New book',
+    'options' => array(
+      'attributes' => array(
+        'title' => 'Add a new book',
+      ),
+    ),
+    'module' => 'menu',
+    'hidden' => '0',
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
-    'weight' => '1',
+    'weight' => '0',
+  );
+  // Exported menu link: menu-navigation-custom:view-all-books
+  $menu_links['menu-navigation-custom:view-all-books'] = array(
+    'menu_name' => 'menu-navigation-custom',
+    'link_path' => 'view-all-books',
+    'router_path' => 'view-all-books',
+    'link_title' => 'View all books',
+    'options' => array(
+      'attributes' => array(
+        'title' => '',
+      ),
+    ),
+    'module' => 'menu',
+    'hidden' => '0',
+    'external' => '0',
+    'has_children' => '0',
+    'expanded' => '0',
+    'weight' => '0',
   );
   // Exported menu link: navigation:filter/tips
   $menu_links['navigation:filter/tips'] = array(
@@ -137,8 +159,9 @@ function bibliotouris_book_menu_default_menu_links() {
   t('Add content');
   t('Article');
   t('Basic page');
-  t('Book');
   t('Compose tips');
+  t('New Book');
+  t('New book');
   t('Search');
   t('View all books');
 
