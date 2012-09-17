@@ -14,8 +14,22 @@ function bibliotouris_book_default_fe_block_settings() {
   $theme = array();
 
   $theme['menu-menu-navigation-custom'] = array(
+    'cache' => -1,
     'module' => 'menu',
     'delta' => 'menu-navigation-custom',
+    'theme' => 'bartik',
+    'pages' => '',
+    'weight' => 0,
+    'status' => 0,
+    'region' => '',
+    'custom' => 0,
+    'visibility' => 0,
+    'title' => '',
+  );
+
+  $theme['system-navigation'] = array(
+    'module' => 'system',
+    'delta' => 'navigation',
     'theme' => 'bartik',
     'status' => '1',
     'weight' => '0',
@@ -27,27 +41,13 @@ function bibliotouris_book_default_fe_block_settings() {
     'cache' => -1,
   );
 
-  $theme['system-navigation'] = array(
-    'module' => 'system',
-    'delta' => 'navigation',
-    'theme' => 'bartik',
-    'status' => '1',
-    'weight' => '0',
-    'region' => 'sidebar_first',
-    'custom' => '0',
-    'visibility' => '1',
-    'pages' => '',
-    'title' => '',
-    'cache' => -1,
-  );
-
   $theme['views--exp-view_all_books-page'] = array(
     'module' => 'views',
     'delta' => '-exp-view_all_books-page',
     'theme' => 'bartik',
     'status' => '1',
-    'weight' => '11',
-    'region' => 'sidebar_first',
+    'weight' => '-11',
+    'region' => 'content',
     'custom' => '0',
     'visibility' => '1',
     'pages' => 'view-all-books',
@@ -61,17 +61,17 @@ function bibliotouris_book_default_fe_block_settings() {
   $theme = array();
 
   $theme['menu-menu-navigation-custom'] = array(
+    'cache' => -1,
     'module' => 'menu',
     'delta' => 'menu-navigation-custom',
     'theme' => 'seven',
-    'status' => 0,
-    'weight' => '0',
-    'region' => '',
-    'custom' => '0',
-    'visibility' => '0',
     'pages' => '',
+    'weight' => 0,
+    'status' => 0,
+    'region' => '',
+    'custom' => 0,
+    'visibility' => 0,
     'title' => '',
-    'cache' => -1,
   );
 
   $theme['system-navigation'] = array(
@@ -82,7 +82,7 @@ function bibliotouris_book_default_fe_block_settings() {
     'weight' => '0',
     'region' => '',
     'custom' => '0',
-    'visibility' => '1',
+    'visibility' => '0',
     'pages' => '',
     'title' => '',
     'cache' => -1,
