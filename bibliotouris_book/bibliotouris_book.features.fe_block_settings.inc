@@ -29,6 +29,25 @@ function bibliotouris_book_default_fe_block_settings() {
 
   $export['bartik'] = $theme;
 
+  // corolla
+  $theme = array();
+
+  $theme['views--exp-view_all_books-page'] = array(
+    'module' => 'views',
+    'delta' => '-exp-view_all_books-page',
+    'theme' => 'corolla',
+    'status' => '1',
+    'weight' => '-8',
+    'region' => 'sidebar_first',
+    'custom' => '0',
+    'visibility' => '0',
+    'pages' => '',
+    'title' => '',
+    'cache' => -1,
+  );
+
+  $export['corolla'] = $theme;
+
   // seven
   $theme = array();
 
