@@ -84,5 +84,45 @@ class Bibliotouris_bookTestCase extends DrupalWebTestCase {
    $this->assertTrue(checkisbn(978055359316), "Incorrect isbn");
   }
 
+  public function testValidIsbn13() {
+    $this->assertTrue(checkisbn(9780553593716), 'Valid isbn13');
+  }
+
+  public function testValidIsbn13Dashes() {
+    $this->assertTrue(checkisbn('978-0553-5--93716'), 'Valid isbn13');
+  }
+
+  public function testValidIsbn13Spaces() {
+    $this->assertTrue(checkisbn('9780 5535 93716'), 'Valid isbn13');
+  }
+
+  public function testValidIsbn10() {
+    $this->assertTrue(checkisbn(0553573403), 'Valid isbn10');
+  }
+
+  public function testValidIsbn10Dashes() {
+    $this->assertTrue(checkisbn('055-35-73403'), 'Valid isbn10');
+  }
+
+  public function testValidIsbn10Spaces() {
+    $this->assertTrue(checkisbn('0553 5734 03'), 'Valid isbn10');
+  }
+
+  public function testInvalidIsbn13() {
+    $this->assertFalse(checkisbn(9780553593715), 'Invalid Isbn');
+  }
+
+  public function testInvalidIsbn10() {
+    $this->assertFalse(checkisbn(0553573402), 'Invalid Isbn');
+  }
+
+  public function testInvalidLength() {
+    $this->assertFalse(checkisbn(055357340222), 'Invalid Isbn');
+  }
+
+  public function testNotNumeric() {
+    $this->assertFalse(checkisbn('055a573402'), 'Invalid Isbn');
+  }
+
 
 }
