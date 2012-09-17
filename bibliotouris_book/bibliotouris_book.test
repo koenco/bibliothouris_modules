@@ -76,7 +76,7 @@ class IsbnValidatorTestCase extends DrupalWebTestCase {
   }
 
   public function testValidIsbn10() {
-    $this->assertTrue(checkisbn(0553573403), 'Valid isbn10');
+    $this->assertTrue(checkisbn('0553573403'), 'Valid isbn10');
   }
 
   public function testValidIsbn10Dashes() {
@@ -92,11 +92,11 @@ class IsbnValidatorTestCase extends DrupalWebTestCase {
   }
 
   public function testInvalidIsbn10() {
-    $this->assertFalse(checkisbn(0553573402), 'Invalid Isbn');
+    $this->assertFalse(checkisbn('0553573402'), 'Invalid Isbn');
   }
 
   public function testInvalidLength() {
-    $this->assertFalse(checkisbn(055357340222), 'Invalid Isbn');
+    $this->assertFalse(checkisbn('055357340222'), 'Invalid Isbn');
   }
 
   public function testNotNumeric() {
