@@ -68,9 +68,9 @@ function bibliotouris_book_menu_default_menu_links() {
     'link_title' => 'Add content',
     'options' => array(),
     'module' => 'system',
-    'hidden' => '1',
+    'hidden' => '0',
     'external' => '0',
-    'has_children' => '0',
+    'has_children' => '1',
     'expanded' => '0',
     'weight' => '0',
   );
@@ -86,7 +86,7 @@ function bibliotouris_book_menu_default_menu_links() {
       ),
     ),
     'module' => 'system',
-    'hidden' => '1',
+    'hidden' => '0',
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
@@ -98,7 +98,7 @@ function bibliotouris_book_menu_default_menu_links() {
     'menu_name' => 'navigation',
     'link_path' => 'node/add/book',
     'router_path' => 'node/add/book',
-    'link_title' => 'New Book',
+    'link_title' => 'Book',
     'options' => array(),
     'module' => 'system',
     'hidden' => '0',
@@ -119,7 +119,7 @@ function bibliotouris_book_menu_default_menu_links() {
       ),
     ),
     'module' => 'system',
-    'hidden' => '1',
+    'hidden' => '0',
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
@@ -159,8 +159,8 @@ function bibliotouris_book_menu_default_menu_links() {
   t('Add content');
   t('Article');
   t('Basic page');
+  t('Book');
   t('Compose tips');
-  t('New Book');
   t('New book');
   t('Search');
   t('View all books');
