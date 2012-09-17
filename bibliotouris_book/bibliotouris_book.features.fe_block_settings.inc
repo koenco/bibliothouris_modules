@@ -40,8 +40,8 @@ function bibliotouris_book_default_fe_block_settings() {
     'weight' => '-8',
     'region' => 'sidebar_first',
     'custom' => '0',
-    'visibility' => '0',
-    'pages' => '',
+    'visibility' => '1',
+    'pages' => 'view-all-books',
     'title' => '',
     'cache' => -1,
   );
