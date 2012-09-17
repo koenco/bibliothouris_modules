@@ -20,6 +20,16 @@ function bibliotouris_book_form_alter(&$form, $form_state, $form_id) {
       '#autocomplete_path' => 'autocomplete/book/title',
       '#attributes' => array('class' => array('auto_submit')),
     );
+    $form['field_lastname_value'] = array(
+      '#type' => 'textfield',
+      '#autocomplete_path' => 'autocomplete/book/lastname',
+      '#attributes' => array('class' => array('auto_submit')),
+    );
+    $form['field_firstname_value'] = array(
+      '#type' => 'textfield',
+      '#autocomplete_path' => 'autocomplete/book/firstname',
+      '#attributes' => array('class' => array('auto_submit')),
+    );
 // $form['#validate'][] = 'bibliotouris_book_isbn_validate';
 
   }
@@ -66,6 +76,16 @@ function bibliotouris_book_menu() {
   );
   $items['autocomplete/book/title'] = array(
     'page callback' => 'autocomplete_book_title',
+    'access callback' => TRUE,
+    'weight' => 1,
+  );
+  $items['autocomplete/book/lastname'] = array(
+    'page callback' => 'autocomplete_book_lastname',
+    'access callback' => TRUE,
+    'weight' => 1,
+  );
+  $items['autocomplete/book/firstname'] = array(
+    'page callback' => 'autocomplete_book_firstname',
     'access callback' => TRUE,
     'weight' => 1,
   );
