@@ -162,6 +162,10 @@ function checkisbn($isbn) {
     }
   } else {
     if ($length == 13) {
+      if (!is_numeric(substr($isbn, -13, 12))) {
+        form_set_error('isbn', "Your isbn does not only contain numbers.");
+        return FALSE;
+      }
       $sum = $isbn[0] + ($isbn[1] * 3) + $isbn[2] + ($isbn[3] * 3) +
         $isbn[4] + ($isbn[5] * 3) + $isbn[6] + ($isbn[7] * 3) +
         $isbn[8] + ($isbn[9] * 3) + $isbn[10] + ($isbn[11] * 3);

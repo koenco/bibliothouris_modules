@@ -1,0 +1,119 @@
+<?php
+/**
+ * Created by JetBrains PhpStorm.
+ * User: laurentm
+ * Date: 13-9-12
+ * Time: 10:46
+ * To change this template use File | Settings | File Templates.
+ */
+class IsbnValidatorTestCase extends DrupalWebTestCase {
+
+  public static function getInfo() {
+    return array(
+      'name' => 'ISBN Validator',
+      'description' => 'Test the ISBN validator',
+      'group' => 'Bibliotouris',
+    );
+  }
+
+  public function setUp() {
+    parent::setup('bibliotouris_book');
+    /*$roles = user_roles();
+     $role = 'medewerker';
+
+     // Find the index for the role we want to assign to the user.
+     $index = array_search($role, $roles);
+
+
+     // Get the permissions for the role.
+     $permissions = user_role_permissions(array(array_search($role, $roles) => $role));
+
+
+     // Create the user with the permissions.
+     $user = $this->drupalCreateUser(array_keys($permissions[$index]));
+
+
+     // Assign the role.
+     $user->roles[$index] = $role;
+
+   // Return the user we have created.
+   $this->medewerker = $this->drupalCreateUser(array('create book content'));
+
+   /*
+    * $permissions = array(
+     'access content',
+     'create page content',
+     'edit own page content',
+     'create story content',
+     'edit own story content',
+   );
+   $basic_user = $this->drupalCreateUserRolePerm($permissions);
+
+   // Create an admin user that can bypass revision moderation.
+   $permissions = array(
+     'access content',
+     'administer nodes',
+   );
+   $admin_user = $this->drupalCreateUserRolePerm($permissions);
+
+   // Assign users to their test suite-wide properties.
+   $this->basic_user = $basic_user;
+   $this->admin_user = $admin_user;
+    */
+
+  }
+
+<<<<<<< HEAD
+  public function testValidIsbn13() {
+    $this->assertTrue(checkisbn(9780553593716), 'Valid isbn13');
+  }
+
+  public function testValidIsbn13Dashes() {
+    $this->assertTrue(checkisbn('978-0553-5--93716'), 'Valid isbn13');
+  }
+
+  public function testValidIsbn13Spaces() {
+    $this->assertTrue(checkisbn('9780 5535 93716'), 'Valid isbn13');
+  }
+
+  public function testValidIsbn10() {
+    $this->assertTrue(checkisbn('0553573403'), 'Valid isbn10');
+  }
+
+  public function testValidIsbn10Dashes() {
+    $this->assertTrue(checkisbn('055-35-73403'), 'Valid isbn10');
+  }
+
+  public function testValidIsbn10Spaces() {
+    $this->assertTrue(checkisbn('0553 5734 03'), 'Valid isbn10');
+  }
+
+  public function testInvalidIsbn13() {
+    $this->assertFalse(checkisbn(9780553593715), 'Invalid Isbn');
+  }
+
+  public function testInvalidIsbn10() {
+    $this->assertFalse(checkisbn('0553573402'), 'Invalid Isbn');
+  }
+
+  public function testInvalidLength() {
+    $this->assertFalse(checkisbn('055357340222'), 'Invalid Isbn');
+  }
+
+  public function testNotNumeric() {
+    $this->assertFalse(checkisbn('055a573402'), 'Invalid Isbn');
+=======
+  public function testValidIsbn() {
+    $this->assertTrue(checkisbn('9780553593716'), 'Valid isbn13');
+    $this->assertTrue(checkisbn('978-0553-5--93716'), 'Valid isbn13 dashes');
+    $this->assertTrue(checkisbn('9780 5535 93716'), 'Valid isbn13 spaces');
+    $this->assertTrue(checkisbn('0553573403'), 'Valid isbn10');
+    $this->assertTrue(checkisbn('055-35-73403'), 'Valid isbn10 dashes');
+    $this->assertTrue(checkisbn('0553 5734 03'), 'Valid isbn10 spaces');
+    $this->assertFalse(checkisbn('9780553593715'), 'Invalid Isbn13');
+    $this->assertFalse(checkisbn('0553573402'), 'Invalid Isbn10');
+    $this->assertFalse(checkisbn('055357340222'), 'Invalid Isbn Test invalid length');
+    $this->assertFalse(checkisbn('055a573402'), 'Invalid Isbn Test not numeric');
+>>>>>>> 0ee11bcd0eeeb6ea578dda8c4e1538b1435e8ef7
+  }
+}
