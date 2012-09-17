@@ -10,12 +10,17 @@
 function bibliotouris_book_menu_default_menu_custom() {
   $menus = array();
 
+  // Exported menu: menu-navigation-custom.
+  $menus['menu-navigation-custom'] = array(
+    'menu_name' => 'menu-navigation-custom',
+    'title' => 'Navigation',
+    'description' => '',
+  );
   // Exported menu: navigation.
   $menus['navigation'] = array(
     'menu_name' => 'navigation',
     'title' => 'Navigation',
     'description' => 'The <em>Navigation</em> menu contains links intended for site visitors. Links are added to the <em>Navigation</em> menu automatically by some modules.',
-    'weight' => '99',
   );
   // Translatables
   // Included for use with string extractors like potx.
