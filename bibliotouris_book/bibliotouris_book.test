@@ -6,82 +6,61 @@
  * Time: 10:46
  * To change this template use File | Settings | File Templates.
  */
-class Bibliotouris_bookTestCase extends DrupalWebTestCase {
+class IsbnValidatorTestCase extends DrupalWebTestCase {
 
   public static function getInfo() {
-  return array('name' => 'Bibliotouris_book functionality',
-  'description' => 'Test the books implementation',
-  'group' => 'Bibliotouris',
-  );
+    return array(
+      'name' => 'IsbnValidator',
+      'description' => 'Test the ISBN validator',
+      'group' => 'Bibliotouris',
+    );
   }
 
   public function setUp() {
     parent::setup('bibliotouris_book');
-      /*$roles = user_roles();
-      $role = 'medewerker';
+    /*$roles = user_roles();
+     $role = 'medewerker';
 
-      // Find the index for the role we want to assign to the user.
-      $index = array_search($role, $roles);
-
-
-      // Get the permissions for the role.
-      $permissions = user_role_permissions(array(array_search($role, $roles) => $role));
+     // Find the index for the role we want to assign to the user.
+     $index = array_search($role, $roles);
 
 
-      // Create the user with the permissions.
-      $user = $this->drupalCreateUser(array_keys($permissions[$index]));
+     // Get the permissions for the role.
+     $permissions = user_role_permissions(array(array_search($role, $roles) => $role));
 
 
-      // Assign the role.
-      $user->roles[$index] = $role;
+     // Create the user with the permissions.
+     $user = $this->drupalCreateUser(array_keys($permissions[$index]));
 
-    // Return the user we have created.
-    $this->medewerker = $this->drupalCreateUser(array('create book content'));
 
-    /*
-     * $permissions = array(
-      'access content',
-      'create page content',
-      'edit own page content',
-      'create story content',
-      'edit own story content',
-    );
-    $basic_user = $this->drupalCreateUserRolePerm($permissions);
+     // Assign the role.
+     $user->roles[$index] = $role;
 
-    // Create an admin user that can bypass revision moderation.
-    $permissions = array(
-      'access content',
-      'administer nodes',
-    );
-    $admin_user = $this->drupalCreateUserRolePerm($permissions);
+   // Return the user we have created.
+   $this->medewerker = $this->drupalCreateUser(array('create book content'));
 
-    // Assign users to their test suite-wide properties.
-    $this->basic_user = $basic_user;
-    $this->admin_user = $admin_user;
-     */
+   /*
+    * $permissions = array(
+     'access content',
+     'create page content',
+     'edit own page content',
+     'create story content',
+     'edit own story content',
+   );
+   $basic_user = $this->drupalCreateUserRolePerm($permissions);
 
-  }
+   // Create an admin user that can bypass revision moderation.
+   $permissions = array(
+     'access content',
+     'administer nodes',
+   );
+   $admin_user = $this->drupalCreateUserRolePerm($permissions);
 
-  public function testInsertBookWithoutTitle() {
-    //$this->drupalLogin($this->medewerker);
-  /*  $this->drupalCreateNode(array(
-    'title' => 'mybook',
-    'isbn' => '12-45-156-156',
-    'changed' => REQUEST_TIME,
-    'promote' => 0,
-    'type' => 'book',
-    ));
-*/
-   // $result = db_query("SELECT nid FROM {node} WHERE title = :title", array('title' => 'mybook'));
-    //$this->assertNull($result);
+   // Assign users to their test suite-wide properties.
+   $this->basic_user = $basic_user;
+   $this->admin_user = $admin_user;
+    */
 
-  //  $this->drupalGet("/node/2");
-    //$this->drupalGet("/node/add/book");
-
-   // $this->assertNoText("mybook", "FAIL");
-
-   //$this->assertTrue(TRUE, "TRUE");
-   $this->assertTrue(checkisbn(978055359316), "Incorrect isbn");
   }
 
   public function testValidIsbn13() {
@@ -123,6 +102,4 @@ class Bibliotouris_bookTestCase extends DrupalWebTestCase {
   public function testNotNumeric() {
     $this->assertFalse(checkisbn('055a573402'), 'Invalid Isbn');
   }
-
-
 }
