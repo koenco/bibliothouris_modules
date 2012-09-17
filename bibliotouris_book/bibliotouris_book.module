@@ -20,12 +20,12 @@ function bibliotouris_book_form_alter(&$form, $form_state, $form_id) {
       '#autocomplete_path' => 'autocomplete/book/title',
       '#attributes' => array('class' => array('auto_submit')),
     );
-    $form['field_lastname_value'] = array(
+    $form['field_author_last_name_value'] = array(
       '#type' => 'textfield',
       '#autocomplete_path' => 'autocomplete/book/lastname',
       '#attributes' => array('class' => array('auto_submit')),
     );
-    $form['field_firstname_value'] = array(
+    $form['field_author_first_name_value'] = array(
       '#type' => 'textfield',
       '#autocomplete_path' => 'autocomplete/book/firstname',
       '#attributes' => array('class' => array('auto_submit')),
@@ -143,6 +143,64 @@ function autocomplete_book_title($string) {
       $items[$string] = check_plain("No books found with this title");
     }
 
+    print drupal_json_output($items);
+    exit();
+  }
+}
+
+function autocomplete_book_lastname($string) {
+  if ($_GET['q'] == "autocomplete/book/lastname") {
+    return drupal_not_found();
+  }
+  else {
+    $items = array();
+    if (isset($string)) {
+
+
+      $query = db_select('field_data_field_author_last_name', 'ln');
+      $value = $query->fields('ln', array('field_author_last_name_value',));
+      $value = $query->condition('field_author_last_name_value', '%' . db_like($string) . '%', 'LIKE');
+      $value = $query->range(0, 10)
+        ->execute();
+      $data = array();
+      $i = 0;
+      foreach ($value as $val) {
+        $items[$val->field_author_last_name_value] = check_plain($val->field_author_last_name_value);
+      }
+
+      if (count($items) == 0) {
+        $items[$string] = check_plain("No books found with this last name");
+      }
+    }
+    print drupal_json_output($items);
+    exit();
+  }
+}
+
+function autocomplete_book_firstname($string) {
+  if ($_GET['q'] == "autocomplete/book/firstname") {
+    return drupal_not_found();
+  }
+  else {
+    $items = array();
+    if (isset($string)) {
+
+
+      $query = db_select('field_data_field_author_first_name', 'fn');
+      $value = $query->fields('fn', array('field_author_first_name_value',));
+      $value = $query->condition('field_author_first_name_value', '%' . db_like($string) . '%', 'LIKE');
+      $value = $query->range(0, 10)
+        ->execute();
+      $data = array();
+      $i = 0;
+      foreach ($value as $val) {
+        $items[$val->field_author_first_name_value] = check_plain($val->field_author_first_name_value);
+      }
+
+      if (count($items) == 0) {
+        $items[$string] = check_plain("No books found with this first name");
+      }
+    }
     print drupal_json_output($items);
     exit();
   }
