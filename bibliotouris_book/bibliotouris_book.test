@@ -76,3 +76,38 @@ class IsbnValidatorTestCase extends DrupalWebTestCase {
     $this->assertFalse(checkisbn('055a573402'), 'Invalid Isbn Test not numeric');
   }
 }
+
+class BookTestCase extends DrupalWebTestCase {
+
+  public static function getInfo() {
+    return array(
+      'name' => 'Book test',
+      'description' => 'Test the book content type',
+      'group' => 'Bibliotouris',
+    );
+  }
+
+  public function setUp() {
+    parent::setup('bibliotouris_book');
+    $this->admin_user = $this->drupalCreateUser(array("create book content"));
+    $this->drupalLogin($this->admin_user);
+
+  }
+
+  public function testAddBook() {
+
+
+    $this->drupalGet("/node/add/book");
+
+    $edit = array();
+    $edit['title'] = 'MyBook';
+    $edit['ISBN'] = '9780553593716';
+    $edit['Author Last name'] = 'TestAuthor';
+    $edit['Category'] = array('Fiction');
+    $this->drupalPost('node/add/book', $edit, t('Save'));
+    $this->assertText(t('Book @title has been created.', array('@title' => $edit['title'])));
+
+
+  }
+
+}
