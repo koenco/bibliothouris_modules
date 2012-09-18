@@ -3,3 +3,44 @@
  * @file
  * Drupal needs this blank file.
  */
+
+function bibliothouris_user_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'user_register_form'){
+    hide_roles($form);
+    select_automatic_email($form);
+    select_member_role($form);
+  }elseif ( $form_id == 'user_profile_form') {
+    hide_roles($form);
+  }
+
+}
+
+function hide_roles(&$form) {
+  global $user;
+  $roles = db_query("SELECT r.name FROM {users_roles} ur LEFT JOIN {role} r ON r.rid=ur.rid WHERE ur.uid=:uid", array('uid' => $user->uid))->fetchCol();
+  $admin = db_query("SELECT rid FROM {role} WHERE name = :name", array('name' => "administrator"))->fetchField();
+  $authenticated_user = db_query("SELECT rid FROM {role} WHERE name = :name", array('name' => "authenticated user"))->fetchField();
+
+  $is_admin = false;
+  foreach($roles as $role) {
+    if ($role == "administrator") {
+      $is_admin = true;
+    }
+  }
+  if (!$is_admin) {
+    $form['account']['roles'][$admin]['#access'] = FALSE;
+  }
+
+  $form['account']['roles'][$authenticated_user]['#access'] = FALSE;
+
+
+}
+
+function select_automatic_email(&$form) {
+  $form['account']['notify']['#default_value'] = TRUE;
+}
+
+function select_member_role(&$form) {
+  $member = db_query("SELECT rid FROM {role} WHERE name = :name", array('name' => "library member"))->fetchField();
+  $form['account']['roles'][$member]['#default_value'] = TRUE;
+}
