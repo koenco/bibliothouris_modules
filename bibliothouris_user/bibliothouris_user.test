@@ -1,0 +1,45 @@
+<?php
+class UserTestCase extends DrupalWebTestCase {
+
+  public static function getInfo() {
+  return array(
+    'name' => 'User test',
+    'description' => 'Test creating user',
+    'group' => 'Bibliotouris',
+    );
+  }
+
+  public function setUp() {
+  parent::setup('bibliothouris_user');
+  /*$this->admin_user = $this->drupalCreateUser(array("create book content"));
+  $this->drupalLogin($this->admin_user);*/
+  $this->medewerker = $this->drupalCreateUser(array('create new users'));
+  $this->drupalLogin($this->medewerker);
+
+  }
+
+  public function testCreateLibraryMember() {
+
+    //invalid email
+    $edit = array();
+    $edit['mail'] = 'invalidEmail';
+    $edit['field_national_number[und][0][value]'] = '9780553593716';
+    $edit['field_last_name[und][0][value]'] = 'TestLastName';
+    $edit['field_first_name[und][0][value]'] = 'TestFirstName';
+    $edit['field_category[und][1]'] = 'TRUE';
+    $this->drupalPost('admin/people/create', $edit, t('Save'));
+    $this->assertText(t('The e-mail address @mail is not valid.', array('@mail' => $edit['mail'])));
+
+    //valid fields, no password
+    $edit = array();
+    $edit['mail'] = 'test@test.com';
+    $edit['field_national_number[und][0][value]'] = '9780553593716';
+    $edit['field_last_name[und][0][value]'] = 'TestLastName';
+    $edit['field_first_name[und][0][value]'] = 'TestFirstName';
+    $edit['field_category[und][1]'] = 'TRUE';
+    $this->drupalPost('admin/people/create', $edit, t('Save'));
+    $this->assertText(t('Since you did not provide a password, it was generated automatically for this account.'));
+    $this->assertText(t('Created a new user account for @username.'), array('@username' => substr($edit['mail'], 0, strpos($edit['mail'], '@'))));
+
+  }
+}

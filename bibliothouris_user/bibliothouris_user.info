@@ -37,4 +37,5 @@ features[variable][] = genpass_display
 features[variable][] = genpass_entropy
 features[variable][] = genpass_length
 features[variable][] = genpass_mode
-features[variable][] = user_register
+features[variable][] = user_register7
+files[] = bibliothouris_user.test
