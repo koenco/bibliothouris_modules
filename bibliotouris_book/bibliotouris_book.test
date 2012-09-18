@@ -96,17 +96,63 @@ class BookTestCase extends DrupalWebTestCase {
 
   public function testAddBook() {
 
-
-    $this->drupalGet("/node/add/book");
+    $this->drupalGet("node/add/book");
 
     $edit = array();
     $edit['title'] = 'MyBook';
-    $edit['ISBN'] = '9780553593716';
-    $edit['Author Last name'] = 'TestAuthor';
-    $edit['Category'] = array('Fiction');
+    $edit['field_isbn[und][0][value]'] = '9780553593716';
+    $edit['field_author_last_name[und][0][value]'] = 'TestAuthor';
+    $edit['field_category[und][1]'] = 'TRUE';
     $this->drupalPost('node/add/book', $edit, t('Save'));
     $this->assertText(t('Book @title has been created.', array('@title' => $edit['title'])));
 
+    $edit = array();
+    //$edit['title'] = 'MyBook';
+    $edit['field_isbn[und][0][value]'] = '9780553593716';
+    $edit['field_author_last_name[und][0][value]'] = 'TestAuthor';
+    $edit['field_category[und][1]'] = 'TRUE';
+    $this->drupalPost('node/add/book', $edit, t('Save'));
+    $this->assertText(t('Title field is required.'));
+
+    $edit = array();
+    $edit['title'] = 'MyBook';
+    //$edit['field_isbn[und][0][value]'] = '9780553593716';
+    $edit['field_author_last_name[und][0][value]'] = 'TestAuthor';
+    $edit['field_category[und][1]'] = 'TRUE';
+    $this->drupalPost('node/add/book', $edit, t('Save'));
+    $this->assertText(t('ISBN field is required.'));
+
+    $edit = array();
+    $edit['title'] = 'MyBook';
+    $edit['field_isbn[und][0][value]'] = '9780553593716';
+    //$edit['field_author_last_name[und][0][value]'] = 'TestAuthor';
+    $edit['field_category[und][1]'] = 'TRUE';
+    $this->drupalPost('node/add/book', $edit, t('Save'));
+    $this->assertText(t('Author Last name field is required.'));
+
+    $edit = array();
+    $edit['title'] = 'MyBook';
+    $edit['field_isbn[und][0][value]'] = '9780553593716';
+    $edit['field_author_last_name[und][0][value]'] = 'TestAuthor';
+    //$edit['field_category[und][1]'] = 'TRUE';
+    $this->drupalPost('node/add/book', $edit, t('Save'));
+    $this->assertText(t('Category field is required.'));
+
+    $edit = array();
+    $edit['title'] = 'MyBook';
+    $edit['field_isbn[und][0][value]'] = '4498956298489512981';
+    $edit['field_author_last_name[und][0][value]'] = 'TestAuthor';
+    $edit['field_category[und][1]'] = 'TRUE';
+    $this->drupalPost('node/add/book', $edit, t('Save'));
+    $this->assertText(t('Your isbn has an invalid length.'));
+
+    $edit = array();
+    $edit['title'] = 'MyBook';
+    $edit['field_isbn[und][0][value]'] = '1234567890';
+    $edit['field_author_last_name[und][0][value]'] = 'TestAuthor';
+    $edit['field_category[und][1]'] = 'TRUE';
+    $this->drupalPost('node/add/book', $edit, t('Save'));
+    $this->assertText(t('Your isbn contains a bad checkdigit.'));
 
   }
 
