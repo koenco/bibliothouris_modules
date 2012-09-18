@@ -9,8 +9,10 @@ function bibliothouris_user_form_alter(&$form, &$form_state, $form_id) {
     hide_roles($form);
     select_automatic_email($form);
     select_member_role($form);
+    $form['#validate'][] = 'bibliothouris_user_user_register_validate';
   }elseif ( $form_id == 'user_profile_form') {
     hide_roles($form);
+    $form['#validate'][] = 'bibliothouris_user_user_register_validate';
   }
 
 }
@@ -43,4 +45,8 @@ function select_automatic_email(&$form) {
 function select_member_role(&$form) {
   $member = db_query("SELECT rid FROM {role} WHERE name = :name", array('name' => "library member"))->fetchField();
   $form['account']['roles'][$member]['#default_value'] = TRUE;
+}
+
+function bibliothouris_user_user_register_validate($form, &$form_state) {
+  form_set_error('field_national_number', 'National number does not match day of birth');
 }

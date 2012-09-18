@@ -9,7 +9,7 @@ include_once 'bibliotouris_book.features.inc';
 function bibliotouris_book_form_alter(&$form, $form_state, $form_id) {
   if ($form_id == 'views_exposed_form' && $form['#id'] == 'views-exposed-form-view-all-books-page') {
 
-    drupal_add_js(drupal_get_path('module', 'bibliotouris_book') . '/autocomplete_autosubmit.js', array('group' => JS_THEME));
+    drupal_add_js(drupal_get_path('module', 'bibliotouris_book') . array('group' => JS_THEME));
 
     $form['field_isbn_value'] = array(
       '#type' => 'textfield',
@@ -31,42 +31,16 @@ function bibliotouris_book_form_alter(&$form, $form_state, $form_id) {
       '#autocomplete_path' => 'autocomplete/book/firstname',
       '#attributes' => array('class' => array('auto_submit')),
     );
-// $form['#validate'][] = 'bibliotouris_book_isbn_validate';
-
-  }
-  else {
-    //$form['#submit'][] = 'my_validation_function';
   }
 }
-
-function bibliotouris_book_node_alter(&$form, $form_state, $form_id) {
-  $form['#validate'][] = 'my_validation_function';
-}
-
 
 function bibliotouris_book_node_validate($node, $form, &$form_state) {
   if ($node->type == 'book') {
-
-    if ($form_state['values']['field_isbn']['und']['0']['value'] == NULL) {
-      form_set_error('isbn', 'Please fill in a valid ISBN.');
-    }
-    else {
+    if ($form_state['values']['field_isbn']['und']['0']['value'] != NULL) {
       $isbn = str_replace(array('-', '/', ' '), '', $form_state['values']['field_isbn']['und']['0']['value']);
-      if (!checkisbn($isbn)) {
-        form_set_error('field_isbn', 'A validation error has occurred. Please check the isbn.');
-      }
+      checkisbn($isbn);
     }
-
-
   }
-  /* kpr($node);
- kpr($form); die;*/
-  //die;
-  /*if (isset($node->end) && isset($node->start)) {
-    if ($node->start > $node->end) {
-      form_set_error('time', t('An event may not end before it starts.'));
-    }
-  }*/
 }
 
 function bibliotouris_book_menu() {
@@ -218,7 +192,7 @@ function checkisbn($isbn) {
   $checkdigit = substr($isbn, -1);
   if ($length == 10) {
     if (!is_numeric(substr($isbn, -10, 9))) {
-      form_set_error('isbn', "Your isbn does not only contain numbers.");
+      form_set_error('field_isbn', "Your isbn does not only contain numbers.");
       return FALSE;
     }
     $checkdigit = (!is_numeric($checkdigit)) ? $checkdigit : strtoupper($checkdigit);
@@ -242,7 +216,7 @@ function checkisbn($isbn) {
   } else {
     if ($length == 13) {
       if (!is_numeric(substr($isbn, -13, 12))) {
-        form_set_error('isbn', "Your isbn does not only contain numbers.");
+        form_set_error('field_isbn', "Your isbn does not only contain numbers.");
         return FALSE;
       }
       $sum = $isbn[0] + ($isbn[1] * 3) + $isbn[2] + ($isbn[3] * 3) +
