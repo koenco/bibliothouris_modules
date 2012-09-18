@@ -49,7 +49,7 @@ class UserTestCase extends SimpleTestCloneTestCase {
     $edit['field_last_name[und][0][value]'] = 'TestLastName';
     $edit['field_first_name[und][0][value]'] = 'TestFirstName';
     $this->drupalPost('admin/people/create', $edit, t('Create new account'));
-    $this->assertText(t('The e-mail address @mail is not valid.', array('@mail' => $edit['mail'])));
+    $this->assertText(format_string('The e-mail address @mail is not valid.', array('@mail' => $edit['mail'])));
 
     //valid fields, no password
     $edit = array();
@@ -59,8 +59,8 @@ class UserTestCase extends SimpleTestCloneTestCase {
     $edit['field_last_name[und][0][value]'] = 'TestLastName';
     $edit['field_first_name[und][0][value]'] = 'TestFirstName';
     $this->drupalPost('admin/people/create', $edit, t('Create new account'));
-    $this->assertText(t('Since you did not provide a password, it was generated automatically for this account.'));
-    $this->assertText(t('A welcome message with further instructions has been e-mailed to the new user @username.', array('@username' => $randomString)));
+    $this->assertText('Since you did not provide a password, it was generated automatically for this account.');
+    $this->assertText(format_string('A welcome message with further instructions has been e-mailed to the new user @username.', array('@username' => $randomString)));
 
   }
 }
