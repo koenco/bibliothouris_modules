@@ -1,5 +1,8 @@
 <?php
-class UserTestCase extends DrupalWebTestCase {
+
+module_load_include('test', 'simpletest_clone');
+
+class UserTestCase extends SimpleTestCloneTestCase {
 
   public static function getInfo() {
   return array(
@@ -11,9 +14,28 @@ class UserTestCase extends DrupalWebTestCase {
 
   public function setUp() {
   parent::setup('bibliothouris_user');
-  /*$this->admin_user = $this->drupalCreateUser(array("create book content"));
-  $this->drupalLogin($this->admin_user);*/
-  $this->medewerker = $this->drupalCreateUser(array('administer users'));
+  /*  $roles = user_roles();
+    $role = 'employee';
+
+    // Find the index for the role we want to assign to the user.
+    $index = array_search($role, $roles);
+
+
+    // Get the permissions for the role.
+    $permissions = user_role_permissions(array(array_search($role, $roles) => $role));
+
+
+    // Create the user with the permissions.
+    $user = $this->drupalCreateUser(array_keys($permissions[$index]));
+
+
+    // Assign the role.
+    $user->roles[$index] = $role;
+
+    // Return the user we have created.
+    $this->medewerker = $this->drupalCreateUser($permissions);
+*/
+  $this->medewerker = $this->drupalCreateUser(array('administer users', 'create users'));
   $this->drupalLogin($this->medewerker);
 
   }
@@ -26,8 +48,8 @@ class UserTestCase extends DrupalWebTestCase {
     $edit['field_national_number[und][0][value]'] = '9780553593716';
     $edit['field_last_name[und][0][value]'] = 'TestLastName';
     $edit['field_first_name[und][0][value]'] = 'TestFirstName';
-    $edit['field_category[und][1]'] = 'TRUE';
-    $this->drupalPost('admin/people/create', $edit, t('Save'));
+    //$edit['field_category[und][1]'] = 'TRUE';
+    $this->drupalPost('admin/people/create', $edit, t('Create new account'));
     $this->assertText(t('The e-mail address @mail is not valid.', array('@mail' => $edit['mail'])));
 
     //valid fields, no password
@@ -36,9 +58,9 @@ class UserTestCase extends DrupalWebTestCase {
     $edit['field_national_number[und][0][value]'] = '9780553593716';
     $edit['field_last_name[und][0][value]'] = 'TestLastName';
     $edit['field_first_name[und][0][value]'] = 'TestFirstName';
-    $edit['field_category[und][1]'] = 'TRUE';
-    $this->drupalPost('admin/people/create', $edit, t('Save'));
-    $this->assertText(t('Since you did not provide a password, it was generated automatically for this account.'));
+    //$edit['field_category[und][1]'] = 'TRUE';
+    $this->drupalPost('admin/people/create', $edit, t('Create new account'));
+   //$this->assertText(t('Since you did not provide a password, it was generated automatically for this account.'));
     $this->assertText(t('Created a new user account for @username.'), array('@username' => substr($edit['mail'], 0, strpos($edit['mail'], '@'))));
 
   }
