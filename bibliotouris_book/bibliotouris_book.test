@@ -77,7 +77,7 @@ class IsbnValidatorTestCase extends DrupalWebTestCase {
   }
 }
 
-class BookTestCase extends DrupalWebTestCase {
+class BibliothourisBookTestCase extends DrupalWebTestCase {
 
   public static function getInfo() {
     return array(

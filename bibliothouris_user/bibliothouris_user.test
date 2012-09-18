@@ -13,7 +13,7 @@ class UserTestCase extends DrupalWebTestCase {
   parent::setup('bibliothouris_user');
   /*$this->admin_user = $this->drupalCreateUser(array("create book content"));
   $this->drupalLogin($this->admin_user);*/
-  $this->medewerker = $this->drupalCreateUser(array('create new users'));
+  $this->medewerker = $this->drupalCreateUser(array('administer users'));
   $this->drupalLogin($this->medewerker);
 
   }
