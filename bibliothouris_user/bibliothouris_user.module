@@ -48,5 +48,5 @@ function select_member_role(&$form) {
 }
 
 function bibliothouris_user_user_register_validate($form, &$form_state) {
-  form_set_error('field_national_number', 'National number does not match day of birth');
+//  form_set_error('field_national_number', 'National number does not match day of birth');
 }
