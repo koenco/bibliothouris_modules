@@ -6,7 +6,10 @@
  * Time: 10:46
  * To change this template use File | Settings | File Templates.
  */
-class IsbnValidatorTestCase extends DrupalWebTestCase {
+
+module_load_include('test', 'simpletest_clone');
+
+class IsbnValidatorTestCase extends SimpleTestCloneTestCase {
 
   public static function getInfo() {
     return array(
@@ -77,7 +80,7 @@ class IsbnValidatorTestCase extends DrupalWebTestCase {
   }
 }
 
-class BibliothourisBookTestCase extends DrupalWebTestCase {
+class BibliothourisBookTestCase extends SimpleTestCloneTestCase {
 
   public static function getInfo() {
     return array(

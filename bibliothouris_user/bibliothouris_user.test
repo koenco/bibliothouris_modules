@@ -48,20 +48,19 @@ class UserTestCase extends SimpleTestCloneTestCase {
     $edit['field_national_number[und][0][value]'] = '9780553593716';
     $edit['field_last_name[und][0][value]'] = 'TestLastName';
     $edit['field_first_name[und][0][value]'] = 'TestFirstName';
-    //$edit['field_category[und][1]'] = 'TRUE';
     $this->drupalPost('admin/people/create', $edit, t('Create new account'));
     $this->assertText(t('The e-mail address @mail is not valid.', array('@mail' => $edit['mail'])));
 
     //valid fields, no password
     $edit = array();
-    $edit['mail'] = 'test@test.com';
+    $randomString = $this->randomName(8);
+    $edit['mail'] = $randomString . '@test.com';
     $edit['field_national_number[und][0][value]'] = '9780553593716';
     $edit['field_last_name[und][0][value]'] = 'TestLastName';
     $edit['field_first_name[und][0][value]'] = 'TestFirstName';
-    //$edit['field_category[und][1]'] = 'TRUE';
     $this->drupalPost('admin/people/create', $edit, t('Create new account'));
-   //$this->assertText(t('Since you did not provide a password, it was generated automatically for this account.'));
-    $this->assertText(t('Created a new user account for @username.'), array('@username' => substr($edit['mail'], 0, strpos($edit['mail'], '@'))));
+    $this->assertText(t('Since you did not provide a password, it was generated automatically for this account.'));
+    $this->assertText(t('A welcome message with further instructions has been e-mailed to the new user @username.', array('@username' => $randomString)));
 
   }
 }
