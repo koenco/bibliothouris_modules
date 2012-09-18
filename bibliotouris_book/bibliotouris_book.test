@@ -89,8 +89,10 @@ class BookTestCase extends DrupalWebTestCase {
 
   public function setUp() {
     parent::setup('bibliotouris_book');
-    $this->admin_user = $this->drupalCreateUser(array("create book content"));
-    $this->drupalLogin($this->admin_user);
+    /*$this->admin_user = $this->drupalCreateUser(array("create book content"));
+    $this->drupalLogin($this->admin_user);*/
+    $this->medewerker = $this->drupalCreateUser(array('create book content'));
+    $this->drupalLogin($this->medewerker);
 
   }
 
