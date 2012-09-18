@@ -1,0 +1,14 @@
+<?php
+/**
+ * @file
+ * Drupal needs this blank file.
+ */
+
+function bibliothouris_user_form_alter(&$form, &$form_state, $form_id) {
+global $user;
+  $role = db_result(db_query('SELECT r.name FROM {users_roles} ur LEFT JOIN {role} r ON r.rid=ur.rid WHERE ur.uid=%d LIMIT 1', $user->uid));
+  print $role;
+  $form['account']['roles'][3]['#access'] = FALSE;
+  $form['account']['roles'][2]['#access'] = FALSE;
+}
+
