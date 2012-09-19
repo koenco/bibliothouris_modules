@@ -45,7 +45,8 @@ class UserTestCase extends SimpleTestCloneTestCase {
     //invalid email
     $edit = array();
     $edit['mail'] = 'invalidEmail';
-    $edit['field_national_number[und][0][value]'] = '9780553593716';
+    $edit['field_national_number[und][0][value]'] = '93051822361';
+    $edit['field_date_of_birth[und][0][value][date]'] = '05/18/1993';
     $edit['field_last_name[und][0][value]'] = 'TestLastName';
     $edit['field_first_name[und][0][value]'] = 'TestFirstName';
     $this->drupalPost('admin/people/create', $edit, t('Create new account'));
@@ -55,7 +56,8 @@ class UserTestCase extends SimpleTestCloneTestCase {
     $edit = array();
     $randomString = $this->randomName(8);
     $edit['mail'] = $randomString . '@test.com';
-    $edit['field_national_number[und][0][value]'] = '9780553593716';
+    $edit['field_national_number[und][0][value]'] = '93051822361';
+    $edit['field_date_of_birth[und][0][value][date]'] = '05/18/1993';
     $edit['field_last_name[und][0][value]'] = 'TestLastName';
     $edit['field_first_name[und][0][value]'] = 'TestFirstName';
     $this->drupalPost('admin/people/create', $edit, t('Create new account'));
