@@ -72,5 +72,6 @@ features[variable][] = node_export_filename
 features[variable][] = node_options_book
 features[variable][] = node_preview_book
 features[variable][] = node_submitted_book
+features[variable][] = theme_alphorn_settings
 features[views_view][] = view_all_books
 files[] = bibliotouris_book.test
