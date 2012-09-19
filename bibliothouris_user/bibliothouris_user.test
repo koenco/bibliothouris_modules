@@ -63,4 +63,8 @@ class UserTestCase extends SimpleTestCloneTestCase {
     $this->assertText(t('A welcome message with further instructions has been e-mailed to the new user @username.', array('@username' => $randomString)));
 
   }
+
+  public function testValidateNationalNumber() {
+    $this->assertTrue(validate_national_number('89041727347', '1989-04-17'));
+  }
 }

@@ -5,10 +5,49 @@
  */
 
 function bibliothouris_user_form_alter(&$form, &$form_state, $form_id) {
-global $user;
-  $role = db_result(db_query('SELECT r.name FROM {users_roles} ur LEFT JOIN {role} r ON r.rid=ur.rid WHERE ur.uid=%d LIMIT 1', $user->uid));
-  print $role;
-  $form['account']['roles'][3]['#access'] = FALSE;
-  $form['account']['roles'][2]['#access'] = FALSE;
+  if ($form_id == 'user_register_form'){
+    hide_roles($form);
+    select_automatic_email($form);
+    select_member_role($form);
+    $form['#validate'][] = 'bibliothouris_user_user_register_validate';
+  }elseif ( $form_id == 'user_profile_form') {
+    hide_roles($form);
+    $form['#validate'][] = 'bibliothouris_user_user_register_validate';
+  }
+
 }
 
+function hide_roles(&$form) {
+  global $user;
+  $roles = db_query("SELECT r.name FROM {users_roles} ur LEFT JOIN {role} r ON r.rid=ur.rid WHERE ur.uid=:uid", array('uid' => $user->uid))->fetchCol();
+  $admin = db_query("SELECT rid FROM {role} WHERE name = :name", array('name' => "administrator"))->fetchField();
+  $authenticated_user = db_query("SELECT rid FROM {role} WHERE name = :name", array('name' => "authenticated user"))->fetchField();
+
+  $is_admin = false;
+  foreach($roles as $role) {
+    if ($role == "administrator") {
+      $is_admin = true;
+    }
+  }
+  if (!$is_admin) {
+    $form['account']['roles'][$admin]['#access'] = FALSE;
+  }
+
+  $form['account']['roles'][$authenticated_user]['#access'] = FALSE;
+
+
+}
+
+function select_automatic_email(&$form) {
+  $form['account']['notify']['#default_value'] = TRUE;
+}
+
+function select_member_role(&$form) {
+  $member = db_query("SELECT rid FROM {role} WHERE name = :name", array('name' => "library member"))->fetchField();
+  $form['account']['roles'][$member]['#default_value'] = TRUE;
+}
+
+function bibliothouris_user_user_register_validate($form, &$form_state) {
+  kpr($form);die;
+  form_set_error('field_national_number', 'National number does not match day of birth');
+}

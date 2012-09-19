@@ -181,10 +181,6 @@ function autocomplete_book_firstname($string) {
   }
 }
 
-function my_validation_function(&$form, &$form_state) {
-  kpr($form);
-}
-
 function checkisbn($isbn) {
 
   $isbn = str_replace(array(' ', '-', '.'), '', $isbn);
