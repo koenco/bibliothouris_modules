@@ -13,45 +13,35 @@ function bibliotouris_book_user_default_permissions() {
   // Exported permission: create book content.
   $permissions['create book content'] = array(
     'name' => 'create book content',
-    'roles' => array(
-      0 => 'medewerker',
-    ),
+    'roles' => array(),
     'module' => 'node',
   );
 
   // Exported permission: delete any book content.
   $permissions['delete any book content'] = array(
     'name' => 'delete any book content',
-    'roles' => array(
-      0 => 'medewerker',
-    ),
+    'roles' => array(),
     'module' => 'node',
   );
 
   // Exported permission: delete own book content.
   $permissions['delete own book content'] = array(
     'name' => 'delete own book content',
-    'roles' => array(
-      0 => 'medewerker',
-    ),
+    'roles' => array(),
     'module' => 'node',
   );
 
   // Exported permission: edit any book content.
   $permissions['edit any book content'] = array(
     'name' => 'edit any book content',
-    'roles' => array(
-      0 => 'medewerker',
-    ),
+    'roles' => array(),
     'module' => 'node',
   );
 
   // Exported permission: edit own book content.
   $permissions['edit own book content'] = array(
     'name' => 'edit own book content',
-    'roles' => array(
-      0 => 'medewerker',
-    ),
+    'roles' => array(),
     'module' => 'node',
   );
 
