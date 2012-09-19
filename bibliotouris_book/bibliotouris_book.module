@@ -9,7 +9,7 @@ include_once 'bibliotouris_book.features.inc';
 function bibliotouris_book_form_alter(&$form, $form_state, $form_id) {
   if ($form_id == 'views_exposed_form' && $form['#id'] == 'views-exposed-form-view-all-books-page') {
 
-    drupal_add_js(drupal_get_path('module', 'bibliotouris_book') . array('group' => JS_THEME));
+    drupal_add_js(drupal_get_path('module', 'bibliotouris_book') . '/autocomplete_autosubmit.js', array('group' => JS_THEME));
 
     $form['field_isbn_value'] = array(
       '#type' => 'textfield',
