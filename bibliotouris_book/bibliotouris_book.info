@@ -50,7 +50,6 @@ features[user_permission][] = delete any book content
 features[user_permission][] = delete own book content
 features[user_permission][] = edit any book content
 features[user_permission][] = edit own book content
-features[uuid_node][] = 73fdd4d1-2245-4dc0-9a1b-f94fe228bdab
 features[uuid_term][] = 5fb0bacc-608c-75f4-d9ae-77e3ac65ea05
 features[uuid_term][] = 7c8253be-75e1-5054-79a6-cfcaceee8f3c
 features[uuid_term][] = c5a80e81-5e54-ea34-75a5-65a3b42a268d
