@@ -91,7 +91,6 @@ class UserTestCase extends SimpleTestCloneTestCase {
   public function testValidateNationalNumber() {
     $this->assertTrue(validate_national_number('89041727347', '1989-04-17'), "Valid national number 1");
     $this->assertTrue(validate_national_number('93051822361', '1993-05-18'), "Valid national number 2");
-    $this->assertFalse(validate_national_number('93051822363', '1993-05-18'), "Valid national number 2");
-    //$this->assertTrue(validate_national_number('89041727347', '1989-04-17'));
+    $this->assertFalse(validate_national_number('93051822363', '1993-05-18'), "Valid national number 3");
   }
 }

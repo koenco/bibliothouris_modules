@@ -80,7 +80,7 @@ function validate_national_number($national_number, $birthday) {
         $wanted_check = 97 - $modulus;
 
         if ($wanted_check != $entered_check) {
-          form_set_error('field_national_number', "Invalid national number."."$wanted_check"." $entered_check");
+          form_set_error('field_national_number', "Invalid national number.");
           return false;
         }
       }
