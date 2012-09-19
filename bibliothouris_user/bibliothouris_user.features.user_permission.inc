@@ -16,6 +16,7 @@ function bibliothouris_user_user_default_permissions() {
     'roles' => array(
       0 => 'administrator',
       1 => 'employee',
+      2 => 'library member',
     ),
     'module' => 'user',
   );
@@ -26,6 +27,7 @@ function bibliothouris_user_user_default_permissions() {
     'roles' => array(
       0 => 'administrator',
       1 => 'employee',
+      2 => 'library member',
     ),
     'module' => 'administerusersbyrole',
   );
