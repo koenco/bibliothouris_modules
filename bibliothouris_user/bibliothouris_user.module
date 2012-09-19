@@ -88,5 +88,8 @@ function validate_national_number($national_number, $birthday) {
       form_set_error('field_national_number', 'National number can only contain numbers, spaces, dashes.');
       return false;
     }
+  } else {
+    return false;
   }
+  return true;
 }

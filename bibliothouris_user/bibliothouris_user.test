@@ -64,9 +64,34 @@ class UserTestCase extends SimpleTestCloneTestCase {
     $this->assertText('Since you did not provide a password, it was generated automatically for this account.');
     $this->assertText(format_string('A welcome message with further instructions has been e-mailed to the new user @username.', array('@username' => $randomString)));
 
+    //valid fields, invalid national number
+    $edit = array();
+    $randomString = $this->randomName(8);
+    $edit['mail'] = $randomString . '@test.com';
+    $edit['field_national_number[und][0][value]'] = '9305182361';
+    $edit['field_date_of_birth[und][0][value][date]'] = '05/18/1993';
+    $edit['field_last_name[und][0][value]'] = 'TestLastName';
+    $edit['field_first_name[und][0][value]'] = 'TestFirstName';
+    $this->drupalPost('admin/people/create', $edit, t('Create new account'));
+    $this->assertText('National number must contain 11 numbers.');
+
+    //valid fields, invalid national number
+    $edit = array();
+    $randomString = $this->randomName(8);
+    $edit['mail'] = $randomString . '@test.com';
+    $edit['field_national_number[und][0][value]'] = '93051822361';
+    $edit['field_date_of_birth[und][0][value][date]'] = '05/17/1993';
+    $edit['field_last_name[und][0][value]'] = 'TestLastName';
+    $edit['field_first_name[und][0][value]'] = 'TestFirstName';
+    $this->drupalPost('admin/people/create', $edit, t('Create new account'));
+    $this->assertText('National number does not match day of birth.');
+
   }
 
   public function testValidateNationalNumber() {
-    $this->assertTrue(validate_national_number('89041727347', '1989-04-17'));
+    $this->assertTrue(validate_national_number('89041727347', '1989-04-17'), "Valid national number 1");
+    $this->assertTrue(validate_national_number('93051822361', '1993-05-18'), "Valid national number 2");
+    $this->assertFalse(validate_national_number('93051822363', '1993-05-18'), "Valid national number 2");
+    //$this->assertTrue(validate_national_number('89041727347', '1989-04-17'));
   }
 }
