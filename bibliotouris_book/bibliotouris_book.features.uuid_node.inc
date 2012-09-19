@@ -25,7 +25,7 @@ function bibliotouris_book_uuid_features_default_content() {
   'tnid' => '0',
   'translate' => '0',
   'uuid' => '73fdd4d1-2245-4dc0-9a1b-f94fe228bdab',
-  'revision_uid' => '1',
+  'revision_uid' => '0',
   'field_author_first_name' => array(
     'und' => array(
       0 => array(
@@ -53,22 +53,7 @@ function bibliotouris_book_uuid_features_default_content() {
   ),
   'field_cover_image' => array(
     'und' => array(
-      0 => array(
-        'fid' => '2',
-        'alt' => '',
-        'title' => '',
-        'width' => '550',
-        'height' => '785',
-        'uid' => '1',
-        'filename' => '1001004011817640.jpg',
-        'uri' => 'public://1001004011817640.jpg',
-        'filemime' => 'image/jpeg',
-        'filesize' => '74054',
-        'status' => '1',
-        'timestamp' => '1348051031',
-        'uuid' => 'f4f3ab1a-4e29-4352-8036-762c19344324',
-        'rdf_mapping' => array(),
-      ),
+      0 => NULL,
     ),
   ),
   'field_description' => array(),
