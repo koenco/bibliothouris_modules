@@ -29,9 +29,9 @@ function bibliotouris_book_uuid_features_default_content() {
   'field_author_first_name' => array(
     'und' => array(
       0 => array(
-        'value' => 'Renee',
+        'value' => 'Rene',
         'format' => NULL,
-        'safe_value' => 'Renee',
+        'safe_value' => 'Rene',
       ),
     ),
   ),
@@ -65,8 +65,8 @@ function bibliotouris_book_uuid_features_default_content() {
         'filemime' => 'image/jpeg',
         'filesize' => '74054',
         'status' => '1',
-        'timestamp' => '1348050081',
-        'uuid' => '54b3a0f1-2bf2-4e42-a349-63054efd3718',
+        'timestamp' => '1348051031',
+        'uuid' => 'f4f3ab1a-4e29-4352-8036-762c19344324',
         'rdf_mapping' => array(),
       ),
     ),
