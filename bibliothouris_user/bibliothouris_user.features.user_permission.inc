@@ -10,6 +10,16 @@
 function bibliothouris_user_user_default_permissions() {
   $permissions = array();
 
+  // Exported permission: administer permissions.
+  $permissions['administer permissions'] = array(
+    'name' => 'administer permissions',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'employee',
+    ),
+    'module' => 'user',
+  );
+
   // Exported permission: administer users.
   $permissions['administer users'] = array(
     'name' => 'administer users',

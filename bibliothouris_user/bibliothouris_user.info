@@ -23,6 +23,7 @@ features[field][] = user-user-field_phone_number
 features[field][] = user-user-field_postal_code
 features[field][] = user-user-field_street_number
 features[menu_links][] = menu-navigation-custom:admin/people/create
+features[user_permission][] = administer permissions
 features[user_permission][] = administer users
 features[user_permission][] = create users
 features[user_permission][] = edit users with role employee
