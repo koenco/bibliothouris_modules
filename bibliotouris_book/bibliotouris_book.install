@@ -1,0 +1,36 @@
+<?php
+
+function bibliotouris_book_schema() {
+  $schema['bibliotouris_book_hired_books'] = array(
+    'description' => 'Stores the uid, bid, and dates of lending books',
+    'fields' => array(
+      'uid' => array(
+        'description' => 'user id',
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+      'bid' => array(
+        'description' => 'book id',
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+      'hired' => array(
+        'description' => 'date of hiring',
+        'type' => 'date',
+        'not null' => TRUE,
+      ),
+      'returned' => array(
+      'description' => 'date of return',
+      'type' => 'date',
+      'not null' => false,
+      ),
+    ),
+    'primary key' => array('uid', 'bid', 'hired'),
+  );
+
+  return $schema;
+}
+
+function bibliotouris_book_uninstall() {
+  drupal_uninstall_schema('bibliotouris_book_hired_books');
+}
