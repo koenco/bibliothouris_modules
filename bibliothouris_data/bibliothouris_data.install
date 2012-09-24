@@ -1,80 +1,43 @@
 <?php
-try {
-    db_insert('field_data_field_last_name')
-        ->fields(array(
-        'entity_type' => 'user',
-        'bundle' => 'user',
-        'deleted' => 0,
-        'delta' => 0,
-        'entity_id' => 2,
-        'revision_id' => 2,
-        'language' => 'und',
-        'field_last_name_value' => 'Crijns',
-    ))
-        ->execute();
-} catch (Exception $e) {
-}
+$users = array();
+$users[1] = array('last_name' => 'Crijns',
+'first_name' => 'Frank',
+'street_number' => 'Waterkasteelstraat 5',
+'city' => 'Bilzen',
+'national_number' => '89041727347',
+'date_of_birth' => '1989-04-17 00:00:00');
 
-try {
-    db_insert('field_data_field_first_name')
-        ->fields(array(
-        'entity_type' => 'user',
-        'bundle' => 'user',
-        'deleted' => 0,
-        'delta' => 0,
-        'entity_id' => 2,
-        'revision_id' => 2,
-        'language' => 'und',
-        'field_first_name_value' => 'Frank',
-    ))
-        ->execute();
-} catch (Exception $e) {
-}
+$users[2] = array('last_name' => 'Schrijvers',
+    'first_name' => 'Bob',
+    'street_number' => 'Schoolstraat 7',
+    'city' => 'Bilzen',
+    'national_number' => '89041727347',
+    'date_of_birth' => '1989-04-17 00:00:00');
 
-try {
-    db_insert('field_data_field_street_number')
-        ->fields(array(
-        'entity_type' => 'user',
-        'bundle' => 'user',
-        'deleted' => 0,
-        'delta' => 0,
-        'entity_id' => 2,
-        'revision_id' => 2,
-        'language' => 'und',
-        'field_street_number_value' => 'Waterkasteelstraat 5',
-    ))
-        ->execute();
-} catch (Exception $e) {
-}
+$users[3] = array('last_name' => 'Co',
+    'first_name' => 'Koen',
+    'street_number' => 'Kerkstraat 9',
+    'city' => 'Meeuwen',
+    'national_number' => '89041727347',
+    'date_of_birth' => '1989-04-17 00:00:00');
 
-try {
-    db_insert('field_data_field_city')
-        ->fields(array(
-        'entity_type' => 'user',
-        'bundle' => 'user',
-        'deleted' => 0,
-        'delta' => 0,
-        'entity_id' => 2,
-        'revision_id' => 2,
-        'language' => 'und',
-        'field_city_value' => 'Bilzen',
-    ))
-        ->execute();
-} catch (Exception $e) {
-}
-
-try {
-    db_insert('field_data_field_date_of_birth')
-        ->fields(array(
-        'entity_type' => 'user',
-        'bundle' => 'user',
-        'deleted' => 0,
-        'delta' => 0,
-        'entity_id' => 2,
-        'revision_id' => 2,
-        'language' => 'und',
-        'field_date_of_birth_value' => NOW(),
-    ))
-        ->execute();
-} catch (Exception $e) {
+foreach ($users as $uid => $user) {
+    foreach ($user as $field => $value) {
+        try {
+            db_insert("field_data_field_$field")
+                ->fields(array(
+                'entity_type' => 'user',
+                'bundle' => 'user',
+                'deleted' => 0,
+                'delta' => 0,
+                'entity_id' => $uid,
+                'revision_id' => 2,
+                'language' => 'und',
+                'field_'.$field.'_value' => "$value",
+            ))
+                ->execute();
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
 }
