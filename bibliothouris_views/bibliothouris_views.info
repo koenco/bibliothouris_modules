@@ -2,6 +2,7 @@ name = Bibliothouris_views
 description = The views
 core = 7.x
 package = Features
+php = 5.2.4
 version = 7.x-1.0
 project = bibliothouris_views
 dependencies[] = bibliotouris_book
