@@ -10,6 +10,8 @@ function bibliotouris_book_form_alter(&$form, $form_state, $form_id) {
   if ($form_id == 'views_exposed_form' && $form['#id'] == 'views-exposed-form-view-all-books-page') {
     // add the javascript file which triggers autosubmit when clicking a value in the dropdown list
     drupal_add_js(drupal_get_path('module', 'bibliotouris_book') . '/autocomplete_autosubmit.js', array('group' => JS_THEME));
+    drupal_add_js(drupal_get_path('module', 'bibliotouris_book') . '/autocompletehook.js', array('group' => JS_THEME));
+
 
     $form['field_isbn_value'] = array(
       '#type' => 'textfield',
@@ -76,9 +78,17 @@ function autocomplete_book_isbn($string) {
     if (isset($string)) {
 
 
-      $query = db_select('field_data_field_isbn', 'i');
-      $value = $query->fields('i', array('entity_id', 'field_isbn_value',));
-      $value = $query->condition('field_isbn_value', '%' . db_like($string) . '%', 'LIKE');
+      $query = db_select('field_data_field_isbn', 'isb');
+      $value = $query->join('field_data_field_author_last_name', 'ln', 'ln.entity_id = isb.entity_id');
+      $value = $query->leftJoin('field_data_field_author_first_name', 'fn', 'fn.entity_id = isb.entity_id');
+      $value = $query->join('node', 'n', 'isb.entity_id = n.nid');
+      $value = $query->fields('isb', array('entity_id', 'field_isbn_value',));
+      $value = $query->condition('field_author_last_name_value', '%' . $_POST['lastname'] . '%', 'LIKE');
+      if ($_POST['firstname'] != "") {
+        $value = $query->condition('field_author_first_name_value', '%' . $_POST['firstname'] . '%', 'LIKE');
+      }
+      $value = $query->condition('field_isbn_value', '%' . $_POST['isbn'] . '%', 'LIKE');
+      $value = $query->condition('n.title', '%' . $_POST['title'] . '%', 'LIKE');
       $value = $query->range(0, 10)
         ->execute();
       $data = array();
@@ -104,8 +114,16 @@ function autocomplete_book_title($string) {
     $items = array();
 
     $query = db_select('node', 'n');
+    $value = $query->join('field_data_field_author_last_name', 'ln', 'ln.entity_id = n.nid');
+    $value = $query->leftJoin('field_data_field_author_first_name', 'fn', 'ln.entity_id = fn.entity_id');
+    $value = $query->join('field_data_field_isbn', 'isb', 'ln.entity_id = isb.entity_id');
     $value = $query->fields('n', array('nid', 'title',));
-    $value = $query->condition('title', '%' . db_like($string) . '%', 'LIKE');
+    $value = $query->condition('field_author_last_name_value', '%' . $_POST['lastname'] . '%', 'LIKE');
+    if ($_POST['firstname'] != "") {
+      $value = $query->condition('field_author_first_name_value', '%' . $_POST['firstname'] . '%', 'LIKE');
+    }
+    $value = $query->condition('field_isbn_value', '%' . $_POST['isbn'] . '%', 'LIKE');
+    $value = $query->condition('n.title', '%' . $_POST['title'] . '%', 'LIKE');
     $value = $query->range(0, 10)
       ->execute();
     $data = array();
@@ -133,8 +151,16 @@ function autocomplete_book_lastname($string) {
 
 
       $query = db_select('field_data_field_author_last_name', 'ln');
+      $value = $query->leftJoin('field_data_field_author_first_name', 'fn', 'ln.entity_id = fn.entity_id');
+      $value = $query->join('field_data_field_isbn', 'isb', 'ln.entity_id = isb.entity_id');
+      $value = $query->join('node', 'n', 'ln.entity_id = n.nid');
       $value = $query->fields('ln', array('field_author_last_name_value',));
-      $value = $query->condition('field_author_last_name_value', '%' . db_like($string) . '%', 'LIKE');
+      $value = $query->condition('field_author_last_name_value', '%' . $_POST['lastname'] . '%', 'LIKE');
+      if ($_POST['firstname'] != "") {
+        $value = $query->condition('field_author_first_name_value', '%' . $_POST['firstname'] . '%', 'LIKE');
+      }
+      $value = $query->condition('field_isbn_value', '%' . $_POST['isbn'] . '%', 'LIKE');
+      $value = $query->condition('n.title', '%' . $_POST['title'] . '%', 'LIKE');
       $value = $query->range(0, 10)
         ->execute();
       $data = array();
@@ -162,8 +188,14 @@ function autocomplete_book_firstname($string) {
 
 
       $query = db_select('field_data_field_author_first_name', 'fn');
+      $value = $query->join('field_data_field_author_last_name', 'ln', 'ln.entity_id = fn.entity_id');
+      $value = $query->join('field_data_field_isbn', 'isb', 'ln.entity_id = isb.entity_id');
+      $value = $query->join('node', 'n', 'ln.entity_id = n.nid');
       $value = $query->fields('fn', array('field_author_first_name_value',));
-      $value = $query->condition('field_author_first_name_value', '%' . db_like($string) . '%', 'LIKE');
+      $value = $query->condition('field_author_last_name_value', '%' . $_POST['lastname'] . '%', 'LIKE');
+      $value = $query->condition('field_author_first_name_value', '%' . $_POST['firstname'] . '%', 'LIKE');
+      $value = $query->condition('field_isbn_value', '%' . $_POST['isbn'] . '%', 'LIKE');
+      $value = $query->condition('n.title', '%' . $_POST['title'] . '%', 'LIKE');
       $value = $query->range(0, 10)
         ->execute();
       $data = array();
@@ -205,11 +237,13 @@ function checkisbn($isbn) {
 
     if ($mod == 0) {
       return TRUE;
-    } else {
+    }
+    else {
       form_set_error('field_isbn', "Your isbn contains a bad checkdigit.");
       return FALSE;
     }
-  } else {
+  }
+  else {
     if ($length == 13) {
       if (!is_numeric(substr($isbn, -13, 12))) {
         form_set_error('field_isbn', "Your isbn does not only contain numbers.");
@@ -243,7 +277,8 @@ function checkisbn($isbn) {
     }
   }
 }
+
 function bibliotouris_book_user_view_alter(&$build) {
-    kpr($build);
-    $build['custom_telephone']['#title'] = "T";
+  kpr($build);
+  $build['custom_telephone']['#title'] = "T";
 }
