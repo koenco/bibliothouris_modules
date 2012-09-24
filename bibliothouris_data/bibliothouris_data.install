@@ -21,7 +21,7 @@ db_insert('field_data_field_first_name')
     'entity_id' => 2,
     'revision_id' => 2,
     'language' => 'und',
-    'field_last_name_value' => 'Frank   ',
+    'field_first_name_value' => 'Frank   ',
 ))
     ->execute();
 
