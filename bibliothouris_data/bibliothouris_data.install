@@ -24,6 +24,7 @@ $users[3] = array('last_name' => 'Co',
 foreach ($users as $uid => $user) {
     foreach ($user as $field => $value) {
         try {
+            echo "Try $uid $field \n";
             db_insert("field_data_field_$field")
                 ->fields(array(
                 'entity_type' => 'user',
@@ -36,8 +37,10 @@ foreach ($users as $uid => $user) {
                 'field_'.$field.'_value' => "$value",
             ))
                 ->execute();
+
+            echo "Success $uid $field \n";
         } catch (Exception $e) {
-            echo "$uid $field $e->getMessage() \n";
+            echo "$uid $field $e->getMessage \n";
         }
     }
 }
