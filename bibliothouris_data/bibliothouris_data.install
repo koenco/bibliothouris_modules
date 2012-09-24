@@ -26,7 +26,7 @@ function bibliothouris_data_install() {
     foreach ($users as $uid => $user) {
         foreach ($user as $field => $value) {
             try {
-                echo "Try $uid $field \n";
+
                 db_insert("field_data_field_$field")
                     ->fields(array(
                     'entity_type' => 'user',
@@ -34,15 +34,14 @@ function bibliothouris_data_install() {
                     'deleted' => 0,
                     'delta' => 0,
                     'entity_id' => $uid,
-                    'revision_id' => 2,
+                    'revision_id' => null,
                     'language' => 'und',
                     'field_' . $field . '_value' => "$value",
                 ))
                     ->execute();
 
-                echo "Success $uid $field \n";
-            } catch (Exception $e) {
-                echo "Catch $uid $field \n";
+                } catch (Exception $e) {
+                echo "Error inserting users. Uid: $uid Field: $field \n";
             }
         }
     }
