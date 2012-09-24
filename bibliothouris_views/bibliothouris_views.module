@@ -5,3 +5,96 @@
  */
 
 include_once 'bibliothouris_views.features.inc';
+
+function bibliothouris_views_form_alter(&$form, $form_state, $form_id) {
+    if ($form_id == 'views_exposed_form' && $form['#id'] == 'views-exposed-form-show-all-members-page') {
+        // add the javascript
+        drupal_add_js(drupal_get_path('module', 'bibliotouris_views') . '/autocomplete_autosubmit.js', array('group' => JS_THEME));
+
+        $form['field_first_name_value'] = array(
+            '#type' => 'textfield',
+            '#autocomplete_path' => 'autocomplete/user/first_name',
+            '#attributes' => array('class' => array('auto_submit')), //add this attribute so jquery can complete its check
+        );
+
+        $form['field_last_name_value'] = array(
+            '#type' => 'textfield',
+            '#autocomplete_path' => 'autocomplete/user/last_name',
+            '#attributes' => array('class' => array('auto_submit')), //add this attribute so jquery can complete its check
+        );
+
+    }
+}
+
+
+function bibliothouris_views_menu() {
+    $items['autocomplete/user/first_name'] = array(
+        'page callback' => 'autocomplete_user_first_name',
+        'access callback' => TRUE,
+        'weight' => 1,
+    );
+    $items['autocomplete/user/last_name'] = array(
+        'page callback' => 'autocomplete_user_last_name',
+        'access callback' => TRUE,
+        'weight' => 1,
+    );
+    return $items;
+}
+
+function autocomplete_user_first_name($string) {
+    if ($_GET['q'] == "autocomplete/user/first_name") {
+        return drupal_not_found();
+    }
+    else {
+        $items = array();
+        if (isset($string)) {
+
+            $query = db_select('field_data_field_first_name', 'i');
+            $value = $query->fields('i', array('entity_id', 'field_first_name_value',));
+            $value = $query->condition('field_first_name_value', '%' . db_like($string) . '%', 'LIKE');
+            $value = $query->range(0, 10)
+                ->execute();
+            $data = array();
+            $i = 0;
+            foreach ($value as $val) {
+                $items[$val->field_first_name_value] = check_plain($val->field_first_name_value);
+            }
+
+            if (count($items) == 0) {
+                $items[$string] = check_plain("No users found with this first name");
+            }
+        }
+        print drupal_json_output($items);
+        exit();
+    }
+}
+
+function autocomplete_user_last_name($string) {
+    if ($_GET['q'] == "autocomplete/user/last_name") {
+        return drupal_not_found();
+    }
+    else {
+        $items = array();
+        if (isset($string)) {
+
+            $query = db_select('field_data_field_last_name', 'i');
+            $value = $query->fields('i', array('entity_id', 'field_last_name_value',));
+            $value = $query->condition('field_last_name_value', '%' . db_like($string) . '%', 'LIKE');
+            $value = $query->range(0, 10)
+                ->execute();
+            $data = array();
+            $i = 0;
+            foreach ($value as $val) {
+                $items[$val->field_last_name_value] = check_plain($val->field_last_name_value);
+            }
+
+            if (count($items) == 0) {
+                $items[$string] = check_plain("No users found with this last name");
+            }
+        }
+        print drupal_json_output($items);
+        exit();
+    }
+
+
+}
