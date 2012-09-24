@@ -17,9 +17,6 @@ try {
 }
 
 try {
-
-} catch (Exception $e) {
-
     db_insert('field_data_field_first_name')
         ->fields(array(
         'entity_type' => 'user',
@@ -32,4 +29,7 @@ try {
         'field_first_name_value' => 'Frank',
     ))
         ->execute();
+} catch (Exception $e) {
+
+
 }
