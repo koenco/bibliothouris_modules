@@ -1,0 +1,12 @@
+<?php
+ db_insert('field_data_field_last_name')
+    ->fields(array(
+    'entity_type' => 'user',
+    'bundle' => 'user',
+    'deleted' => 0,
+    'delta' => 0,
+    'entity_id' => 2,
+    'language' => 'und',
+    'field_last_name_value' => 'Crijns',
+))
+    ->execute();
