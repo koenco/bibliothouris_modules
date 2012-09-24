@@ -1,27 +1,35 @@
 <?php
- db_insert('field_data_field_last_name')
-    ->fields(array(
-    'entity_type' => 'user',
-    'bundle' => 'user',
-    'deleted' => 0,
-    'delta' => 0,
-    'entity_id' => 2,
-    'revision_id' => 2,
-    'language' => 'und',
-    'field_last_name_value' => 'Crijns',
-))
-    ->execute();
+try {
+    db_insert('field_data_field_last_name')
+        ->fields(array(
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => 0,
+        'delta' => 0,
+        'entity_id' => 2,
+        'revision_id' => 2,
+        'language' => 'und',
+        'field_last_name_value' => 'Crijns',
+    ))
+        ->execute();
+} catch (Exception $e) {
 
-db_insert('field_data_field_first_name')
-    ->fields(array(
-    'entity_type' => 'user',
-    'bundle' => 'user',
-    'deleted' => 0,
-    'delta' => 0,
-    'entity_id' => 2,
-    'revision_id' => 2,
-    'language' => 'und',
-    'field_first_name_value' => 'Frank',
-))
-    ->execute();
+}
 
+try {
+
+} catch (Exception $e) {
+
+    db_insert('field_data_field_first_name')
+        ->fields(array(
+        'entity_type' => 'user',
+        'bundle' => 'user',
+        'deleted' => 0,
+        'delta' => 0,
+        'entity_id' => 2,
+        'revision_id' => 2,
+        'language' => 'und',
+        'field_first_name_value' => 'Frank',
+    ))
+        ->execute();
+}
