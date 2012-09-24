@@ -34,7 +34,7 @@ function bibliothouris_data_install() {
                     'deleted' => 0,
                     'delta' => 0,
                     'entity_id' => $uid,
-                    'revision_id' => 2,
+                    'revision_id' => null,
                     'language' => 'und',
                     'field_' . $field . '_value' => "$value",
                 ))
