@@ -48,15 +48,62 @@ function select_member_role(&$form) {
 }
 
 function bibliothouris_user_user_register_validate($form, &$form_state) {
-<<<<<<< HEAD
   $national_number =  $form_state['values']['field_national_number']['und']['0']['value'];
   $birthday = $form_state['values']['field_date_of_birth']['und']['0']['value'];
 
   validate_national_number($national_number, $birthday);
 
+}
+
+function bibliothouris_user_views_pre_render(&$view) {
+<<<<<<< HEAD
+  //kpr($view);
+    if ($view->name == 'show_all_members') {
+        foreach ($view->result as $result) {
+            $uid = $result->uid;
+            $last_name = $result->field_field_last_name['0']['rendered']['#markup'];
+            $result->field_field_last_name['0']['rendered']['#markup'] = "<a href='user/$uid'>$last_name</a>";
+
+            $last_name = $result->field_field_first_name['0']['rendered']['#markup'];
+            $result->field_field_first_name['0']['rendered']['#markup'] = "<a href='user/$uid'>$last_name</a>";
+
+            $last_name = $result->field_field_city['0']['rendered']['#markup'];
+            $result->field_field_city['0']['rendered']['#markup'] = "<a href='user/$uid'>$last_name</a>";
+
+            $last_name = $result->field_field_date_of_birth['0']['rendered']['#markup'];
+            $result->field_field_date_of_birth['0']['rendered']['#markup'] = "<a href='user/$uid'>$last_name</a>";
+          
+            $last_name = $result->field_field_street_number['0']['rendered']['#markup'];
+            $result->field_field_street_number['0']['rendered']['#markup'] = "<a href='user/$uid'>$last_name</a>";
 =======
-//  form_set_error('field_national_number', 'National number does not match day of birth');
->>>>>>> 8895ed8f062aac8f2b62604988d036dbe6e1c524
+    if ($view->name == 'show_all_members') {
+        foreach ($view->result as $result) {
+            $uid = $result->uid;
+            if (isset($result->field_field_last_name)) {
+              $last_name = $result->field_field_last_name['0']['rendered']['#markup'];
+              $result->field_field_last_name['0']['rendered']['#markup'] = "<a href='user/$uid'>$last_name</a>";
+            }
+
+            if (isset($result->field_field_first_name)) {
+              $last_name = $result->field_field_first_name['0']['rendered']['#markup'];
+              $result->field_field_first_name['0']['rendered']['#markup'] = "<a href='user/$uid'>$last_name</a>";
+            }
+            if (isset($result->field_field_city)) {
+              $last_name = $result->field_field_city['0']['rendered']['#markup'];
+              $result->field_field_city['0']['rendered']['#markup'] = "<a href='user/$uid'>$last_name</a>";
+            }
+            if (isset($result->field_field_date_of_birth)) {
+              $last_name = $result->field_field_date_of_birth['0']['rendered']['#markup'];
+              $result->field_field_date_of_birth['0']['rendered']['#markup'] = "<a href='user/$uid'>$last_name</a>";
+            }
+            if (isset($result->field_field_street_number)) {
+              $last_name = $result->field_field_street_number['0']['rendered']['#markup'];
+              $result->field_field_street_number['0']['rendered']['#markup'] = "<a href='user/$uid'>$last_name</a>";
+            }
+>>>>>>> 000e1d277ca9754050adb960a64fdddb83b79fe4
+        }
+    }
+
 }
 
 function validate_national_number($national_number, $birthday) {
@@ -84,7 +131,7 @@ function validate_national_number($national_number, $birthday) {
         $wanted_check = 97 - $modulus;
 
         if ($wanted_check != $entered_check) {
-          form_set_error('field_national_number', "Invalid national number."."$wanted_check"." $entered_check");
+          form_set_error('field_national_number', "Invalid national number.");
           return false;
         }
       }
@@ -92,5 +139,8 @@ function validate_national_number($national_number, $birthday) {
       form_set_error('field_national_number', 'National number can only contain numbers, spaces, dashes.');
       return false;
     }
+  } else {
+    return false;
   }
+  return true;
 }
