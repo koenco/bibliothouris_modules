@@ -37,7 +37,7 @@ foreach ($users as $uid => $user) {
             ))
                 ->execute();
         } catch (Exception $e) {
-            echo $e->getMessage();
+            echo "$uid $field $e->getMessage() \n";
         }
     }
 }
