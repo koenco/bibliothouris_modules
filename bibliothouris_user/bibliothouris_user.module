@@ -59,16 +59,27 @@ function bibliothouris_user_views_pre_render(&$view) {
     if ($view->name == 'show-all-members') {
         foreach ($view->result as $result) {
             $uid = $result->uid;
+          if (isset($result->field_field_last_name)) {
             $last_name = $result->field_field_last_name['0']['rendered']['#markup'];
             $result->field_field_last_name['0']['rendered']['#markup'] = "<a href='user/$uid'>$last_name</a>";
+          }
+
+          if (isset($result->field_field_first_name)) {
             $last_name = $result->field_field_first_name['0']['rendered']['#markup'];
             $result->field_field_first_name['0']['rendered']['#markup'] = "<a href='user/$uid'>$last_name</a>";
+          }
+          if (isset($result->field_field_city)) {
             $last_name = $result->field_field_city['0']['rendered']['#markup'];
             $result->field_field_city['0']['rendered']['#markup'] = "<a href='user/$uid'>$last_name</a>";
+          }
+          if (isset($result->field_field_date_of_birth)) {
             $last_name = $result->field_field_date_of_birth['0']['rendered']['#markup'];
             $result->field_field_date_of_birth['0']['rendered']['#markup'] = "<a href='user/$uid'>$last_name</a>";
+          }
+          if (isset($result->field_field_street_number)) {
             $last_name = $result->field_field_street_number['0']['rendered']['#markup'];
             $result->field_field_street_number['0']['rendered']['#markup'] = "<a href='user/$uid'>$last_name</a>";
+          }
         }
     }
 
