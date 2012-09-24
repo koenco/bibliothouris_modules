@@ -1,46 +1,49 @@
 <?php
-$users = array();
-$users[1] = array('last_name' => 'Crijns',
-'first_name' => 'Frank',
-'street_number' => 'Waterkasteelstraat 5',
-'city' => 'Bilzen',
-'national_number' => '89041727347',
-'date_of_birth' => '1989-04-17 00:00:00');
 
-$users[2] = array('last_name' => 'Schrijvers',
-    'first_name' => 'Bob',
-    'street_number' => 'Schoolstraat 7',
-    'city' => 'Bilzen',
-    'national_number' => '89041727347',
-    'date_of_birth' => '1989-04-17 00:00:00');
+function bibliothouris_data_install() {
+    $users = array();
+    $users[1] = array('last_name' => 'Crijns',
+        'first_name' => 'Frank',
+        'street_number' => 'Waterkasteelstraat 5',
+        'city' => 'Bilzen',
+        'national_number' => '89041727347',
+        'date_of_birth' => '1989-04-17 00:00:00');
 
-$users[3] = array('last_name' => 'Co',
-    'first_name' => 'Koen',
-    'street_number' => 'Kerkstraat 9',
-    'city' => 'Meeuwen',
-    'national_number' => '89041727347',
-    'date_of_birth' => '1989-04-17 00:00:00');
+    $users[2] = array('last_name' => 'Schrijvers',
+        'first_name' => 'Bob',
+        'street_number' => 'Schoolstraat 7',
+        'city' => 'Bilzen',
+        'national_number' => '89041727347',
+        'date_of_birth' => '1989-04-17 00:00:00');
 
-foreach ($users as $uid => $user) {
-    foreach ($user as $field => $value) {
-        try {
-            echo "Try $uid $field \n";
-            db_insert("field_data_field_$field")
-                ->fields(array(
-                'entity_type' => 'user',
-                'bundle' => 'user',
-                'deleted' => 0,
-                'delta' => 0,
-                'entity_id' => $uid,
-                'revision_id' => 2,
-                'language' => 'und',
-                'field_'.$field.'_value' => "$value",
-            ))
-                ->execute();
+    $users[3] = array('last_name' => 'Co',
+        'first_name' => 'Koen',
+        'street_number' => 'Kerkstraat 9',
+        'city' => 'Meeuwen',
+        'national_number' => '89041727347',
+        'date_of_birth' => '1989-04-17 00:00:00');
 
-            echo "Success $uid $field \n";
-        } catch (Exception $e) {
-            echo "$uid $field $e->getMessage \n";
+    foreach ($users as $uid => $user) {
+        foreach ($user as $field => $value) {
+            try {
+                echo "Try $uid $field \n";
+                db_insert("field_data_field_$field")
+                    ->fields(array(
+                    'entity_type' => 'user',
+                    'bundle' => 'user',
+                    'deleted' => 0,
+                    'delta' => 0,
+                    'entity_id' => $uid,
+                    'revision_id' => 2,
+                    'language' => 'und',
+                    'field_' . $field . '_value' => "$value",
+                ))
+                    ->execute();
+
+                echo "Success $uid $field \n";
+            } catch (Exception $e) {
+                echo "Catch $uid $field \n";
+            }
         }
     }
 }
