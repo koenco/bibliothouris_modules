@@ -1,5 +1,5 @@
 <?php
-
+/*
  db_insert('field_data_field_last_name')
     ->fields(array(
     'entity_type' => 'user',
@@ -9,4 +9,4 @@
     'language' => 'und',
     'field_last_name_value' => 'Crijns',
 ))
-    ->execute();
+    ->execute();*/
