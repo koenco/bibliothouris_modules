@@ -12,7 +12,6 @@ function bibliotouris_book_form_alter(&$form, $form_state, $form_id) {
     drupal_add_js(drupal_get_path('module', 'bibliotouris_book') . '/autocomplete_autosubmit.js', array('group' => JS_THEME));
     drupal_add_js(drupal_get_path('module', 'bibliotouris_book') . '/autocompletehook.js', array('group' => JS_THEME));
 
-
     $form['field_isbn_value'] = array(
       '#type' => 'textfield',
       '#autocomplete_path' => 'autocomplete/book/isbn',
@@ -76,7 +75,6 @@ function autocomplete_book_isbn($string) {
   else {
     $items = array();
     if (isset($string)) {
-
 
       $query = db_select('field_data_field_isbn', 'isb');
       $value = $query->join('field_data_field_author_last_name', 'ln', 'ln.entity_id = isb.entity_id');

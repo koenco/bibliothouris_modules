@@ -9,7 +9,8 @@ include_once 'bibliothouris_views.features.inc';
 function bibliothouris_views_form_alter(&$form, $form_state, $form_id) {
     if ($form_id == 'views_exposed_form' && $form['#id'] == 'views-exposed-form-show-all-members-page') {
         // add the javascript
-        drupal_add_js(drupal_get_path('module', 'bibliotouris_views') . '/autocomplete_autosubmit.js', array('group' => JS_THEME));
+        drupal_add_js(drupal_get_path('module', 'bibliothouris_views') . '/autocomplete_autosubmit.js', array('group' => JS_THEME));
+        drupal_add_js(drupal_get_path('module', 'bibliothouris_views') . '/autocompletehook.js', array('group' => JS_THEME));
 
         $form['field_first_name_value'] = array(
             '#type' => 'textfield',
@@ -26,7 +27,6 @@ function bibliothouris_views_form_alter(&$form, $form_state, $form_id) {
     }
 }
 
-
 function bibliothouris_views_menu() {
     $items['autocomplete/user/first_name'] = array(
         'page callback' => 'autocomplete_user_first_name',
@@ -42,6 +42,7 @@ function bibliothouris_views_menu() {
 }
 
 function autocomplete_user_first_name($string) {
+    //var_dump($_POST);
     if ($_GET['q'] == "autocomplete/user/first_name") {
         return drupal_not_found();
     }
@@ -50,8 +51,10 @@ function autocomplete_user_first_name($string) {
         if (isset($string)) {
 
             $query = db_select('field_data_field_first_name', 'i');
+            $value = $query->join('field_data_field_last_name', 'ln', 'ln.entity_id = i.entity_id');
             $value = $query->fields('i', array('entity_id', 'field_first_name_value',));
-            $value = $query->condition('field_first_name_value', '%' . db_like($string) . '%', 'LIKE');
+            $value = $query->condition('field_first_name_value', '%' . $_POST['firstname'] . '%', 'LIKE');
+            $value = $query->condition('field_last_name_value', '%' . $_POST['lastname'] . '%', 'LIKE');
             $value = $query->range(0, 10)
                 ->execute();
             $data = array();
@@ -78,8 +81,10 @@ function autocomplete_user_last_name($string) {
         if (isset($string)) {
 
             $query = db_select('field_data_field_last_name', 'i');
+            $value = $query->join('field_data_field_first_name', 'fn', 'fn.entity_id = i.entity_id');
             $value = $query->fields('i', array('entity_id', 'field_last_name_value',));
-            $value = $query->condition('field_last_name_value', '%' . db_like($string) . '%', 'LIKE');
+            $value = $query->condition('field_first_name_value', '%' . $_POST['firstname'] . '%', 'LIKE');
+            $value = $query->condition('field_last_name_value', '%' . $_POST['lastname'] . '%', 'LIKE');
             $value = $query->range(0, 10)
                 ->execute();
             $data = array();
