@@ -16,13 +16,13 @@ function bibliotouris_book_schema() {
       ),
       'hired' => array(
         'description' => 'date of hiring',
-        'type' => 'date',
+        'type' => 'datetime',
         'not null' => TRUE,
       ),
       'returned' => array(
-      'description' => 'date of return',
-      'type' => 'date',
-      'not null' => false,
+        'description' => 'date of return',
+        'type' => 'datetime',
+        'not null' => false,
       ),
     ),
     'primary key' => array('uid', 'bid', 'hired'),
