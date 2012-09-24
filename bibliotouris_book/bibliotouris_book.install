@@ -17,11 +17,13 @@ function bibliotouris_book_schema() {
       'hired' => array(
         'description' => 'date of hiring',
         'type' => 'datetime',
+        'mysql_type' => 'datetime',
         'not null' => TRUE,
       ),
       'returned' => array(
         'description' => 'date of return',
         'type' => 'datetime',
+        'mysql_type' => 'datetime',
         'not null' => false,
       ),
     ),
