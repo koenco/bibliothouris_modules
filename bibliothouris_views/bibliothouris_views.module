@@ -41,7 +41,7 @@ function bibliothouris_views_menu() {
     return $items;
 }
 
-function autocomplete_user_first_name($string) {
+function autocomplete_user_first_name($string = '') {
     if ($_GET['q'] == "autocomplete/user/first_name") {
         return drupal_not_found();
     }
@@ -71,7 +71,7 @@ function autocomplete_user_first_name($string) {
     }
 }
 
-function autocomplete_user_last_name($string) {
+function autocomplete_user_last_name($string = '') {
     if ($_GET['q'] == "autocomplete/user/last_name") {
         return drupal_not_found();
     }

@@ -68,7 +68,7 @@ function bibliotouris_book_menu() {
   return $items;
 }
 
-function autocomplete_book_isbn($string) {
+function autocomplete_book_isbn($string = '') {
   if ($_GET['q'] == "autocomplete/book/isbn") {
     return drupal_not_found();
   }
@@ -104,7 +104,7 @@ function autocomplete_book_isbn($string) {
   }
 }
 
-function autocomplete_book_title($string) {
+function autocomplete_book_title($string = '') {
   if ($_GET['q'] == "autocomplete/book/title") {
     return drupal_not_found();
   }
@@ -139,7 +139,7 @@ function autocomplete_book_title($string) {
   }
 }
 
-function autocomplete_book_lastname($string) {
+function autocomplete_book_lastname($string = '') {
   if ($_GET['q'] == "autocomplete/book/lastname") {
     return drupal_not_found();
   }
@@ -176,7 +176,7 @@ function autocomplete_book_lastname($string) {
   }
 }
 
-function autocomplete_book_firstname($string) {
+function autocomplete_book_firstname($string = '') {
   if ($_GET['q'] == "autocomplete/book/firstname") {
     return drupal_not_found();
   }
