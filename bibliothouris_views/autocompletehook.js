@@ -29,9 +29,8 @@
                 type:'post',
                 url:db.uri + '/' + Drupal.encodePath(searchString),
                 dataType:'json',
-                // add the form values to the ajax request
-                data:('bar', { isbn:$('#edit-field-isbn-value').val(), title:$('#edit-title').val(),
-                    firstname:$('#edit-field-author-first-name-value').val(), lastname:$('#edit-field-author-last-name-value').val() }),
+                // add the values from the form
+                data:('bar', { firstname:$('#edit-field-first-name-value').val(), lastname:$('#edit-field-last-name-value').val()}),
 
                 success:function (matches) {
                     if (typeof matches.status == 'undefined' || matches.status != 0) {

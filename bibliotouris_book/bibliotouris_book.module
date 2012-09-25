@@ -12,7 +12,6 @@ function bibliotouris_book_form_alter(&$form, $form_state, $form_id) {
     drupal_add_js(drupal_get_path('module', 'bibliotouris_book') . '/autocomplete_autosubmit.js', array('group' => JS_THEME));
     drupal_add_js(drupal_get_path('module', 'bibliotouris_book') . '/autocompletehook.js', array('group' => JS_THEME));
 
-
     $form['field_isbn_value'] = array(
       '#type' => 'textfield',
       '#autocomplete_path' => 'autocomplete/book/isbn',
@@ -69,14 +68,13 @@ function bibliotouris_book_menu() {
   return $items;
 }
 
-function autocomplete_book_isbn($string) {
+function autocomplete_book_isbn($string = '') {
   if ($_GET['q'] == "autocomplete/book/isbn") {
     return drupal_not_found();
   }
   else {
     $items = array();
     if (isset($string)) {
-
 
       $query = db_select('field_data_field_isbn', 'isb');
       $value = $query->join('field_data_field_author_last_name', 'ln', 'ln.entity_id = isb.entity_id');
@@ -92,7 +90,7 @@ function autocomplete_book_isbn($string) {
       $value = $query->range(0, 10)
         ->execute();
       $data = array();
-      $i = 0;
+
       foreach ($value as $val) {
         $items[$val->field_isbn_value] = check_plain($val->field_isbn_value);
       }
@@ -106,7 +104,7 @@ function autocomplete_book_isbn($string) {
   }
 }
 
-function autocomplete_book_title($string) {
+function autocomplete_book_title($string = '') {
   if ($_GET['q'] == "autocomplete/book/title") {
     return drupal_not_found();
   }
@@ -127,7 +125,7 @@ function autocomplete_book_title($string) {
     $value = $query->range(0, 10)
       ->execute();
     $data = array();
-    $i = 0;
+
     foreach ($value as $val) {
       $items[$val->title] = check_plain($val->title);
     }
@@ -141,7 +139,7 @@ function autocomplete_book_title($string) {
   }
 }
 
-function autocomplete_book_lastname($string) {
+function autocomplete_book_lastname($string = '') {
   if ($_GET['q'] == "autocomplete/book/lastname") {
     return drupal_not_found();
   }
@@ -164,7 +162,7 @@ function autocomplete_book_lastname($string) {
       $value = $query->range(0, 10)
         ->execute();
       $data = array();
-      $i = 0;
+
       foreach ($value as $val) {
         $items[$val->field_author_last_name_value] = check_plain($val->field_author_last_name_value);
       }
@@ -178,7 +176,7 @@ function autocomplete_book_lastname($string) {
   }
 }
 
-function autocomplete_book_firstname($string) {
+function autocomplete_book_firstname($string = '') {
   if ($_GET['q'] == "autocomplete/book/firstname") {
     return drupal_not_found();
   }
@@ -199,7 +197,7 @@ function autocomplete_book_firstname($string) {
       $value = $query->range(0, 10)
         ->execute();
       $data = array();
-      $i = 0;
+
       foreach ($value as $val) {
         $items[$val->field_author_first_name_value] = check_plain($val->field_author_first_name_value);
       }
