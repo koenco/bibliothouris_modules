@@ -1,4 +1,5 @@
 (function ($) {
+    // our own implementation of Drupal.ACDB.prototype.seach, which uses ajax 'post' instead of 'get'
     Drupal.ACDB.prototype.search = function (searchString) {
         var db = this;
         this.searchString = searchString;
@@ -22,12 +23,13 @@
         this.timer = setTimeout(function () {
             db.owner.setStatus('begin');
 
-            // Ajax GET request for autocompletion. We use Drupal.encodePath instead of
+            // Ajax POST request for autocompletion. We use Drupal.encodePath instead of
             // encodeURIComponent to allow autocomplete search terms to contain slashes.
             $.ajax({
                 type:'post',
                 url:db.uri + '/' + Drupal.encodePath(searchString),
                 dataType:'json',
+                // add the form values to the ajax request
                 data:('bar', { isbn:$('#edit-field-isbn-value').val(), title:$('#edit-title').val(),
                     firstname:$('#edit-field-author-first-name-value').val(), lastname:$('#edit-field-author-last-name-value').val() }),
 

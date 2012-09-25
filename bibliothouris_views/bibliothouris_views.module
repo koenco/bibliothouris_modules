@@ -42,7 +42,6 @@ function bibliothouris_views_menu() {
 }
 
 function autocomplete_user_first_name($string) {
-    //var_dump($_POST);
     if ($_GET['q'] == "autocomplete/user/first_name") {
         return drupal_not_found();
     }
@@ -58,7 +57,7 @@ function autocomplete_user_first_name($string) {
             $value = $query->range(0, 10)
                 ->execute();
             $data = array();
-            $i = 0;
+
             foreach ($value as $val) {
                 $items[$val->field_first_name_value] = check_plain($val->field_first_name_value);
             }
@@ -88,7 +87,7 @@ function autocomplete_user_last_name($string) {
             $value = $query->range(0, 10)
                 ->execute();
             $data = array();
-            $i = 0;
+
             foreach ($value as $val) {
                 $items[$val->field_last_name_value] = check_plain($val->field_last_name_value);
             }

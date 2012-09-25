@@ -90,7 +90,7 @@ function autocomplete_book_isbn($string) {
       $value = $query->range(0, 10)
         ->execute();
       $data = array();
-      $i = 0;
+
       foreach ($value as $val) {
         $items[$val->field_isbn_value] = check_plain($val->field_isbn_value);
       }
@@ -125,7 +125,7 @@ function autocomplete_book_title($string) {
     $value = $query->range(0, 10)
       ->execute();
     $data = array();
-    $i = 0;
+
     foreach ($value as $val) {
       $items[$val->title] = check_plain($val->title);
     }
@@ -162,7 +162,7 @@ function autocomplete_book_lastname($string) {
       $value = $query->range(0, 10)
         ->execute();
       $data = array();
-      $i = 0;
+
       foreach ($value as $val) {
         $items[$val->field_author_last_name_value] = check_plain($val->field_author_last_name_value);
       }
@@ -197,7 +197,7 @@ function autocomplete_book_firstname($string) {
       $value = $query->range(0, 10)
         ->execute();
       $data = array();
-      $i = 0;
+
       foreach ($value as $val) {
         $items[$val->field_author_first_name_value] = check_plain($val->field_author_first_name_value);
       }
