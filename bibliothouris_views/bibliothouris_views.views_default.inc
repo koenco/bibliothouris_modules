@@ -135,6 +135,16 @@ function bibliothouris_views_views_default_views() {
   $handler->display->display_options['fields']['field_author_last_name']['table'] = 'field_data_field_author_last_name';
   $handler->display->display_options['fields']['field_author_last_name']['field'] = 'field_author_last_name';
   $handler->display->display_options['fields']['field_author_last_name']['label'] = 'Author';
+  /* Field: Content: Nid */
+  $handler->display->display_options['fields']['nid']['id'] = 'nid';
+  $handler->display->display_options['fields']['nid']['table'] = 'node';
+  $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  $handler->display->display_options['fields']['nid']['label'] = '';
+  $handler->display->display_options['fields']['nid']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['nid']['alter']['text'] = '+';
+  $handler->display->display_options['fields']['nid']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['nid']['alter']['path'] = 'lendabook/[nid]';
+  $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
