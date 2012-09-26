@@ -38,9 +38,9 @@ function bibliothouris_views_menu() {
         'access callback' => TRUE,
         'weight' => 1,
     );
-  $items['lendabook/%'] = array(
-    'page callback' => 'lendabook',
-    'page arguments' => array(1),
+  $items['lendabook/%/%'] = array(
+    'page callback' => 'bibliothouris_views_lendabook',
+    'page arguments' => array(1, 2),
     'access callback' => TRUE,
     'weight' => 1,
   );
@@ -107,4 +107,103 @@ function autocomplete_user_last_name($string = '') {
     }
 
 
+}
+
+function bibliothouris_views_views_pre_render(&$view) {
+  //print token_replace('[bib:uid]', array('bib' => 1));
+  //print token_replace('[bib:origuser]', array('bib' => 2));
+  //die;
+  if($view->name == "enter_a_new_book"){
+   // kpr($view);
+
+    foreach($view->result as $bla){
+      /*$bla->field_lendbook = array(
+        0 => array(
+          'rendered' => array(
+            '#markup' => "+",
+            '#access' => TRUE,
+          ),
+          'raw' => array(
+            'value' => '+',
+            'format' => NULL,
+            'safe_value' => '+',
+          ),
+        ),
+      );*/
+      //kpr($bla);
+    }
+
+  }
+
+}
+function bibliothouris_views_block_view_alter(&$data, $block){
+  if($data['subject']=="Enter a new book"){
+    kpr($data['content']);
+//    $data['content']['#markup'] = token_replace($data['content']['#markup']);
+    ////HACKY: the view ignores the [bib:uid] token so we replace it with the id from the url
+    $data['content']['#markup'] = str_replace('%5Bbib%3Auid%5D', arg(1), $data['content']['#markup']);
+    //kpr($data['content']);
+    //print_r($_GET['q']);
+    //print_r(arg(1));die;
+  }
+}
+
+function bibliothouris_views_views_data_alter(&$data){
+  //if($data['subject']=="Enter a new book"){
+   // echo '<pre>';print_r($data); echo '</pre>';die;
+   // print_r($_GET['q']);
+    //print_r(arg(1));die;
+  //}
+}
+
+function bibliothouris_views_lendabook($bookid, $userid){
+  print($bookid.' '.$userid);
+}
+
+function bibliothouris_views_token_info() {
+  $type = array(
+    'name' => t('bib'),
+    'description' => t('BUsers related to individual nodes.'),
+    'needs-data' => 'bib',
+  );
+
+  // Core tokens for nodes.
+  $node['nid'] = array(
+    'name' => t("Node ID"),
+    'description' => t("The unique ID of the node."),
+  );
+  $node['uid'] = array(
+    'name' => t("UserId"),
+    'description' => t("TheOriginalUserId."),
+  );
+
+  return array(
+    'types' => array('node' => $type),
+    'tokens' => array('node' => $node),
+  );
+}
+function bibliothouris_views_tokens($type, $tokens, $data = array(), $options = array()) {
+  //We fill up $replacements with any values we need.
+  $replacements = array();
+
+  if($type == 'bib' && !empty($data['bib'])) {
+
+    foreach($tokens as $name => $original) {
+      switch($name) {
+        case 'origuser':
+          //print_r($_GET['q']);die;
+          $replacements[$original] = 1111111111;
+          break;
+        case 'uid':
+          $replacements[$original] = 22222222;
+          break;
+      }
+    }
+  }
+
+  return $replacements;
+}
+
+function bibliothouris_views_views_post_execute(&$view) {
+  //kpr($view);
 }
