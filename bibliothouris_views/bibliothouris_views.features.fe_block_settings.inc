@@ -32,7 +32,7 @@ function bibliothouris_views_default_fe_block_settings() {
     'delta' => 'borrowed_books-block',
     'theme' => 'alphorn',
     'status' => '1',
-    'weight' => '-9',
+    'weight' => '1',
     'region' => 'content',
     'custom' => '0',
     'visibility' => '1',

@@ -150,7 +150,7 @@ function bibliothouris_views_field_default_fields() {
       'label' => 'Return date',
       'required' => 0,
       'settings' => array(
-        'default_value' => 'now',
+        'default_value' => 'blank',
         'default_value2' => 'same',
         'default_value_code' => '',
         'default_value_code2' => '',
@@ -165,7 +165,7 @@ function bibliothouris_views_field_default_fields() {
           'input_format_custom' => '',
           'label_position' => 'above',
           'text_parts' => array(),
-          'year_range' => '-3:+3',
+          'year_range' => '-0:+0',
         ),
         'type' => 'date_popup',
         'weight' => '0',
