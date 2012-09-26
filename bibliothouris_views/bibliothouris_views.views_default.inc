@@ -11,6 +11,88 @@ function bibliothouris_views_views_default_views() {
   $export = array();
 
   $view = new view();
+  $view->name = 'borrowed_books';
+  $view->description = '';
+  $view->tag = 'default';
+  $view->base_table = 'node';
+  $view->human_name = 'Borrowed books';
+  $view->core = 7;
+  $view->api_version = '3.0';
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+  /* Display: Master */
+  $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['title'] = 'Borrowed books';
+  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '3';
+  $handler->display->display_options['style_plugin'] = 'table';
+  /* Relationship: Content: Book (field_book) */
+  $handler->display->display_options['relationships']['field_book_nid']['id'] = 'field_book_nid';
+  $handler->display->display_options['relationships']['field_book_nid']['table'] = 'field_data_field_book';
+  $handler->display->display_options['relationships']['field_book_nid']['field'] = 'field_book_nid';
+  $handler->display->display_options['relationships']['field_book_nid']['delta'] = '-1';
+  /* Field: Content: ISBN */
+  $handler->display->display_options['fields']['field_isbn']['id'] = 'field_isbn';
+  $handler->display->display_options['fields']['field_isbn']['table'] = 'field_data_field_isbn';
+  $handler->display->display_options['fields']['field_isbn']['field'] = 'field_isbn';
+  $handler->display->display_options['fields']['field_isbn']['relationship'] = 'field_book_nid';
+  /* Field: Content: Book */
+  $handler->display->display_options['fields']['field_book']['id'] = 'field_book';
+  $handler->display->display_options['fields']['field_book']['table'] = 'field_data_field_book';
+  $handler->display->display_options['fields']['field_book']['field'] = 'field_book';
+  /* Field: Content: Author Last name */
+  $handler->display->display_options['fields']['field_author_last_name']['id'] = 'field_author_last_name';
+  $handler->display->display_options['fields']['field_author_last_name']['table'] = 'field_data_field_author_last_name';
+  $handler->display->display_options['fields']['field_author_last_name']['field'] = 'field_author_last_name';
+  $handler->display->display_options['fields']['field_author_last_name']['relationship'] = 'field_book_nid';
+  $handler->display->display_options['fields']['field_author_last_name']['label'] = 'Author';
+  /* Field: Content: Start date */
+  $handler->display->display_options['fields']['field_start_date']['id'] = 'field_start_date';
+  $handler->display->display_options['fields']['field_start_date']['table'] = 'field_data_field_start_date';
+  $handler->display->display_options['fields']['field_start_date']['field'] = 'field_start_date';
+  $handler->display->display_options['fields']['field_start_date']['label'] = 'Lend date';
+  $handler->display->display_options['fields']['field_start_date']['type'] = 'date_plain';
+  $handler->display->display_options['fields']['field_start_date']['settings'] = array(
+    'format_type' => 'short',
+    'fromto' => '',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+  );
+  /* Sort criterion: Content: Post date */
+  $handler->display->display_options['sorts']['created']['id'] = 'created';
+  $handler->display->display_options['sorts']['created']['table'] = 'node';
+  $handler->display->display_options['sorts']['created']['field'] = 'created';
+  $handler->display->display_options['sorts']['created']['order'] = 'DESC';
+  /* Contextual filter: Content: User (field_user) */
+  $handler->display->display_options['arguments']['field_user_uid']['id'] = 'field_user_uid';
+  $handler->display->display_options['arguments']['field_user_uid']['table'] = 'field_data_field_user';
+  $handler->display->display_options['arguments']['field_user_uid']['field'] = 'field_user_uid';
+  $handler->display->display_options['arguments']['field_user_uid']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['field_user_uid']['default_argument_type'] = 'user';
+  $handler->display->display_options['arguments']['field_user_uid']['default_argument_options']['user'] = FALSE;
+  $handler->display->display_options['arguments']['field_user_uid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_user_uid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_user_uid']['summary_options']['items_per_page'] = '25';
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'lended_book' => 'lended_book',
+  );
+
+  /* Display: Block */
+  $handler = $view->new_display('block', 'Block', 'block');
+  $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
+  $export['borrowed_books'] = $view;
+
+  $view = new view();
   $view->name = 'show_all_members';
   $view->description = '';
   $view->tag = 'default';

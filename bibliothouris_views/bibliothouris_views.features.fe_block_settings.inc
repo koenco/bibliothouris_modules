@@ -18,11 +18,25 @@ function bibliothouris_views_default_fe_block_settings() {
     'delta' => '-exp-show_all_members-page',
     'theme' => 'alphorn',
     'status' => '1',
-    'weight' => '-12',
+    'weight' => '-13',
     'region' => 'content',
     'custom' => '0',
     'visibility' => '1',
     'pages' => 'show-all-members',
+    'title' => '',
+    'cache' => -1,
+  );
+
+  $theme['views-borrowed_books-block'] = array(
+    'module' => 'views',
+    'delta' => 'borrowed_books-block',
+    'theme' => 'alphorn',
+    'status' => '1',
+    'weight' => '-9',
+    'region' => 'content',
+    'custom' => '0',
+    'visibility' => '1',
+    'pages' => 'user/*',
     'title' => '',
     'cache' => -1,
   );
@@ -46,6 +60,20 @@ function bibliothouris_views_default_fe_block_settings() {
     'cache' => -1,
   );
 
+  $theme['views-borrowed_books-block'] = array(
+    'module' => 'views',
+    'delta' => 'borrowed_books-block',
+    'theme' => 'bartik',
+    'status' => 0,
+    'weight' => '0',
+    'region' => '',
+    'custom' => '0',
+    'visibility' => '1',
+    'pages' => 'user/*',
+    'title' => '',
+    'cache' => -1,
+  );
+
   $export['bartik'] = $theme;
 
   // seven
@@ -61,6 +89,20 @@ function bibliothouris_views_default_fe_block_settings() {
     'custom' => '0',
     'visibility' => '1',
     'pages' => 'show-all-members',
+    'title' => '',
+    'cache' => -1,
+  );
+
+  $theme['views-borrowed_books-block'] = array(
+    'module' => 'views',
+    'delta' => 'borrowed_books-block',
+    'theme' => 'seven',
+    'status' => 0,
+    'weight' => '0',
+    'region' => '',
+    'custom' => '0',
+    'visibility' => '1',
+    'pages' => 'user/*',
     'title' => '',
     'cache' => -1,
   );
