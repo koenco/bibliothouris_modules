@@ -70,8 +70,6 @@ function bibliothouris_user_views_pre_render(&$view) {
                 }
             }
         }
-    } else {
-        echo $view->name;
     }
 }
 

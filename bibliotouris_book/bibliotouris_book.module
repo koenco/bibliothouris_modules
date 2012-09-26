@@ -277,6 +277,6 @@ function checkisbn($isbn) {
 }
 
 function bibliotouris_book_user_view_alter(&$build) {
-  kpr($build);
+
   $build['custom_telephone']['#title'] = "T";
 }
