@@ -113,50 +113,22 @@ function autocomplete_user_last_name($string = '') {
     print drupal_json_output($items);
     exit();
   }
-
-
 }
 
-function bibliothouris_views_views_pre_render(&$view) {
-  //print token_replace('[bib:uid]', array('bib' => 1));
-  //print token_replace('[bib:origuser]', array('bib' => 2));
-  //die;
-  if ($view->name == "enter_a_new_book") {
-    // kpr($view);
 
-    foreach ($view->result as $bla) {
-      /*$bla->field_lendbook = array(
-        0 => array(
-          'rendered' => array(
-            '#markup' => "+",
-            '#access' => TRUE,
-          ),
-          'raw' => array(
-            'value' => '+',
-            'format' => NULL,
-            'safe_value' => '+',
-          ),
-        ),
-      );*/
-      //kpr($bla);
-    }
-
-  }
-
-}
 function bibliothouris_views_views_ajax_data_alter(&$commands, $view) {
- $commands[1]['data'] = str_replace('%5Bbib%3Auid%5D', arg(1),$commands[1]['data']);
- // print_r($view);die;
+  if ($view->name == 'enter_a_new_book') {
+    ////HACKY: the view ignores the [bib:uid] token so we replace it with the id from the url
+    ///Does this after every ajax request
+    $commands[1]['data'] = str_replace('%5Bbib%3Auid%5D', arg(1), $commands[1]['data']);
+  }
 }
+
 function bibliothouris_views_block_view_alter(&$data, $block) {
   if (isset($data['subject']) && $data['subject'] == "Enter a new book") {
-    kpr($data['content']);
-//    $data['content']['#markup'] = token_replace($data['content']['#markup']);
     ////HACKY: the view ignores the [bib:uid] token so we replace it with the id from the url
+    ///Only works first time table is made
     $data['content']['#markup'] = str_replace('%5Bbib%3Auid%5D', arg(1), $data['content']['#markup']);
-    //kpr($data['content']);
-    //print_r($_GET['q']);
-    //print_r(arg(1));die;
   }
 }
 
@@ -167,15 +139,13 @@ function bibliothouris_views_lendabook($bookid, $userid) {
       drupal_set_message('This book is already lend out.', 'error');
     }
     else {
-      drupal_set_message('Succesfully lend out the book..');
       create_lended_book($bookid, $userid);
+      drupal_set_message('Succesfully lend out the book..');
     }
   }
   else {
     drupal_set_message('User already has ' . $numberOfBooks . ' books', 'error');
   }
-
-
   drupal_goto('user/' . $userid);
 }
 
@@ -207,9 +177,8 @@ function create_lended_book($bookid, $userid) {
   $node->type = 'lended_book';
   node_object_prepare($node);
 
-  // $node->title    = 'Node Created Programmatically on ' . date('c');
   $node->language = LANGUAGE_NONE;
-
+  $node->title = 'Lended book';
   $node->field_book = array(
     'und' => array(
       array(
@@ -220,7 +189,7 @@ function create_lended_book($bookid, $userid) {
   $node->field_start_date = array(
     'und' => array(
       array(
-        'value' => '2012-09-26 00:00:00',
+        'value' => date("Y/m/d 00:00:00", REQUEST_TIME),
         'timezone' => 'Europe/Berlin',
         'timezone_db' => 'Europe/Berlin',
         'date_type' => 'datetime',
@@ -245,11 +214,6 @@ function bibliothouris_views_token_info() {
     'needs-data' => 'bib',
   );
 
-  // Core tokens for nodes.
-  $node['nid'] = array(
-    'name' => t("Node ID"),
-    'description' => t("The unique ID of the node."),
-  );
   $node['uid'] = array(
     'name' => t("UserId"),
     'description' => t("TheOriginalUserId."),
@@ -268,12 +232,8 @@ function bibliothouris_views_tokens($type, $tokens, $data = array(), $options = 
 
     foreach ($tokens as $name => $original) {
       switch ($name) {
-        case 'origuser':
-          //print_r($_GET['q']);die;
-          $replacements[$original] = 1111111111;
-          break;
         case 'uid':
-          $replacements[$original] = 22222222;
+          $replacements[$original] = arg(1);
           break;
       }
     }
