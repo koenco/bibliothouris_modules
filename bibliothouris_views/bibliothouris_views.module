@@ -52,6 +52,12 @@ function bibliothouris_views_menu() {
     'access arguments' => array('lend out a book'),
     'weight' => 1,
   );
+  $items['bringbookback/%'] = array(
+    'page callback' => 'bibliothouris_views_bringbookback',
+    'page arguments' => array(1,2),
+    'access arguments' => array('lend out a book'),
+    'weight' => 1,
+  );
   return $items;
 }
 
@@ -117,7 +123,7 @@ function autocomplete_user_last_name($string = '') {
 
 
 function bibliothouris_views_views_ajax_data_alter(&$commands, $view) {
-  if ($view->name == 'enter_a_new_book') {
+  if ($view->name == 'enter_a_new_book' || $view->name == 'borrowed_books') {
     ////HACKY: the view ignores the [bib:uid] token so we replace it with the id from the url
     ///Does this after every ajax request
     $commands[1]['data'] = str_replace('%5Bbib%3Auid%5D', arg(1), $commands[1]['data']);
@@ -125,11 +131,31 @@ function bibliothouris_views_views_ajax_data_alter(&$commands, $view) {
 }
 
 function bibliothouris_views_block_view_alter(&$data, $block) {
-  if (isset($data['subject']) && $data['subject'] == "Enter a new book") {
+  if (isset($data['subject']) && ($data['subject'] == "Enter a new book"|| $data['subject'] == 'Borrowed books')) {
     ////HACKY: the view ignores the [bib:uid] token so we replace it with the id from the url
     ///Only works first time table is made
     $data['content']['#markup'] = str_replace('%5Bbib%3Auid%5D', arg(1), $data['content']['#markup']);
   }
+}
+
+function bibliothouris_views_bringbookback($lendedbookid, $userid) {
+  $node = node_load($lendedbookid);
+  $node->field_return_date = array(
+    'und' => array(
+      array(
+        'value' => date("Y/m/d 00:00:00", REQUEST_TIME),
+        'timezone' => 'Europe/Berlin',
+        'timezone_db' => 'Europe/Berlin',
+        'date_type' => 'datetime',
+      ),
+    ),
+  );
+  node_save($node);
+    drupal_set_message('Succesfully brought back the book.');
+
+    //drupal_set_message('Error bringing book back.', 'error');
+
+  drupal_goto('user/' . $userid);
 }
 
 function bibliothouris_views_lendabook($bookid, $userid) {
@@ -140,7 +166,7 @@ function bibliothouris_views_lendabook($bookid, $userid) {
     }
     else {
       create_lended_book($bookid, $userid);
-      drupal_set_message('Succesfully lend out the book..');
+      drupal_set_message('Succesfully lend out the book.');
     }
   }
   else {
