@@ -54,7 +54,7 @@ function bibliothouris_views_menu() {
   );
   $items['bringbookback/%'] = array(
     'page callback' => 'bibliothouris_views_bringbookback',
-    'page arguments' => array(1,2),
+    'page arguments' => array(1, 2),
     'access arguments' => array('lend out a book'),
     'weight' => 1,
   );
@@ -131,12 +131,128 @@ function bibliothouris_views_views_ajax_data_alter(&$commands, $view) {
 }
 
 function bibliothouris_views_block_view_alter(&$data, $block) {
-  if (isset($data['subject']) && ($data['subject'] == "Enter a new book"|| $data['subject'] == 'Borrowed books')) {
+  if (isset($data['subject']) && ($data['subject'] == "Enter a new book" || $data['subject'] == 'Borrowed books')) {
     ////HACKY: the view ignores the [bib:uid] token so we replace it with the id from the url
     ///Only works first time table is made
     $data['content']['#markup'] = str_replace('%5Bbib%3Auid%5D', arg(1), $data['content']['#markup']);
   }
+  if (isset($data['subject']) && $data['subject'] == 'Borrowed books') {
+    //kpr($data['content']['#markup']);die;
+    //$data['content']['#markup'] = str_replace('%5Bbib%3Afine%5D', calculateFine(), $data['content']['#markup']);
+  }
 }
+
+function bibliothouris_views_views_pre_render(&$view) {
+  if ($view->name == 'borrowed_books') {
+    foreach ($view->result as $res) {
+      $startdate = strtotime($res->field_field_start_date[0]['raw']['value']);
+      $duedate = strtotime(date("Y-m-d", $startdate) . " +3 week");
+      $workingdays = getWorkingDays(date("Y-m-d", $duedate), date("Y-m-d"), array());
+      $fine = calculateFine($workingdays);
+
+      $res->field_field_return_date = array(
+        0 => array(
+          'rendered' => array(
+            '#markup' => '€ ' . $fine,
+            '#access' => TRUE
+          ),
+          'raw' => array(
+            'value' => '€ ' . $fine,
+            'format' => NULL,
+            'safe_value' => '€ ' . $fine,
+          )
+        )
+      );
+
+    }
+  }
+  //kpr($view);
+}
+
+function calculateFine($workingdays) {
+  if ($workingdays > 0) {
+    return ($workingdays - 1) * 0.30;
+  }
+  return 0;
+
+}
+
+
+//from php.net
+//The function returns the no. of business days between two dates and it skips the holidays
+function getWorkingDays($startDate, $endDate, $holidays) {
+  // do strtotime calculations just once
+  $endDate = strtotime($endDate);
+  $startDate = strtotime($startDate);
+
+
+  //The total number of days between the two dates. We compute the no. of seconds and divide it to 60*60*24
+  //We add one to inlude both dates in the interval.
+  $days = ($endDate - $startDate) / 86400 + 1;
+
+  $no_full_weeks = floor($days / 7);
+  $no_remaining_days = fmod($days, 7);
+
+  //It will return 1 if it's Monday,.. ,7 for Sunday
+  $the_first_day_of_week = date("N", $startDate);
+  $the_last_day_of_week = date("N", $endDate);
+
+  //---->The two can be equal in leap years when february has 29 days, the equal sign is added here
+  //In the first case the whole interval is within a week, in the second case the interval falls in two weeks.
+  if ($the_first_day_of_week <= $the_last_day_of_week) {
+    if ($the_first_day_of_week <= 6 && 6 <= $the_last_day_of_week) {
+      $no_remaining_days--;
+    }
+    if ($the_first_day_of_week <= 7 && 7 <= $the_last_day_of_week) {
+      $no_remaining_days--;
+    }
+  }
+  else {
+    // (edit by Tokes to fix an edge case where the start day was a Sunday
+    // and the end day was NOT a Saturday)
+
+    // the day of the week for start is later than the day of the week for end
+    if ($the_first_day_of_week == 7) {
+      // if the start date is a Sunday, then we definitely subtract 1 day
+      $no_remaining_days--;
+
+      if ($the_last_day_of_week == 6) {
+        // if the end date is a Saturday, then we subtract another day
+        $no_remaining_days--;
+      }
+    }
+    else {
+      // the start date was a Saturday (or earlier), and the end date was (Mon..Fri)
+      // so we skip an entire weekend and subtract 2 days
+      $no_remaining_days -= 2;
+    }
+  }
+
+  //The no. of business days is: (number of weeks between the two dates) * (5 working days) + the remainder
+//---->february in none leap years gave a remainder of 0 but still calculated weekends between first and last day, this is one way to fix it
+  $workingDays = $no_full_weeks * 5;
+  if ($no_remaining_days > 0) {
+    $workingDays += $no_remaining_days;
+  }
+
+  //We subtract the holidays
+  foreach ($holidays as $holiday) {
+    $time_stamp = strtotime($holiday);
+    //If the holiday doesn't fall in weekend
+    if ($startDate <= $time_stamp && $time_stamp <= $endDate && date("N", $time_stamp) != 6 && date("N", $time_stamp) != 7) {
+      $workingDays--;
+    }
+  }
+
+  return $workingDays;
+}
+
+/*
+ * $holidays=array("2008-12-25","2008-12-26","2009-01-01");
+ *
+ * echo getWorkingDays("2008-12-22","2009-01-02",$holidays)
+*/
+
 
 function bibliothouris_views_bringbookback($lendedbookid, $userid) {
   $node = node_load($lendedbookid);
@@ -151,9 +267,9 @@ function bibliothouris_views_bringbookback($lendedbookid, $userid) {
     ),
   );
   node_save($node);
-    drupal_set_message('Succesfully brought back the book.');
+  drupal_set_message('Succesfully brought back the book.');
 
-    //drupal_set_message('Error bringing book back.', 'error');
+  //drupal_set_message('Error bringing book back.', 'error');
 
   drupal_goto('user/' . $userid);
 }
