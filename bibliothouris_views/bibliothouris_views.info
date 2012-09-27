@@ -29,6 +29,7 @@ features[user_permission][] = delete any lended_book content
 features[user_permission][] = delete own lended_book content
 features[user_permission][] = edit any lended_book content
 features[user_permission][] = edit own lended_book content
+features[user_permission][] = lend out a book
 features[variable][] = ant_lended_book
 features[variable][] = ant_pattern_lended_book
 features[variable][] = ant_php_lended_book

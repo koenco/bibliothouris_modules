@@ -45,5 +45,15 @@ function bibliothouris_views_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: lend out a book.
+  $permissions['lend out a book'] = array(
+    'name' => 'lend out a book',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'employee',
+    ),
+    'module' => 'bibliothouris_views',
+  );
+
   return $permissions;
 }
