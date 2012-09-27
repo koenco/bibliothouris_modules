@@ -245,7 +245,9 @@ function bibliothouris_views_tokens($type, $tokens, $data = array(), $options = 
 function bibliothouris_views_query_alter(QueryAlterableInterface $query) {
 
   if (isset($query->alterTags['views_enter_a_new_book'])) {
-    $query->condition('nid', getLendedBooks(), 'NOT IN');
+    if (count(getLendedBooks()) > 0) {
+      $query->condition('nid', getLendedBooks(), 'NOT IN');
+    }
   }
 }
 
