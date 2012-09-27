@@ -14,7 +14,7 @@ function bibliothouris_views_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'ant_lended_book';
-  $strongarm->value = '1';
+  $strongarm->value = '2';
   $export['ant_lended_book'] = $strongarm;
 
   $strongarm = new stdClass();
