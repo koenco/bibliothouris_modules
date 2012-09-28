@@ -99,7 +99,7 @@ function bibliothouris_data_install()
 
   foreach ($holiday as $day) {
     try {
-
+      echo 'DAG KOEN, DIT IS NIET DE HOOK_SCHEMA';
       db_insert("bibliothouris_data_holiday")
           ->fields(array(
         'holiday_name' => $day['holiday_name'],
@@ -113,14 +113,14 @@ function bibliothouris_data_install()
 
 }
 
-function bibliotouris_data_schema()
+function bibliothouris_data_schema()
 {
-  $schema['bibliotouris_data_holiday'] = array(
+  $schema['bibliothouris_data_holiday'] = array(
     'description' => 'Stores the holidays',
     'fields' => array(
       'holiday_name' => array(
         'description' => 'name of the holiday',
-        'type' => 'text',
+        'type' => 'varchar',
         'not null' => TRUE,
       ),
       'holiday_date' => array(
@@ -131,11 +131,11 @@ function bibliotouris_data_schema()
     ),
     'primary key' => array('holiday_date'),
   );
-
+ echo 'DAG KOEN, DIT IS DE HOOK_SCHEMA';
   return $schema;
 }
 
-function bibliotouris_data_uninstall()
+function bibliothouris_data_uninstall()
 {
-  drupal_uninstall_schema('bibliotouris_data_holiday');
+  drupal_uninstall_schema('bibliothouris_data_holiday');
 }
