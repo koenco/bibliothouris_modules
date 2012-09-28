@@ -42,7 +42,6 @@ function bibliotouris_book_node_validate($node, $form, &$form_state) {
       checkisbn($isbn);
     }
 
-    //kpr($form_state);die;
     $number_of_books = $form_state['values']['field_number_of_books']['und'][0]['value'];
     $times_loaned = getTimesLendedOut($node->nid);
     if ($times_loaned < $number_of_books) {
