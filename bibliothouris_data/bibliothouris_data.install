@@ -1,35 +1,40 @@
 <?php
 
-function bibliothouris_data_install()
-{
+function bibliothouris_data_install() {
   $users = array();
-  $users[1] = array('last_name' => 'Crijns',
+  $users[1] = array(
+    'last_name' => 'Crijns',
     'first_name' => 'Frank',
     'street_number' => 'Waterkasteelstraat 5',
     'city' => 'Bilzen',
     'national_number' => '89041727347',
-    'date_of_birth' => '1989-04-17 00:00:00');
+    'date_of_birth' => '1989-04-17 00:00:00'
+  );
 
-  $users[2] = array('last_name' => 'Schrijvers',
+  $users[2] = array(
+    'last_name' => 'Schrijvers',
     'first_name' => 'Bob',
     'street_number' => 'Schoolstraat 7',
     'city' => 'Bilzen',
     'national_number' => '89041727347',
-    'date_of_birth' => '1989-04-17 00:00:00');
+    'date_of_birth' => '1989-04-17 00:00:00'
+  );
 
-  $users[3] = array('last_name' => 'Co',
+  $users[3] = array(
+    'last_name' => 'Co',
     'first_name' => 'Koen',
     'street_number' => 'Kerkstraat 9',
     'city' => 'Meeuwen',
     'national_number' => '89041727347',
-    'date_of_birth' => '1989-04-17 00:00:00');
+    'date_of_birth' => '1989-04-17 00:00:00'
+  );
 
   foreach ($users as $uid => $user) {
     foreach ($user as $field => $value) {
       try {
 
         db_insert("field_data_field_$field")
-            ->fields(array(
+          ->fields(array(
           'entity_type' => 'user',
           'bundle' => 'user',
           'deleted' => 0,
@@ -39,7 +44,7 @@ function bibliothouris_data_install()
           'language' => 'und',
           'field_' . $field . '_value' => "$value",
         ))
-            ->execute();
+          ->execute();
 
       } catch (Exception $e) {
         echo "Error inserting users. Uid: $uid Field: $field \n";
@@ -99,9 +104,8 @@ function bibliothouris_data_install()
 
   foreach ($holiday as $day) {
     try {
-      echo 'DAG KOEN, DIT IS NIET DE HOOK_SCHEMA';
       db_insert("bibliothouris_data_holiday")
-          ->fields(array(
+        ->fields(array(
         'holiday_name' => $day['holiday_name'],
         'holiday_date' => $day['holiday_date'],
       ))->execute();
@@ -113,14 +117,14 @@ function bibliothouris_data_install()
 
 }
 
-function bibliothouris_data_schema()
-{
+function bibliothouris_data_schema() {
   $schema['bibliothouris_data_holiday'] = array(
     'description' => 'Stores the holidays',
     'fields' => array(
       'holiday_name' => array(
         'description' => 'name of the holiday',
         'type' => 'varchar',
+        'length' => 20,
         'not null' => TRUE,
       ),
       'holiday_date' => array(
@@ -130,13 +134,10 @@ function bibliothouris_data_schema()
         'not null' => TRUE,
       ),
     ),
-    'primary key' => array('holiday_date'),
   );
- echo 'DAG KOEN, DIT IS DE HOOK_SCHEMA';
   return $schema;
 }
 
-function bibliothouris_data_uninstall()
-{
+function bibliothouris_data_uninstall() {
   drupal_uninstall_schema('bibliothouris_data_holiday');
 }
