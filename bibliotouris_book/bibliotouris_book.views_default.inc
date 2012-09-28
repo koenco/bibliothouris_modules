@@ -10,7 +10,7 @@
 function bibliotouris_book_views_default_views() {
   $export = array();
 
-  $view = new view;
+  $view = new view();
   $view->name = 'view_all_books';
   $view->description = '';
   $view->tag = 'default';
@@ -24,13 +24,13 @@ function bibliotouris_book_views_default_views() {
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'View all books';
   $handler->display->display_options['use_ajax'] = TRUE;
+  $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['query']['options']['query_comment'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
-  $handler->display->display_options['exposed_form']['options']['autosubmit'] = 1;
-  $handler->display->display_options['exposed_form']['options']['autosubmit_hide'] = 1;
+  $handler->display->display_options['exposed_form']['options']['autosubmit'] = TRUE;
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '10';
   $handler->display->display_options['style_plugin'] = 'table';
@@ -39,6 +39,7 @@ function bibliotouris_book_views_default_views() {
     'title' => 'title',
     'field_author_last_name' => 'field_author_last_name',
     'field_author_first_name' => 'field_author_first_name',
+    'field_number_of_books' => 'field_number_of_books',
   );
   $handler->display->display_options['style_options']['default'] = 'title';
   $handler->display->display_options['style_options']['info'] = array(
@@ -70,33 +71,19 @@ function bibliotouris_book_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
+    'field_number_of_books' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
   );
-  $handler->display->display_options['style_options']['override'] = 1;
-  $handler->display->display_options['style_options']['sticky'] = 0;
-  $handler->display->display_options['style_options']['empty_table'] = 0;
   /* Field: Content: ISBN */
   $handler->display->display_options['fields']['field_isbn']['id'] = 'field_isbn';
   $handler->display->display_options['fields']['field_isbn']['table'] = 'field_data_field_isbn';
   $handler->display->display_options['fields']['field_isbn']['field'] = 'field_isbn';
-  $handler->display->display_options['fields']['field_isbn']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['field_isbn']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['field_isbn']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['field_isbn']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['field_isbn']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['field_isbn']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['field_isbn']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['field_isbn']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['field_isbn']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['field_isbn']['alter']['more_link'] = 0;
-  $handler->display->display_options['fields']['field_isbn']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['field_isbn']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['field_isbn']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['field_isbn']['element_label_colon'] = 0;
-  $handler->display->display_options['fields']['field_isbn']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['field_isbn']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['field_isbn']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['field_isbn']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['field_isbn']['field_api_classes'] = 0;
+  $handler->display->display_options['fields']['field_isbn']['element_label_colon'] = FALSE;
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -108,31 +95,22 @@ function bibliotouris_book_views_default_views() {
   $handler->display->display_options['fields']['field_author_last_name']['table'] = 'field_data_field_author_last_name';
   $handler->display->display_options['fields']['field_author_last_name']['field'] = 'field_author_last_name';
   $handler->display->display_options['fields']['field_author_last_name']['label'] = 'Last name';
-  $handler->display->display_options['fields']['field_author_last_name']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['field_author_last_name']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['field_author_last_name']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['field_author_last_name']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['field_author_last_name']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['field_author_last_name']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['field_author_last_name']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['field_author_last_name']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['field_author_last_name']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['field_author_last_name']['alter']['more_link'] = 0;
-  $handler->display->display_options['fields']['field_author_last_name']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['field_author_last_name']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['field_author_last_name']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['field_author_last_name']['element_label_colon'] = 0;
-  $handler->display->display_options['fields']['field_author_last_name']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['field_author_last_name']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['field_author_last_name']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['field_author_last_name']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['field_author_last_name']['field_api_classes'] = 0;
+  $handler->display->display_options['fields']['field_author_last_name']['element_label_colon'] = FALSE;
   /* Field: Content: Author First name */
   $handler->display->display_options['fields']['field_author_first_name']['id'] = 'field_author_first_name';
   $handler->display->display_options['fields']['field_author_first_name']['table'] = 'field_data_field_author_first_name';
   $handler->display->display_options['fields']['field_author_first_name']['field'] = 'field_author_first_name';
   $handler->display->display_options['fields']['field_author_first_name']['label'] = 'First name';
   $handler->display->display_options['fields']['field_author_first_name']['element_label_colon'] = FALSE;
+  /* Field: Content: Number of books */
+  $handler->display->display_options['fields']['field_number_of_books']['id'] = 'field_number_of_books';
+  $handler->display->display_options['fields']['field_number_of_books']['table'] = 'field_data_field_number_of_books';
+  $handler->display->display_options['fields']['field_number_of_books']['field'] = 'field_number_of_books';
+  $handler->display->display_options['fields']['field_number_of_books']['label'] = 'Status';
+  $handler->display->display_options['fields']['field_number_of_books']['settings'] = array(
+    'thousand_separator' => ' ',
+    'prefix_suffix' => 1,
+  );
   /* Filter criterion: Content: Title */
   $handler->display->display_options['filters']['title']['id'] = 'title';
   $handler->display->display_options['filters']['title']['table'] = 'node';
@@ -180,8 +158,6 @@ function bibliotouris_book_views_default_views() {
   $handler->display->display_options['filters']['field_author_first_name_value']['expose']['label'] = 'Author First name';
   $handler->display->display_options['filters']['field_author_first_name_value']['expose']['operator'] = 'field_author_first_name_value_op';
   $handler->display->display_options['filters']['field_author_first_name_value']['expose']['identifier'] = 'field_author_first_name_value';
-  $handler->display->display_options['filters']['field_author_first_name_value']['expose']['required'] = 0;
-  $handler->display->display_options['filters']['field_author_first_name_value']['expose']['multiple'] = FALSE;
   /* Filter criterion: Content: Author Last name (field_author_last_name) */
   $handler->display->display_options['filters']['field_author_last_name_value']['id'] = 'field_author_last_name_value';
   $handler->display->display_options['filters']['field_author_last_name_value']['table'] = 'field_data_field_author_last_name';
@@ -192,11 +168,10 @@ function bibliotouris_book_views_default_views() {
   $handler->display->display_options['filters']['field_author_last_name_value']['expose']['label'] = 'Author Last name';
   $handler->display->display_options['filters']['field_author_last_name_value']['expose']['operator'] = 'field_author_last_name_value_op';
   $handler->display->display_options['filters']['field_author_last_name_value']['expose']['identifier'] = 'field_author_last_name_value';
-  $handler->display->display_options['filters']['field_author_last_name_value']['expose']['required'] = 0;
-  $handler->display->display_options['filters']['field_author_last_name_value']['expose']['multiple'] = FALSE;
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
+  $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $handler->display->display_options['exposed_block'] = TRUE;
   $handler->display->display_options['path'] = 'view-all-books';
   $handler->display->display_options['menu']['type'] = 'normal';
