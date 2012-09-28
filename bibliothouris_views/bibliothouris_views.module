@@ -148,7 +148,7 @@ function bibliothouris_views_views_pre_render(&$view) {
     foreach ($view->result as $res) {
       $startdate = strtotime($res->field_field_start_date[0]['raw']['value']);
       $duedate = strtotime(date("Y-m-d", $startdate) . " +3 week");
-      $workingdays = getWorkingDays(date("Y-m-d", $duedate), date("Y-m-d"), array());
+      $workingdays = getWorkingDays(date("Y-m-d", $duedate), date("Y-m-d"), getHolidays());
       $fine = calculateFine($workingdays);
 
       // modify date field to remove the time
@@ -191,7 +191,9 @@ function calculateFine($workingdays) {
   return 0;
 
 }
-
+function getHolidays(){
+  return db_query('SELECT holiday_date FROM {bibliothouris_data_holiday}')->fetchCol();
+}
 
 //from php.net
 //The function returns the no. of business days between two dates and it skips the holidays
@@ -267,7 +269,6 @@ function getWorkingDays($startDate, $endDate, $holidays) {
  *
  * echo getWorkingDays("2008-12-22","2009-01-02",$holidays)
 */
-
 
 function bibliothouris_views_bringbookback($lendedbookid, $userid) {
   $node = node_load($lendedbookid);

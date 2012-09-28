@@ -91,11 +91,11 @@ function bibliothouris_data_install() {
   );
   $holiday[10] = array(
     'holiday_name' => 'Allerheiligen',
-    'holiday_date' => '2012-10-01 00:00:00'
+    'holiday_date' => '2012-11-01 00:00:00'
   );
   $holiday[11] = array(
     'holiday_name' => 'Wapenstilstand',
-    'holiday_date' => '2012-10-11 00:00:00'
+    'holiday_date' => '2012-11-11 00:00:00'
   );
   $holiday[12] = array(
     'holiday_name' => 'Kerstmis',
