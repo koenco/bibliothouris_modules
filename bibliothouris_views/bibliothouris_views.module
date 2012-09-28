@@ -144,7 +144,7 @@ function bibliothouris_views_block_view_alter(&$data, $block) {
 
 function bibliothouris_views_views_pre_render(&$view) {
   if ($view->name == 'borrowed_books') {
-    kpr($view);
+    //kpr($view);
     foreach ($view->result as $res) {
       $startdate = strtotime($res->field_field_start_date[0]['raw']['value']);
       $duedate = strtotime(date("Y-m-d", $startdate) . " +3 week");
@@ -170,13 +170,47 @@ function bibliothouris_views_views_pre_render(&$view) {
       $res->field_field_return_date = array(
         0 => array(
           'rendered' => array(
-            '#markup' => date('d-m-Y', strtotime(date('d-m-Y', REQUEST_TIME) . ' +3 week')),
+            '#markup' => date('d-m-Y', strtotime(date('d-m-Y', $startdate) . ' +3 week')),
             '#access' => TRUE
           ),
           'raw' => array(
-            'value' => date('d-m-Y', strtotime(date('d-m-Y', REQUEST_TIME) . ' +3 week')),
+            'value' => date('d-m-Y', strtotime(date('d-m-Y', $startdate) . ' +3 week')),
             'format' => NULL,
-            'safe_value' => date('d-m-Y', strtotime(date('d-m-Y', REQUEST_TIME) . ' +3 week')),
+            'safe_value' => date('d-m-Y', strtotime(date('d-m-Y', $startdate) . ' +3 week')),
+          )
+        )
+      );
+    }
+  }
+  if($view->name =='overdue_books'){
+   // kpr($view);
+    foreach ($view->result as $res) {
+      $startdate = strtotime($res->field_field_start_date[0]['raw']['value']);
+      $duedate = strtotime(date("Y-m-d", $startdate) . " +3 week");
+      $workingdays = getWorkingDays(date("Y-m-d", $duedate), date("Y-m-d"), getHolidays());
+      $res->field_field_fine = array(
+        0 => array(
+          'rendered' => array(
+            '#markup' => $workingdays-1,
+            '#access' => TRUE
+          ),
+          'raw' => array(
+            'value' => $workingdays-1,
+            'format' => NULL,
+            'safe_value' => $workingdays-1,
+          )
+        )
+      );
+      $res->field_field_return_date = array(
+        0 => array(
+          'rendered' => array(
+            '#markup' => date('d-m-Y', strtotime(date('d-m-Y', $startdate) . ' +3 week')),
+            '#access' => TRUE
+          ),
+          'raw' => array(
+            'value' => date('d-m-Y', strtotime(date('d-m-Y', $startdate) . ' +3 week')),
+            'format' => NULL,
+            'safe_value' => date('d-m-Y', strtotime(date('d-m-Y', $startdate) . ' +3 week')),
           )
         )
       );
@@ -191,7 +225,8 @@ function calculateFine($workingdays) {
   return 0;
 
 }
-function getHolidays(){
+
+function getHolidays() {
   return db_query('SELECT holiday_date FROM {bibliothouris_data_holiday}')->fetchCol();
 }
 
@@ -441,21 +476,36 @@ function bibliothouris_views_query_alter(QueryAlterableInterface $query) {
       $query->condition('nid', getUnavailableBooks(), 'NOT IN');
     }
   }
+  if (isset($query->alterTags['views_overdue_books'])) {
+    if (count(getUnavailableBooks()) > 0) {
+      $query->condition('node_field_data_field_book.nid', getOverdueBooks(), 'IN');
+    }
+  }
 }
 
 function getUnavailableBooks() {
   //TODO rewrite
   return db_query("SELECT lb.field_book_nid, nob.field_number_of_books_value FROM {node} n
-LEFT JOIN {field_data_field_return_date} rd
-ON n.nid = rd.entity_id
-JOIN {field_data_field_book} lb
-ON n.nid = lb.entity_id
-JOIN {node} b
-ON b.nid = lb.field_book_nid
-JOIN {field_data_field_number_of_books} nob
-ON nob.entity_id = b.nid
-WHERE n.type = 'lended_book'
-AND rd.field_return_date_value IS NULL
-GROUP BY lb.field_book_nid
-HAVING nob.field_number_of_books_value <= count(n.nid)")->fetchCol();
+    LEFT JOIN {field_data_field_return_date} rd
+      ON n.nid = rd.entity_id
+    JOIN {field_data_field_book} lb
+      ON n.nid = lb.entity_id
+    JOIN {node} b
+      ON b.nid = lb.field_book_nid
+    JOIN {field_data_field_number_of_books} nob
+      ON nob.entity_id = b.nid
+    WHERE n.type = 'lended_book'
+    AND rd.field_return_date_value IS NULL
+    GROUP BY lb.field_book_nid
+    HAVING nob.field_number_of_books_value <= count(n.nid)")->fetchCol();
+}
+
+function getOverdueBooks() {
+  return db_query("SELECT b.field_book_nid FROM {node} n
+    LEFT OUTER JOIN {field_data_field_start_date} sd
+    ON n.nid = sd.entity_id
+    LEFT OUTER JOIN {field_data_field_book} b ON
+    n.nid = b.entity_id
+    WHERE n.type = 'lended_book'
+    AND DATE(NOW()) >= sd.field_start_date_value + INTERVAL 3 WEEK")->fetchCol();
 }

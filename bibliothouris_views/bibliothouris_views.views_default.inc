@@ -45,12 +45,20 @@ function bibliothouris_views_views_default_views() {
   $handler->display->display_options['fields']['field_book']['id'] = 'field_book';
   $handler->display->display_options['fields']['field_book']['table'] = 'field_data_field_book';
   $handler->display->display_options['fields']['field_book']['field'] = 'field_book';
+  /* Field: Content: Author First name */
+  $handler->display->display_options['fields']['field_author_first_name']['id'] = 'field_author_first_name';
+  $handler->display->display_options['fields']['field_author_first_name']['table'] = 'field_data_field_author_first_name';
+  $handler->display->display_options['fields']['field_author_first_name']['field'] = 'field_author_first_name';
+  $handler->display->display_options['fields']['field_author_first_name']['relationship'] = 'field_book_nid';
+  $handler->display->display_options['fields']['field_author_first_name']['exclude'] = TRUE;
   /* Field: Content: Author Last name */
   $handler->display->display_options['fields']['field_author_last_name']['id'] = 'field_author_last_name';
   $handler->display->display_options['fields']['field_author_last_name']['table'] = 'field_data_field_author_last_name';
   $handler->display->display_options['fields']['field_author_last_name']['field'] = 'field_author_last_name';
   $handler->display->display_options['fields']['field_author_last_name']['relationship'] = 'field_book_nid';
   $handler->display->display_options['fields']['field_author_last_name']['label'] = 'Author';
+  $handler->display->display_options['fields']['field_author_last_name']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_author_last_name']['alter']['text'] = '[field_author_last_name] [field_author_first_name]';
   /* Field: Content: Start date */
   $handler->display->display_options['fields']['field_start_date']['id'] = 'field_start_date';
   $handler->display->display_options['fields']['field_start_date']['table'] = 'field_data_field_start_date';
@@ -156,11 +164,18 @@ function bibliothouris_views_views_default_views() {
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+  /* Field: Content: Author First name */
+  $handler->display->display_options['fields']['field_author_first_name']['id'] = 'field_author_first_name';
+  $handler->display->display_options['fields']['field_author_first_name']['table'] = 'field_data_field_author_first_name';
+  $handler->display->display_options['fields']['field_author_first_name']['field'] = 'field_author_first_name';
+  $handler->display->display_options['fields']['field_author_first_name']['exclude'] = TRUE;
   /* Field: Content: Author Last name */
   $handler->display->display_options['fields']['field_author_last_name']['id'] = 'field_author_last_name';
   $handler->display->display_options['fields']['field_author_last_name']['table'] = 'field_data_field_author_last_name';
   $handler->display->display_options['fields']['field_author_last_name']['field'] = 'field_author_last_name';
   $handler->display->display_options['fields']['field_author_last_name']['label'] = 'Author';
+  $handler->display->display_options['fields']['field_author_last_name']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_author_last_name']['alter']['text'] = '[field_author_last_name] [field_author_first_name]';
   /* Field: Content: Nid */
   $handler->display->display_options['fields']['nid']['id'] = 'nid';
   $handler->display->display_options['fields']['nid']['table'] = 'node';
@@ -212,6 +227,138 @@ function bibliothouris_views_views_default_views() {
   $handler = $view->new_display('block', 'Block', 'block');
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $export['enter_a_new_book'] = $view;
+
+  $view = new view();
+  $view->name = 'overdue_books';
+  $view->description = '';
+  $view->tag = 'default';
+  $view->base_table = 'node';
+  $view->human_name = 'Overdue books';
+  $view->core = 7;
+  $view->api_version = '3.0';
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+  /* Display: Master */
+  $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['title'] = 'Overdue books';
+  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '10';
+  $handler->display->display_options['style_plugin'] = 'table';
+  /* Relationship: Content: Book (field_book) */
+  $handler->display->display_options['relationships']['field_book_nid']['id'] = 'field_book_nid';
+  $handler->display->display_options['relationships']['field_book_nid']['table'] = 'field_data_field_book';
+  $handler->display->display_options['relationships']['field_book_nid']['field'] = 'field_book_nid';
+  $handler->display->display_options['relationships']['field_book_nid']['required'] = TRUE;
+  $handler->display->display_options['relationships']['field_book_nid']['delta'] = '-1';
+  /* Relationship: Content: User (field_user) */
+  $handler->display->display_options['relationships']['field_user_uid']['id'] = 'field_user_uid';
+  $handler->display->display_options['relationships']['field_user_uid']['table'] = 'field_data_field_user';
+  $handler->display->display_options['relationships']['field_user_uid']['field'] = 'field_user_uid';
+  $handler->display->display_options['relationships']['field_user_uid']['required'] = TRUE;
+  $handler->display->display_options['relationships']['field_user_uid']['delta'] = '-1';
+  /* Relationship: Content: User (field_user) */
+  $handler->display->display_options['relationships']['field_user_uid_1']['id'] = 'field_user_uid_1';
+  $handler->display->display_options['relationships']['field_user_uid_1']['table'] = 'field_data_field_user';
+  $handler->display->display_options['relationships']['field_user_uid_1']['field'] = 'field_user_uid';
+  $handler->display->display_options['relationships']['field_user_uid_1']['label'] = 'field_user2';
+  $handler->display->display_options['relationships']['field_user_uid_1']['required'] = TRUE;
+  $handler->display->display_options['relationships']['field_user_uid_1']['delta'] = '-1';
+  /* Field: Content: ISBN */
+  $handler->display->display_options['fields']['field_isbn']['id'] = 'field_isbn';
+  $handler->display->display_options['fields']['field_isbn']['table'] = 'field_data_field_isbn';
+  $handler->display->display_options['fields']['field_isbn']['field'] = 'field_isbn';
+  $handler->display->display_options['fields']['field_isbn']['relationship'] = 'field_book_nid';
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['relationship'] = 'field_book_nid';
+  /* Field: Content: Author First name */
+  $handler->display->display_options['fields']['field_author_first_name']['id'] = 'field_author_first_name';
+  $handler->display->display_options['fields']['field_author_first_name']['table'] = 'field_data_field_author_first_name';
+  $handler->display->display_options['fields']['field_author_first_name']['field'] = 'field_author_first_name';
+  $handler->display->display_options['fields']['field_author_first_name']['relationship'] = 'field_book_nid';
+  $handler->display->display_options['fields']['field_author_first_name']['exclude'] = TRUE;
+  /* Field: Content: Author Last name */
+  $handler->display->display_options['fields']['field_author_last_name']['id'] = 'field_author_last_name';
+  $handler->display->display_options['fields']['field_author_last_name']['table'] = 'field_data_field_author_last_name';
+  $handler->display->display_options['fields']['field_author_last_name']['field'] = 'field_author_last_name';
+  $handler->display->display_options['fields']['field_author_last_name']['relationship'] = 'field_book_nid';
+  $handler->display->display_options['fields']['field_author_last_name']['label'] = 'Author';
+  $handler->display->display_options['fields']['field_author_last_name']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_author_last_name']['alter']['text'] = '[field_author_last_name] [field_author_first_name]';
+  /* Field: User: Last name */
+  $handler->display->display_options['fields']['field_last_name']['id'] = 'field_last_name';
+  $handler->display->display_options['fields']['field_last_name']['table'] = 'field_data_field_last_name';
+  $handler->display->display_options['fields']['field_last_name']['field'] = 'field_last_name';
+  $handler->display->display_options['fields']['field_last_name']['relationship'] = 'field_user_uid';
+  $handler->display->display_options['fields']['field_last_name']['exclude'] = TRUE;
+  /* Field: User: First name */
+  $handler->display->display_options['fields']['field_first_name']['id'] = 'field_first_name';
+  $handler->display->display_options['fields']['field_first_name']['table'] = 'field_data_field_first_name';
+  $handler->display->display_options['fields']['field_first_name']['field'] = 'field_first_name';
+  $handler->display->display_options['fields']['field_first_name']['relationship'] = 'field_user_uid';
+  $handler->display->display_options['fields']['field_first_name']['exclude'] = TRUE;
+  /* Field: User: Uid */
+  $handler->display->display_options['fields']['uid']['id'] = 'uid';
+  $handler->display->display_options['fields']['uid']['table'] = 'users';
+  $handler->display->display_options['fields']['uid']['field'] = 'uid';
+  $handler->display->display_options['fields']['uid']['relationship'] = 'field_user_uid';
+  $handler->display->display_options['fields']['uid']['label'] = 'User';
+  $handler->display->display_options['fields']['uid']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['uid']['alter']['text'] = '[field_last_name] [field_first_name] ([uid])';
+  /* Field: Content: Start date */
+  $handler->display->display_options['fields']['field_start_date']['id'] = 'field_start_date';
+  $handler->display->display_options['fields']['field_start_date']['table'] = 'field_data_field_start_date';
+  $handler->display->display_options['fields']['field_start_date']['field'] = 'field_start_date';
+  $handler->display->display_options['fields']['field_start_date']['settings'] = array(
+    'format_type' => 'short',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+  );
+  /* Field: Content: Return date */
+  $handler->display->display_options['fields']['field_return_date']['id'] = 'field_return_date';
+  $handler->display->display_options['fields']['field_return_date']['table'] = 'field_data_field_return_date';
+  $handler->display->display_options['fields']['field_return_date']['field'] = 'field_return_date';
+  $handler->display->display_options['fields']['field_return_date']['label'] = 'Due date';
+  $handler->display->display_options['fields']['field_return_date']['settings'] = array(
+    'format_type' => 'short',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+  );
+  /* Field: Content: Fine */
+  $handler->display->display_options['fields']['field_fine']['id'] = 'field_fine';
+  $handler->display->display_options['fields']['field_fine']['table'] = 'field_data_field_fine';
+  $handler->display->display_options['fields']['field_fine']['field'] = 'field_fine';
+  $handler->display->display_options['fields']['field_fine']['label'] = 'Overdue (in days)';
+  /* Sort criterion: Content: Title */
+  $handler->display->display_options['sorts']['title']['id'] = 'title';
+  $handler->display->display_options['sorts']['title']['table'] = 'node';
+  $handler->display->display_options['sorts']['title']['field'] = 'title';
+  $handler->display->display_options['sorts']['title']['relationship'] = 'field_book_nid';
+  /* Filter criterion: Content: Return date (field_return_date) */
+  $handler->display->display_options['filters']['field_return_date_value']['id'] = 'field_return_date_value';
+  $handler->display->display_options['filters']['field_return_date_value']['table'] = 'field_data_field_return_date';
+  $handler->display->display_options['filters']['field_return_date_value']['field'] = 'field_return_date_value';
+  $handler->display->display_options['filters']['field_return_date_value']['operator'] = 'empty';
+
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page');
+  $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
+  $handler->display->display_options['path'] = 'overdue-books';
+  $handler->display->display_options['menu']['type'] = 'normal';
+  $handler->display->display_options['menu']['title'] = 'Overdue books';
+  $handler->display->display_options['menu']['name'] = 'menu-navigation-custom';
+  $export['overdue_books'] = $view;
 
   $view = new view();
   $view->name = 'show_all_members';
