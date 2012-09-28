@@ -47,7 +47,7 @@ function bibliotouris_book_node_validate($node, $form, &$form_state) {
     if ($times_loaned < $number_of_books) {
       $form_state['values']['field_status']['und'][0]['tid'] = "4";
     } else if ($times_loaned == $number_of_books) {
-      $form_state['values']['field_status']['und'][0]['tid'] = "5";
+      $form_state['values']['field_status']['und'][0]['tid'] = "1";
     } else {
       form_set_error('field_number_of_books', "Your number of books is less than the number of times the book is lended out at this moment.");
     }

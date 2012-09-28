@@ -422,8 +422,8 @@ function update_status($bookid) {
   $book = node_load($bookid);
 
   if (isBookLended($bookid)) {
-    //taxonomy with id 5: loaned
-    $status = 5;
+    //taxonomy with id 1: loaned
+    $status = 1;
   }
   else {
     //taxonomy with id 4: available
@@ -484,20 +484,12 @@ function bibliothouris_views_query_alter(QueryAlterableInterface $query) {
 }
 
 function getUnavailableBooks() {
-  //TODO rewrite
-  return db_query("SELECT lb.field_book_nid, nob.field_number_of_books_value FROM {node} n
-    LEFT JOIN {field_data_field_return_date} rd
-      ON n.nid = rd.entity_id
-    JOIN {field_data_field_book} lb
-      ON n.nid = lb.entity_id
-    JOIN {node} b
-      ON b.nid = lb.field_book_nid
-    JOIN {field_data_field_number_of_books} nob
-      ON nob.entity_id = b.nid
-    WHERE n.type = 'lended_book'
-    AND rd.field_return_date_value IS NULL
-    GROUP BY lb.field_book_nid
-    HAVING nob.field_number_of_books_value <= count(n.nid)")->fetchCol();
+
+  return db_query("SELECT n.nid FROM {node} n
+  JOIN {field_data_field_status} s
+    ON n.nid = s.entity_id
+  WHERE s.field_status_tid = 1")->fetchCol();
+
 }
 
 function getOverdueBooks() {
