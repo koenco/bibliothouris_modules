@@ -107,7 +107,7 @@ function bibliothouris_data_install()
       ))->execute();
 
     } catch (Exception $e) {
-      echo "Error inserting holiday.\n";
+      echo "Error inserting holiday.\n.$e.\n";
     }
   }
 
