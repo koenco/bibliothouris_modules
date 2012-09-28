@@ -107,7 +107,7 @@ function bibliothouris_data_install()
       ))->execute();
 
     } catch (Exception $e) {
-      echo "Error inserting users. Uid: $uid Field: $field \n";
+      echo "Error inserting holiday.\n";
     }
   }
 
@@ -135,7 +135,7 @@ function bibliotouris_data_schema()
   return $schema;
 }
 
-function bibliotouris_book_uninstall()
+function bibliotouris_data_uninstall()
 {
   drupal_uninstall_schema('bibliotouris_data_holiday');
 }
