@@ -41,6 +41,17 @@ function bibliotouris_book_node_validate($node, $form, &$form_state) {
       $isbn = str_replace(array('-', '/', ' '), '', $form_state['values']['field_isbn']['und']['0']['value']);
       checkisbn($isbn);
     }
+
+    //kpr($form_state);die;
+    $number_of_books = $form_state['values']['field_number_of_books']['und'][0]['value'];
+    $times_loaned = getTimesLendedOut($node->nid);
+    if ($times_loaned < $number_of_books) {
+      $form_state['values']['field_status']['und'][0]['tid'] = "4";
+    } else if ($times_loaned == $number_of_books) {
+      $form_state['values']['field_status']['und'][0]['tid'] = "5";
+    } else {
+      form_set_error('field_number_of_books', "Your number of books is less than the number of times the book is lended out at this moment.");
+    }
   }
 }
 
@@ -274,9 +285,4 @@ function checkisbn($isbn) {
       return FALSE;
     }
   }
-}
-
-function bibliotouris_book_user_view_alter(&$build) {
-
-  $build['custom_telephone']['#title'] = "T";
 }

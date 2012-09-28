@@ -277,7 +277,7 @@ function bibliotouris_book_strongarm() {
     ),
     'alpha_debug_block_toggle' => 0,
     'alpha_debug_block_active' => 1,
-    'alpha_debug_grid_toggle' => 1,
+    'alpha_debug_grid_toggle' => 0,
     'alpha_debug_grid_active' => 0,
     'alpha_debug_grid_roles' => array(
       1 => '1',

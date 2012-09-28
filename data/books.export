@@ -118,6 +118,13 @@ array(
           ),
         ),
       ),
+    'field_status' => array(
+        'und' => array(
+          array(
+            'tid' => '4',
+          ),
+        ),
+      ),
       'rdf_mapping' => array(
         'rdftype' => array(
           'sioc:Item',
@@ -304,6 +311,13 @@ array(
                 ),
               ),
             ),
+      'field_status' => array(
+        'und' => array(
+          array(
+            'tid' => '4',
+          ),
+        ),
+      ),
       'rdf_mapping' => array(
         'rdftype' => array(
           'sioc:Item',
@@ -490,6 +504,13 @@ array(
                 ),
               ),
             ),
+    'field_status' => array(
+        'und' => array(
+          array(
+            'tid' => '4',
+          ),
+        ),
+      ),
       'rdf_mapping' => array(
         'rdftype' => array(
           'sioc:Item',
@@ -676,6 +697,13 @@ array(
                 ),
               ),
             ),
+    'field_status' => array(
+        'und' => array(
+          array(
+            'tid' => '4',
+          ),
+        ),
+      ),
       'rdf_mapping' => array(
         'rdftype' => array(
           'sioc:Item',
@@ -862,7 +890,14 @@ array(
                 ),
               ),
             ),
-      'rdf_mapping' => array(
+    'field_status' => array(
+        'und' => array(
+          array(
+            'tid' => '4',
+          ),
+        ),
+      ),
+     'rdf_mapping' => array(
         'rdftype' => array(
           'sioc:Item',
           'foaf:Document',
@@ -1048,7 +1083,14 @@ array(
                 ),
               ),
             ),
-      'rdf_mapping' => array(
+    'field_status' => array(
+        'und' => array(
+          array(
+            'tid' => '4',
+          ),
+        ),
+      ),
+   'rdf_mapping' => array(
         'rdftype' => array(
           'sioc:Item',
           'foaf:Document',
@@ -1234,6 +1276,13 @@ array(
                 ),
               ),
             ),
+    'field_status' => array(
+        'und' => array(
+          array(
+            'tid' => '4',
+          ),
+        ),
+      ),
       'rdf_mapping' => array(
         'rdftype' => array(
           'sioc:Item',
@@ -1420,6 +1469,13 @@ array(
                 ),
               ),
             ),
+    'field_status' => array(
+        'und' => array(
+          array(
+            'tid' => '4',
+          ),
+        ),
+      ),
       'rdf_mapping' => array(
         'rdftype' => array(
           'sioc:Item',
@@ -1606,7 +1662,14 @@ array(
                 ),
               ),
             ),
-      'rdf_mapping' => array(
+    'field_status' => array(
+        'und' => array(
+          array(
+            'tid' => '4',
+          ),
+        ),
+      ),
+     'rdf_mapping' => array(
         'rdftype' => array(
           'sioc:Item',
           'foaf:Document',
@@ -1792,6 +1855,13 @@ array(
                 ),
               ),
             ),
+    'field_status' => array(
+        'und' => array(
+          array(
+            'tid' => '4',
+          ),
+        ),
+      ),
       'rdf_mapping' => array(
         'rdftype' => array(
           'sioc:Item',
@@ -1978,6 +2048,13 @@ array(
                 ),
               ),
             ),
+    'field_status' => array(
+        'und' => array(
+          array(
+            'tid' => '4',
+          ),
+        ),
+      ),
       'rdf_mapping' => array(
         'rdftype' => array(
           'sioc:Item',
@@ -2164,6 +2241,13 @@ array(
                 ),
               ),
             ),
+    'field_status' => array(
+        'und' => array(
+          array(
+            'tid' => '4',
+          ),
+        ),
+      ),
       'rdf_mapping' => array(
         'rdftype' => array(
           'sioc:Item',
@@ -2350,6 +2434,13 @@ array(
                 ),
               ),
             ),
+    'field_status' => array(
+        'und' => array(
+          array(
+            'tid' => '4',
+          ),
+        ),
+      ),
       'rdf_mapping' => array(
         'rdftype' => array(
           'sioc:Item',
@@ -2536,6 +2627,13 @@ array(
                 ),
               ),
             ),
+    'field_status' => array(
+        'und' => array(
+          array(
+            'tid' => '4',
+          ),
+        ),
+      ),
       'rdf_mapping' => array(
         'rdftype' => array(
           'sioc:Item',
@@ -2722,6 +2820,13 @@ array(
                 ),
               ),
             ),
+    'field_status' => array(
+        'und' => array(
+          array(
+            'tid' => '4',
+          ),
+        ),
+      ),
       'rdf_mapping' => array(
         'rdftype' => array(
           'sioc:Item',
@@ -2908,6 +3013,13 @@ array(
                 ),
               ),
             ),
+    'field_status' => array(
+        'und' => array(
+          array(
+            'tid' => '4',
+          ),
+        ),
+      ),
       'rdf_mapping' => array(
         'rdftype' => array(
           'sioc:Item',
@@ -3074,6 +3186,13 @@ array(
                       ),
                     ),
                   ),
+    'field_status' => array(
+        'und' => array(
+          array(
+            'tid' => '4',
+          ),
+        ),
+      ),
       'rdf_mapping' => array(
         'rdftype' => array(
           'sioc:Item',
@@ -3260,6 +3379,13 @@ array(
                 ),
               ),
             ),
+    'field_status' => array(
+        'und' => array(
+          array(
+            'tid' => '4',
+          ),
+        ),
+      ),
       'rdf_mapping' => array(
         'rdftype' => array(
           'sioc:Item',
@@ -3446,6 +3572,13 @@ array(
                 ),
               ),
             ),
+    'field_status' => array(
+        'und' => array(
+          array(
+            'tid' => '4',
+          ),
+        ),
+      ),
       'rdf_mapping' => array(
         'rdftype' => array(
           'sioc:Item',
@@ -3632,6 +3765,13 @@ array(
                 ),
               ),
             ),
+    'field_status' => array(
+        'und' => array(
+          array(
+            'tid' => '4',
+          ),
+        ),
+      ),
       'rdf_mapping' => array(
         'rdftype' => array(
           'sioc:Item',

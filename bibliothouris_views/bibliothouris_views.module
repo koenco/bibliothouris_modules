@@ -283,9 +283,11 @@ function bibliothouris_views_bringbookback($lendedbookid, $userid) {
     ),
   );
   node_save($node);
-  drupal_set_message('Succesfully brought back the book.');
 
-  //drupal_set_message('Error bringing book back.', 'error');
+  $bookid = db_query("SELECT field_book_nid FROM field_data_field_book WHERE entity_id = :eid", array('eid' => $lendedbookid))->fetchField();
+
+  update_status($bookid);
+  drupal_set_message('Succesfully brought back the book.');
 
   drupal_goto('user/' . $userid);
 }
@@ -376,6 +378,25 @@ function create_lended_book($bookid, $userid) {
   );
 
   node_save($node);
+
+  update_status($bookid);
+}
+
+function update_status($bookid) {
+
+  $book = node_load($bookid);
+
+  if (isBookLended($bookid)) {
+    //taxonomy with id 5: loaned
+    $status = 5;
+  }
+  else {
+    //taxonomy with id 4: available
+    $status = 4;
+  }
+
+  $book->field_status['und'][0]['tid'] = $status;
+  node_save($book);
 }
 
 function bibliothouris_views_token_info() {

@@ -102,15 +102,13 @@ function bibliotouris_book_views_default_views() {
   $handler->display->display_options['fields']['field_author_first_name']['field'] = 'field_author_first_name';
   $handler->display->display_options['fields']['field_author_first_name']['label'] = 'First name';
   $handler->display->display_options['fields']['field_author_first_name']['element_label_colon'] = FALSE;
-  /* Field: Content: Number of books */
-  $handler->display->display_options['fields']['field_number_of_books']['id'] = 'field_number_of_books';
-  $handler->display->display_options['fields']['field_number_of_books']['table'] = 'field_data_field_number_of_books';
-  $handler->display->display_options['fields']['field_number_of_books']['field'] = 'field_number_of_books';
-  $handler->display->display_options['fields']['field_number_of_books']['label'] = 'Status';
-  $handler->display->display_options['fields']['field_number_of_books']['settings'] = array(
-    'thousand_separator' => ' ',
-    'prefix_suffix' => 1,
-  );
+  /* Field: Content: Status */
+  $handler->display->display_options['fields']['field_status']['id'] = 'field_status';
+  $handler->display->display_options['fields']['field_status']['table'] = 'field_data_field_status';
+  $handler->display->display_options['fields']['field_status']['field'] = 'field_status';
+  $handler->display->display_options['fields']['field_status']['click_sort_column'] = 'value';
+  $handler->display->display_options['fields']['field_status']['type'] = 'text_default';
+  $handler->display->display_options['fields']['field_status']['group_column'] = 'value';
   /* Filter criterion: Content: Title */
   $handler->display->display_options['filters']['title']['id'] = 'title';
   $handler->display->display_options['filters']['title']['table'] = 'node';
