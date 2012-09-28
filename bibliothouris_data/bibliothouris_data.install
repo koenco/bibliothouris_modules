@@ -1,48 +1,143 @@
 <?php
 
 function bibliothouris_data_install() {
-    $users = array();
-    $users[1] = array('last_name' => 'Crijns',
-        'first_name' => 'Frank',
-        'street_number' => 'Waterkasteelstraat 5',
-        'city' => 'Bilzen',
-        'national_number' => '89041727347',
-        'date_of_birth' => '1989-04-17 00:00:00');
+  $users = array();
+  $users[1] = array(
+    'last_name' => 'Crijns',
+    'first_name' => 'Frank',
+    'street_number' => 'Waterkasteelstraat 5',
+    'city' => 'Bilzen',
+    'national_number' => '89041727347',
+    'date_of_birth' => '1989-04-17 00:00:00'
+  );
 
-    $users[2] = array('last_name' => 'Schrijvers',
-        'first_name' => 'Bob',
-        'street_number' => 'Schoolstraat 7',
-        'city' => 'Bilzen',
-        'national_number' => '89041727347',
-        'date_of_birth' => '1989-04-17 00:00:00');
+  $users[2] = array(
+    'last_name' => 'Schrijvers',
+    'first_name' => 'Bob',
+    'street_number' => 'Schoolstraat 7',
+    'city' => 'Bilzen',
+    'national_number' => '89041727347',
+    'date_of_birth' => '1989-04-17 00:00:00'
+  );
 
-    $users[3] = array('last_name' => 'Co',
-        'first_name' => 'Koen',
-        'street_number' => 'Kerkstraat 9',
-        'city' => 'Meeuwen',
-        'national_number' => '89041727347',
-        'date_of_birth' => '1989-04-17 00:00:00');
+  $users[3] = array(
+    'last_name' => 'Co',
+    'first_name' => 'Koen',
+    'street_number' => 'Kerkstraat 9',
+    'city' => 'Meeuwen',
+    'national_number' => '89041727347',
+    'date_of_birth' => '1989-04-17 00:00:00'
+  );
 
-    foreach ($users as $uid => $user) {
-        foreach ($user as $field => $value) {
-            try {
+  foreach ($users as $uid => $user) {
+    foreach ($user as $field => $value) {
+      try {
 
-                db_insert("field_data_field_$field")
-                    ->fields(array(
-                    'entity_type' => 'user',
-                    'bundle' => 'user',
-                    'deleted' => 0,
-                    'delta' => 0,
-                    'entity_id' => $uid,
-                    'revision_id' => null,
-                    'language' => 'und',
-                    'field_' . $field . '_value' => "$value",
-                ))
-                    ->execute();
+        db_insert("field_data_field_$field")
+          ->fields(array(
+          'entity_type' => 'user',
+          'bundle' => 'user',
+          'deleted' => 0,
+          'delta' => 0,
+          'entity_id' => $uid,
+          'revision_id' => NULL,
+          'language' => 'und',
+          'field_' . $field . '_value' => "$value",
+        ))
+          ->execute();
 
-                } catch (Exception $e) {
-                echo "Error inserting users. Uid: $uid Field: $field \n";
-            }
-        }
+      } catch (Exception $e) {
+        echo "Error inserting users. Uid: $uid Field: $field \n";
+      }
     }
+  }
+
+  $holiday = array();
+  $holiday[1] = array(
+    'holiday_name' => 'Nieuwjaar',
+    'holiday_date' => '2012-01-01 00:00:00'
+  );
+  $holiday[2] = array(
+    'holiday_name' => 'Pasen',
+    'holiday_date' => '2012-04-08 00:00:00'
+  );
+  $holiday[3] = array(
+    'holiday_name' => 'Paasmaandag',
+    'holiday_date' => '2012-04-09 00:00:00'
+  );
+  $holiday[4] = array(
+    'holiday_name' => 'Feest van de Arbeid',
+    'holiday_date' => '2012-05-01 00:00:00'
+  );
+  $holiday[5] = array(
+    'holiday_name' => 'O.H. Hemelvaart',
+    'holiday_date' => '2012-05-17 00:00:00'
+  );
+  $holiday[6] = array(
+    'holiday_name' => 'Pinksteren',
+    'holiday_date' => '2012-05-27 00:00:00'
+  );
+  $holiday[7] = array(
+    'holiday_name' => 'Pinkstermaandag',
+    'holiday_date' => '2012-05-28 00:00:00'
+  );
+  $holiday[8] = array(
+    'holiday_name' => 'Nationale Feestdag',
+    'holiday_date' => '2012-07-21 00:00:00'
+  );
+  $holiday[9] = array(
+    'holiday_name' => 'O.L.V. Hemelvaart',
+    'holiday_date' => '2012-08-15 00:00:00'
+  );
+  $holiday[10] = array(
+    'holiday_name' => 'Allerheiligen',
+    'holiday_date' => '2012-10-01 00:00:00'
+  );
+  $holiday[11] = array(
+    'holiday_name' => 'Wapenstilstand',
+    'holiday_date' => '2012-10-11 00:00:00'
+  );
+  $holiday[12] = array(
+    'holiday_name' => 'Kerstmis',
+    'holiday_date' => '2012-12-25 00:00:00'
+  );
+
+  foreach ($holiday as $day) {
+    try {
+      db_insert("bibliothouris_data_holiday")
+        ->fields(array(
+        'holiday_name' => $day['holiday_name'],
+        'holiday_date' => $day['holiday_date'],
+      ))->execute();
+
+    } catch (Exception $e) {
+      echo "Error inserting holiday.\n.$e.\n";
+    }
+  }
+
+}
+
+function bibliothouris_data_schema() {
+  $schema['bibliothouris_data_holiday'] = array(
+    'description' => 'Stores the holidays',
+    'fields' => array(
+      'holiday_name' => array(
+        'description' => 'name of the holiday',
+        'type' => 'varchar',
+        'length' => 20,
+        'not null' => TRUE,
+      ),
+      'holiday_date' => array(
+        'description' => 'date of the holiday',
+        'type' => 'datetime',
+        'mysql_type' => 'datetime',
+        'not null' => TRUE,
+      ),
+    ),
+  );
+  return $schema;
+}
+
+function bibliothouris_data_uninstall() {
+  drupal_uninstall_schema('bibliothouris_data_holiday');
 }
