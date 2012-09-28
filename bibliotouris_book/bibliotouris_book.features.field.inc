@@ -203,7 +203,7 @@ function bibliotouris_book_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => 4,
+          'weight' => '5',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -272,7 +272,7 @@ function bibliotouris_book_field_default_fields() {
             'image_style' => '',
           ),
           'type' => 'image',
-          'weight' => '3',
+          'weight' => '4',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -347,7 +347,7 @@ function bibliotouris_book_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => 7,
+          'weight' => '8',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -449,6 +449,72 @@ function bibliotouris_book_field_default_fields() {
     ),
   );
 
+  // Exported field: 'node-book-field_number_of_books'.
+  $fields['node-book-field_number_of_books'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_number_of_books',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'locked' => '0',
+      'module' => 'number',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'number_integer',
+    ),
+    'field_instance' => array(
+      'bundle' => 'book',
+      'default_value' => array(
+        0 => array(
+          'value' => '1',
+        ),
+      ),
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'hidden',
+          'module' => 'number',
+          'settings' => array(
+            'decimal_separator' => '.',
+            'prefix_suffix' => TRUE,
+            'scale' => 0,
+            'thousand_separator' => ' ',
+          ),
+          'type' => 'number_integer',
+          'weight' => '3',
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_number_of_books',
+      'label' => 'Number of books',
+      'required' => 1,
+      'settings' => array(
+        'max' => '',
+        'min' => '-1',
+        'prefix' => '',
+        'suffix' => '',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'number',
+        'settings' => array(),
+        'type' => 'number',
+        'weight' => '49',
+      ),
+    ),
+  );
+
   // Exported field: 'node-book-field_pages'.
   $fields['node-book-field_pages'] = array(
     'field_config' => array(
@@ -481,7 +547,7 @@ function bibliotouris_book_field_default_fields() {
             'thousand_separator' => ' ',
           ),
           'type' => 'number_integer',
-          'weight' => 5,
+          'weight' => '6',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -557,7 +623,7 @@ function bibliotouris_book_field_default_fields() {
             'multiple_to' => '',
           ),
           'type' => 'date_default',
-          'weight' => 8,
+          'weight' => '9',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -634,7 +700,7 @@ function bibliotouris_book_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => 6,
+          'weight' => '7',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -745,6 +811,7 @@ function bibliotouris_book_field_default_fields() {
   t('Cover Image');
   t('Description');
   t('ISBN');
+  t('Number of books');
   t('Pages');
   t('Publication Date');
   t('Publisher');

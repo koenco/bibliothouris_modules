@@ -109,6 +109,15 @@ array(
           ),
         ),
       ),
+      'field_number_of_books' => array(
+        'und' => array(
+          array(
+            'value' => '1',
+            'format' => NULL,
+            'safe_value' => '1',
+          ),
+        ),
+      ),
       'rdf_mapping' => array(
         'rdftype' => array(
           'sioc:Item',
@@ -286,6 +295,15 @@ array(
           ),
         ),
       ),
+      'field_number_of_books' => array(
+              'und' => array(
+                array(
+                  'value' => '1',
+                  'format' => NULL,
+                  'safe_value' => '1',
+                ),
+              ),
+            ),
       'rdf_mapping' => array(
         'rdftype' => array(
           'sioc:Item',
@@ -463,6 +481,15 @@ array(
           ),
         ),
       ),
+      'field_number_of_books' => array(
+              'und' => array(
+                array(
+                  'value' => '1',
+                  'format' => NULL,
+                  'safe_value' => '1',
+                ),
+              ),
+            ),
       'rdf_mapping' => array(
         'rdftype' => array(
           'sioc:Item',
@@ -640,6 +667,15 @@ array(
           ),
         ),
       ),
+      'field_number_of_books' => array(
+              'und' => array(
+                array(
+                  'value' => '1',
+                  'format' => NULL,
+                  'safe_value' => '1',
+                ),
+              ),
+            ),
       'rdf_mapping' => array(
         'rdftype' => array(
           'sioc:Item',
@@ -817,6 +853,15 @@ array(
           ),
         ),
       ),
+      'field_number_of_books' => array(
+              'und' => array(
+                array(
+                  'value' => '1',
+                  'format' => NULL,
+                  'safe_value' => '1',
+                ),
+              ),
+            ),
       'rdf_mapping' => array(
         'rdftype' => array(
           'sioc:Item',
@@ -994,6 +1039,15 @@ array(
           ),
         ),
       ),
+      'field_number_of_books' => array(
+              'und' => array(
+                array(
+                  'value' => '1',
+                  'format' => NULL,
+                  'safe_value' => '1',
+                ),
+              ),
+            ),
       'rdf_mapping' => array(
         'rdftype' => array(
           'sioc:Item',
@@ -1171,6 +1225,15 @@ array(
           ),
         ),
       ),
+      'field_number_of_books' => array(
+              'und' => array(
+                array(
+                  'value' => '1',
+                  'format' => NULL,
+                  'safe_value' => '1',
+                ),
+              ),
+            ),
       'rdf_mapping' => array(
         'rdftype' => array(
           'sioc:Item',
@@ -1348,6 +1411,15 @@ array(
           ),
         ),
       ),
+      'field_number_of_books' => array(
+              'und' => array(
+                array(
+                  'value' => '1',
+                  'format' => NULL,
+                  'safe_value' => '1',
+                ),
+              ),
+            ),
       'rdf_mapping' => array(
         'rdftype' => array(
           'sioc:Item',
@@ -1525,6 +1597,15 @@ array(
           ),
         ),
       ),
+      'field_number_of_books' => array(
+              'und' => array(
+                array(
+                  'value' => '1',
+                  'format' => NULL,
+                  'safe_value' => '1',
+                ),
+              ),
+            ),
       'rdf_mapping' => array(
         'rdftype' => array(
           'sioc:Item',
@@ -1702,6 +1783,15 @@ array(
           ),
         ),
       ),
+      'field_number_of_books' => array(
+              'und' => array(
+                array(
+                  'value' => '1',
+                  'format' => NULL,
+                  'safe_value' => '1',
+                ),
+              ),
+            ),
       'rdf_mapping' => array(
         'rdftype' => array(
           'sioc:Item',
@@ -1879,6 +1969,15 @@ array(
           ),
         ),
       ),
+      'field_number_of_books' => array(
+              'und' => array(
+                array(
+                  'value' => '1',
+                  'format' => NULL,
+                  'safe_value' => '1',
+                ),
+              ),
+            ),
       'rdf_mapping' => array(
         'rdftype' => array(
           'sioc:Item',
@@ -2056,6 +2155,15 @@ array(
           ),
         ),
       ),
+      'field_number_of_books' => array(
+              'und' => array(
+                array(
+                  'value' => '1',
+                  'format' => NULL,
+                  'safe_value' => '1',
+                ),
+              ),
+            ),
       'rdf_mapping' => array(
         'rdftype' => array(
           'sioc:Item',
@@ -2233,6 +2341,15 @@ array(
           ),
         ),
       ),
+      'field_number_of_books' => array(
+              'und' => array(
+                array(
+                  'value' => '1',
+                  'format' => NULL,
+                  'safe_value' => '1',
+                ),
+              ),
+            ),
       'rdf_mapping' => array(
         'rdftype' => array(
           'sioc:Item',
@@ -2410,6 +2527,15 @@ array(
           ),
         ),
       ),
+      'field_number_of_books' => array(
+              'und' => array(
+                array(
+                  'value' => '1',
+                  'format' => NULL,
+                  'safe_value' => '1',
+                ),
+              ),
+            ),
       'rdf_mapping' => array(
         'rdftype' => array(
           'sioc:Item',
@@ -2587,6 +2713,15 @@ array(
           ),
         ),
       ),
+      'field_number_of_books' => array(
+              'und' => array(
+                array(
+                  'value' => '1',
+                  'format' => NULL,
+                  'safe_value' => '1',
+                ),
+              ),
+            ),
       'rdf_mapping' => array(
         'rdftype' => array(
           'sioc:Item',
@@ -2764,6 +2899,15 @@ array(
           ),
         ),
       ),
+      'field_number_of_books' => array(
+              'und' => array(
+                array(
+                  'value' => '1',
+                  'format' => NULL,
+                  'safe_value' => '1',
+                ),
+              ),
+            ),
       'rdf_mapping' => array(
         'rdftype' => array(
           'sioc:Item',
@@ -2921,6 +3065,15 @@ array(
           ),
         ),
       ),
+      'field_number_of_books' => array(
+                    'und' => array(
+                      array(
+                        'value' => '1',
+                        'format' => NULL,
+                        'safe_value' => '1',
+                      ),
+                    ),
+                  ),
       'rdf_mapping' => array(
         'rdftype' => array(
           'sioc:Item',
@@ -3098,6 +3251,15 @@ array(
           ),
         ),
       ),
+      'field_number_of_books' => array(
+              'und' => array(
+                array(
+                  'value' => '1',
+                  'format' => NULL,
+                  'safe_value' => '1',
+                ),
+              ),
+            ),
       'rdf_mapping' => array(
         'rdftype' => array(
           'sioc:Item',
@@ -3275,6 +3437,15 @@ array(
           ),
         ),
       ),
+      'field_number_of_books' => array(
+              'und' => array(
+                array(
+                  'value' => '1',
+                  'format' => NULL,
+                  'safe_value' => '1',
+                ),
+              ),
+            ),
       'rdf_mapping' => array(
         'rdftype' => array(
           'sioc:Item',
@@ -3452,6 +3623,15 @@ array(
           ),
         ),
       ),
+      'field_number_of_books' => array(
+              'und' => array(
+                array(
+                  'value' => '1',
+                  'format' => NULL,
+                  'safe_value' => '1',
+                ),
+              ),
+            ),
       'rdf_mapping' => array(
         'rdftype' => array(
           'sioc:Item',

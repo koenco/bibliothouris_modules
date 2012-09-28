@@ -54,7 +54,7 @@ function bibliothouris_views_menu() {
   );
   $items['bringbookback/%'] = array(
     'page callback' => 'bibliothouris_views_bringbookback',
-    'page arguments' => array(1,2),
+    'page arguments' => array(1, 2),
     'access arguments' => array('lend out a book'),
     'weight' => 1,
   );
@@ -131,7 +131,7 @@ function bibliothouris_views_views_ajax_data_alter(&$commands, $view) {
 }
 
 function bibliothouris_views_block_view_alter(&$data, $block) {
-  if (isset($data['subject']) && ($data['subject'] == "Enter a new book"|| $data['subject'] == 'Borrowed books')) {
+  if (isset($data['subject']) && ($data['subject'] == "Enter a new book" || $data['subject'] == 'Borrowed books')) {
     ////HACKY: the view ignores the [bib:uid] token so we replace it with the id from the url
     ///Only works first time table is made
     $data['content']['#markup'] = str_replace('%5Bbib%3Auid%5D', arg(1), $data['content']['#markup']);
@@ -151,9 +151,9 @@ function bibliothouris_views_bringbookback($lendedbookid, $userid) {
     ),
   );
   node_save($node);
-    drupal_set_message('Succesfully brought back the book.');
+  drupal_set_message('Succesfully brought back the book.');
 
-    //drupal_set_message('Error bringing book back.', 'error');
+  //drupal_set_message('Error bringing book back.', 'error');
 
   drupal_goto('user/' . $userid);
 }
@@ -176,6 +176,13 @@ function bibliothouris_views_lendabook($bookid, $userid) {
 }
 
 function isBookLended($bookid) {
+  if (getTimesLendedOut($bookid) >= getNumberOfBooks($bookid)) {
+    return TRUE;
+  }
+  return FALSE;
+}
+
+function getTimesLendedOut($bookid) {
   return db_query("SELECT count(*) FROM {node} n
     LEFT OUTER JOIN {field_data_field_return_date} rd
     ON n.nid = rd.entity_id
@@ -184,6 +191,12 @@ function isBookLended($bookid) {
     WHERE n.type = 'lended_book'
     AND b.field_book_nid=:nid
     AND rd.field_return_date_value IS NULL", array('nid' => $bookid))->fetchField();
+}
+
+function getNumberOfBooks($bookid) {
+  return db_query("SELECT field_number_of_books_value FROM {field_data_field_number_of_books}
+    WHERE entity_id = :bid", array('bid' => $bookid))->fetchField();
+  ;
 }
 
 function numberOfLendedBooks($userid) {
@@ -271,18 +284,25 @@ function bibliothouris_views_tokens($type, $tokens, $data = array(), $options = 
 function bibliothouris_views_query_alter(QueryAlterableInterface $query) {
 
   if (isset($query->alterTags['views_enter_a_new_book'])) {
-    if (count(getLendedBooks()) > 0) {
-      $query->condition('nid', getLendedBooks(), 'NOT IN');
+    if (count(getUnavailableBooks()) > 0) {
+      $query->condition('nid', getUnavailableBooks(), 'NOT IN');
     }
   }
 }
 
-function getLendedBooks() {
-  return db_query("SELECT b.field_book_nid FROM {node} n
-    LEFT OUTER JOIN {field_data_field_return_date} rd
-    ON n.nid = rd.entity_id
-    LEFT OUTER JOIN {field_data_field_book} b ON
-    n.nid = b.entity_id
-    WHERE n.type = 'lended_book'
-    AND rd.field_return_date_value IS NULL")->fetchCol();
+function getUnavailableBooks() {
+  //TODO rewrite
+  return db_query("SELECT lb.field_book_nid, nob.field_number_of_books_value FROM {node} n
+LEFT JOIN {field_data_field_return_date} rd
+ON n.nid = rd.entity_id
+JOIN {field_data_field_book} lb
+ON n.nid = lb.entity_id
+JOIN {node} b
+ON b.nid = lb.field_book_nid
+JOIN {field_data_field_number_of_books} nob
+ON nob.entity_id = b.nid
+WHERE n.type = 'lended_book'
+AND rd.field_return_date_value IS NULL
+GROUP BY lb.field_book_nid
+HAVING nob.field_number_of_books_value <= count(n.nid)")->fetchCol();
 }
