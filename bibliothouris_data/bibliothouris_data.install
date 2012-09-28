@@ -126,6 +126,7 @@ function bibliothouris_data_schema()
       'holiday_date' => array(
         'description' => 'date of the holiday',
         'type' => 'datetime',
+        'mysql_type' => 'datetime',
         'not null' => TRUE,
       ),
     ),
