@@ -144,13 +144,17 @@ function bibliothouris_views_block_view_alter(&$data, $block) {
 
 function bibliothouris_views_views_pre_render(&$view) {
   if ($view->name == 'borrowed_books') {
+    kpr($view);
     foreach ($view->result as $res) {
       $startdate = strtotime($res->field_field_start_date[0]['raw']['value']);
       $duedate = strtotime(date("Y-m-d", $startdate) . " +3 week");
       $workingdays = getWorkingDays(date("Y-m-d", $duedate), date("Y-m-d"), array());
       $fine = calculateFine($workingdays);
 
-      $res->field_field_return_date = array(
+      // modify date field to remove the time
+      $res->field_field_start_date[0]['rendered']['#markup'] = date('d-m-Y', strtotime($res->field_field_start_date[0]['rendered']['#markup']));
+
+      $res->field_field_fine = array(
         0 => array(
           'rendered' => array(
             '#markup' => '€ ' . $fine,
@@ -163,10 +167,21 @@ function bibliothouris_views_views_pre_render(&$view) {
           )
         )
       );
-
+      $res->field_field_return_date = array(
+        0 => array(
+          'rendered' => array(
+            '#markup' => date('d-m-Y', strtotime(date('d-m-Y', REQUEST_TIME) . ' +3 week')),
+            '#access' => TRUE
+          ),
+          'raw' => array(
+            'value' => date('d-m-Y', strtotime(date('d-m-Y', REQUEST_TIME) . ' +3 week')),
+            'format' => NULL,
+            'safe_value' => date('d-m-Y', strtotime(date('d-m-Y', REQUEST_TIME) . ' +3 week')),
+          )
+        )
+      );
     }
   }
-  //kpr($view);
 }
 
 function calculateFine($workingdays) {
