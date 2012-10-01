@@ -485,9 +485,10 @@ function bibliothouris_views_query_alter(QueryAlterableInterface $query) {
   if (isset($query->alterTags['views_top_10_borrowed_books'])) {
 
     $mostBorrowedBooks = getMostBorrowedBooks();
-    $query->condition('node.nid', $mostBorrowedBooks, 'IN');
-    $query->orderBy("FIELD(node.nid, ".implode(',',$mostBorrowedBooks).".)");
-
+    if (count($mostBorrowedBooks) > 0) {
+      $query->condition('node.nid', $mostBorrowedBooks, 'IN');
+      $query->orderBy("FIELD(node.nid, ".implode(',',$mostBorrowedBooks).".)");
+    }
   }
 }
 
