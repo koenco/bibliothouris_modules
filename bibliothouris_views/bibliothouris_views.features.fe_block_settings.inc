@@ -13,16 +13,44 @@ function bibliothouris_views_default_fe_block_settings() {
   // alphorn
   $theme = array();
 
+  $theme['system-powered-by'] = array(
+    'module' => 'system',
+    'delta' => 'powered-by',
+    'theme' => 'alphorn',
+    'status' => 0,
+    'weight' => '-6',
+    'region' => '',
+    'custom' => '0',
+    'visibility' => '0',
+    'pages' => '',
+    'title' => '',
+    'cache' => -1,
+  );
+
   $theme['views--exp-show_all_members-page'] = array(
     'module' => 'views',
     'delta' => '-exp-show_all_members-page',
+    'theme' => 'alphorn',
+    'status' => '1',
+    'weight' => '-14',
+    'region' => 'content',
+    'custom' => '0',
+    'visibility' => '1',
+    'pages' => 'show-all-members',
+    'title' => '',
+    'cache' => -1,
+  );
+
+  $theme['views--exp-view_all_books-page'] = array(
+    'module' => 'views',
+    'delta' => '-exp-view_all_books-page',
     'theme' => 'alphorn',
     'status' => '1',
     'weight' => '-13',
     'region' => 'content',
     'custom' => '0',
     'visibility' => '1',
-    'pages' => 'show-all-members',
+    'pages' => 'view-all-books',
     'title' => '',
     'cache' => -1,
   );
@@ -32,7 +60,7 @@ function bibliothouris_views_default_fe_block_settings() {
     'delta' => 'borrowed_books-block',
     'theme' => 'alphorn',
     'status' => '1',
-    'weight' => '1',
+    'weight' => '-10',
     'region' => 'content',
     'custom' => '0',
     'visibility' => '1',
@@ -46,11 +74,39 @@ function bibliothouris_views_default_fe_block_settings() {
     'delta' => 'enter_a_new_book-block',
     'theme' => 'alphorn',
     'status' => '1',
-    'weight' => '2',
+    'weight' => '-9',
     'region' => 'content',
     'custom' => '0',
     'visibility' => '1',
     'pages' => 'user/*',
+    'title' => '',
+    'cache' => -1,
+  );
+
+  $theme['views-top_10_borrowed_books-block'] = array(
+    'module' => 'views',
+    'delta' => 'top_10_borrowed_books-block',
+    'theme' => 'alphorn',
+    'status' => '1',
+    'weight' => '-7',
+    'region' => 'content',
+    'custom' => '0',
+    'visibility' => '1',
+    'pages' => '<front>',
+    'title' => '',
+    'cache' => -1,
+  );
+
+  $theme['views-top_10_viewed_books-block'] = array(
+    'module' => 'views',
+    'delta' => 'top_10_viewed_books-block',
+    'theme' => 'alphorn',
+    'status' => '1',
+    'weight' => '-8',
+    'region' => 'content',
+    'custom' => '0',
+    'visibility' => '1',
+    'pages' => '<front>',
     'title' => '',
     'cache' => -1,
   );
@@ -60,6 +116,20 @@ function bibliothouris_views_default_fe_block_settings() {
   // bartik
   $theme = array();
 
+  $theme['system-powered-by'] = array(
+    'module' => 'system',
+    'delta' => 'powered-by',
+    'theme' => 'bartik',
+    'status' => '1',
+    'weight' => '10',
+    'region' => 'footer',
+    'custom' => '0',
+    'visibility' => '0',
+    'pages' => '',
+    'title' => '',
+    'cache' => -1,
+  );
+
   $theme['views--exp-show_all_members-page'] = array(
     'module' => 'views',
     'delta' => '-exp-show_all_members-page',
@@ -70,6 +140,20 @@ function bibliothouris_views_default_fe_block_settings() {
     'custom' => '0',
     'visibility' => '1',
     'pages' => 'show-all-members',
+    'title' => '',
+    'cache' => -1,
+  );
+
+  $theme['views--exp-view_all_books-page'] = array(
+    'module' => 'views',
+    'delta' => '-exp-view_all_books-page',
+    'theme' => 'bartik',
+    'status' => 0,
+    'weight' => '0',
+    'region' => '',
+    'custom' => '0',
+    'visibility' => '1',
+    'pages' => 'view-all-books',
     'title' => '',
     'cache' => -1,
   );
@@ -98,6 +182,34 @@ function bibliothouris_views_default_fe_block_settings() {
     'custom' => '0',
     'visibility' => '0',
     'pages' => 'user/*',
+    'title' => '',
+    'cache' => -1,
+  );
+
+  $theme['views-top_10_borrowed_books-block'] = array(
+    'module' => 'views',
+    'delta' => 'top_10_borrowed_books-block',
+    'theme' => 'bartik',
+    'status' => 0,
+    'weight' => '0',
+    'region' => '',
+    'custom' => '0',
+    'visibility' => '0',
+    'pages' => '<front>',
+    'title' => '',
+    'cache' => -1,
+  );
+
+  $theme['views-top_10_viewed_books-block'] = array(
+    'module' => 'views',
+    'delta' => 'top_10_viewed_books-block',
+    'theme' => 'bartik',
+    'status' => 0,
+    'weight' => '0',
+    'region' => '',
+    'custom' => '0',
+    'visibility' => '0',
+    'pages' => '<front>',
     'title' => '',
     'cache' => -1,
   );
@@ -107,6 +219,20 @@ function bibliothouris_views_default_fe_block_settings() {
   // seven
   $theme = array();
 
+  $theme['system-powered-by'] = array(
+    'module' => 'system',
+    'delta' => 'powered-by',
+    'theme' => 'seven',
+    'status' => 0,
+    'weight' => '10',
+    'region' => '',
+    'custom' => '0',
+    'visibility' => '0',
+    'pages' => '',
+    'title' => '',
+    'cache' => -1,
+  );
+
   $theme['views--exp-show_all_members-page'] = array(
     'module' => 'views',
     'delta' => '-exp-show_all_members-page',
@@ -117,6 +243,20 @@ function bibliothouris_views_default_fe_block_settings() {
     'custom' => '0',
     'visibility' => '1',
     'pages' => 'show-all-members',
+    'title' => '',
+    'cache' => -1,
+  );
+
+  $theme['views--exp-view_all_books-page'] = array(
+    'module' => 'views',
+    'delta' => '-exp-view_all_books-page',
+    'theme' => 'seven',
+    'status' => 0,
+    'weight' => '0',
+    'region' => '',
+    'custom' => '0',
+    'visibility' => '1',
+    'pages' => 'view-all-books',
     'title' => '',
     'cache' => -1,
   );
@@ -145,6 +285,34 @@ function bibliothouris_views_default_fe_block_settings() {
     'custom' => '0',
     'visibility' => '0',
     'pages' => 'user/*',
+    'title' => '',
+    'cache' => -1,
+  );
+
+  $theme['views-top_10_borrowed_books-block'] = array(
+    'module' => 'views',
+    'delta' => 'top_10_borrowed_books-block',
+    'theme' => 'seven',
+    'status' => 0,
+    'weight' => '0',
+    'region' => '',
+    'custom' => '0',
+    'visibility' => '0',
+    'pages' => '<front>',
+    'title' => '',
+    'cache' => -1,
+  );
+
+  $theme['views-top_10_viewed_books-block'] = array(
+    'module' => 'views',
+    'delta' => 'top_10_viewed_books-block',
+    'theme' => 'seven',
+    'status' => 0,
+    'weight' => '0',
+    'region' => '',
+    'custom' => '0',
+    'visibility' => '0',
+    'pages' => '<front>',
     'title' => '',
     'cache' => -1,
   );

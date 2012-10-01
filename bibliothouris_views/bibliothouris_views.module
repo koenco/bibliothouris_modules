@@ -481,8 +481,28 @@ function bibliothouris_views_query_alter(QueryAlterableInterface $query) {
       $query->condition('node_field_data_field_book.nid', getOverdueBooks(), 'IN');
     }
   }
+
+  if (isset($query->alterTags['views_top_10_borrowed_books'])) {
+
+    $mostBorrowedBooks = getMostBorrowedBooks();
+    $query->condition('node.nid', $mostBorrowedBooks, 'IN');
+    $query->orderBy("FIELD(node.nid, ".implode(',',$mostBorrowedBooks).".)");
+
+  }
 }
 
+
+function getMostBorrowedBooks() {
+  return db_query(
+    "SELECT n.nid
+      FROM {node} n
+      JOIN {field_data_field_book} b
+        ON n.nid = b.field_book_nid
+      GROUP BY b.field_book_nid
+      ORDER BY count(b.field_book_nid) DESC
+      LIMIT 0,10"
+  )->fetchCol();
+}
 function getUnavailableBooks() {
 
   return db_query("SELECT n.nid FROM {node} n
