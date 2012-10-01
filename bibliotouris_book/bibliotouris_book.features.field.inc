@@ -50,6 +50,13 @@ function bibliotouris_book_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
+          'weight' => '3',
+        ),
+        'full' => array(
+          'label' => 'hidden',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
           'weight' => '2',
         ),
         'teaser' => array(
@@ -120,6 +127,13 @@ function bibliotouris_book_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
+          'label' => 'hidden',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '2',
+        ),
+        'full' => array(
           'label' => 'hidden',
           'module' => 'text',
           'settings' => array(),
@@ -205,6 +219,13 @@ function bibliotouris_book_field_default_fields() {
           'type' => 'taxonomy_term_reference_link',
           'weight' => '5',
         ),
+        'full' => array(
+          'label' => 'above',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '5',
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -265,6 +286,16 @@ function bibliotouris_book_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
+          'label' => 'hidden',
+          'module' => 'image',
+          'settings' => array(
+            'image_link' => '',
+            'image_style' => 'medium',
+          ),
+          'type' => 'image',
+          'weight' => '9',
+        ),
+        'full' => array(
           'label' => 'hidden',
           'module' => 'image',
           'settings' => array(
@@ -347,6 +378,13 @@ function bibliotouris_book_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
+          'weight' => '10',
+        ),
+        'full' => array(
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
           'weight' => '8',
         ),
         'teaser' => array(
@@ -416,6 +454,13 @@ function bibliotouris_book_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
+          'weight' => '1',
+        ),
+        'full' => array(
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
           'weight' => '3',
         ),
         'teaser' => array(
@@ -481,6 +526,12 @@ function bibliotouris_book_field_default_fields() {
           'type' => 'hidden',
           'weight' => '17',
         ),
+        'full' => array(
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '17',
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -532,6 +583,18 @@ function bibliotouris_book_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
+          'label' => 'above',
+          'module' => 'number',
+          'settings' => array(
+            'decimal_separator' => '.',
+            'prefix_suffix' => TRUE,
+            'scale' => 0,
+            'thousand_separator' => ' ',
+          ),
+          'type' => 'number_integer',
+          'weight' => '4',
+        ),
+        'full' => array(
           'label' => 'above',
           'module' => 'number',
           'settings' => array(
@@ -607,6 +670,19 @@ function bibliotouris_book_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
+          'label' => 'above',
+          'module' => 'date',
+          'settings' => array(
+            'format_type' => 'long',
+            'fromto' => 'both',
+            'multiple_from' => '',
+            'multiple_number' => '',
+            'multiple_to' => '',
+          ),
+          'type' => 'date_default',
+          'weight' => '6',
+        ),
+        'full' => array(
           'label' => 'above',
           'module' => 'date',
           'settings' => array(
@@ -696,6 +772,13 @@ function bibliotouris_book_field_default_fields() {
           'type' => 'text_default',
           'weight' => '7',
         ),
+        'full' => array(
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '7',
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -768,6 +851,13 @@ function bibliotouris_book_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
+          'label' => 'hidden',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_plain',
+          'weight' => '8',
+        ),
+        'full' => array(
           'label' => 'hidden',
           'module' => 'taxonomy',
           'settings' => array(),
