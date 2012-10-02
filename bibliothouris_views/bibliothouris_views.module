@@ -305,7 +305,7 @@ function getWorkingDays($startDate, $endDate, $holidays) {
  * echo getWorkingDays("2008-12-22","2009-01-02",$holidays)
 */
 
-function bibliothouris_views_bringbookback($lendedbookid, $userid, $return_date = REQUEST_TIME, $redirect = TRUE) {
+function bibliothouris_views_bringbookback($lendedbookid, $userid, $redirect = TRUE, $return_date = REQUEST_TIME) {
   $node = node_load($lendedbookid);
   $node->field_return_date = array(
     'und' => array(
