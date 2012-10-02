@@ -26,7 +26,7 @@ function add_lended_books() {
 
   foreach ($users as $uid => $books) {
     foreach ($books['returned'] as $book) {
-      $days_ago = rand(0, 90);
+      $days_ago = rand(1, 90);
       $days_loaned = rand(1,20);
       $start_date = strtotime("-$days_ago day", REQUEST_TIME);
       $return_date = strtotime("+$days_loaned day", $start_date);
@@ -41,7 +41,7 @@ function add_lended_books() {
     }
 
     foreach ($books['loaned'] as $book) {
-      $days_ago = rand(0, 20);
+      $days_ago = rand(1, 20);
       $start_date = strtotime("-$days_ago day", REQUEST_TIME);
       bibliothouris_views_lendabook($book,$uid, FALSE, $start_date);
     }

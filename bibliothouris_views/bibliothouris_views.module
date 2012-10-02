@@ -323,8 +323,10 @@ function bibliothouris_views_bringbookback($lendedbookid, $userid, $redirect = T
 
   update_status($bookid);
 
+  drupal_set_message('Succesfully brought back the book.');
+
   if ($redirect) {
-    drupal_set_message('Succesfully brought back the book.');
+
 
     drupal_goto('user/' . $userid);
   }
