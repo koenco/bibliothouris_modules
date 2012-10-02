@@ -331,7 +331,7 @@ function bibliothouris_views_bringbookback($lendedbookid, $userid, $redirect = T
 
 }
 
-function bibliothouris_views_lendabook($bookid, $userid, $redirect = TRUE) {
+function bibliothouris_views_lendabook($bookid, $userid, $redirect = TRUE, $start_date) {
   $numberOfBooks = numberOfLendedBooks($userid);
   if ($numberOfBooks < 3) {
     if (isBookLended($bookid)) {
@@ -339,7 +339,7 @@ function bibliothouris_views_lendabook($bookid, $userid, $redirect = TRUE) {
       $id = 0;
     }
     else {
-      $id = create_lended_book($bookid, $userid);
+      $id = create_lended_book($bookid, $userid, $start_date);
       drupal_set_message('Succesfully lend out the book.');
     }
   }
