@@ -305,7 +305,7 @@ function getWorkingDays($startDate, $endDate, $holidays) {
  * echo getWorkingDays("2008-12-22","2009-01-02",$holidays)
 */
 
-function bibliothouris_views_bringbookback($lendedbookid, $userid, $return_date = REQUEST_TIME) {
+function bibliothouris_views_bringbookback($lendedbookid, $userid, $return_date = REQUEST_TIME, $redirect = TRUE) {
   $node = node_load($lendedbookid);
   $node->field_return_date = array(
     'und' => array(
@@ -322,12 +322,16 @@ function bibliothouris_views_bringbookback($lendedbookid, $userid, $return_date 
   $bookid = db_query("SELECT field_book_nid FROM field_data_field_book WHERE entity_id = :eid", array('eid' => $lendedbookid))->fetchField();
 
   update_status($bookid);
-  drupal_set_message('Succesfully brought back the book.');
 
-  drupal_goto('user/' . $userid);
+  if ($redirect) {
+    drupal_set_message('Succesfully brought back the book.');
+
+    drupal_goto('user/' . $userid);
+  }
+
 }
 
-function bibliothouris_views_lendabook($bookid, $userid) {
+function bibliothouris_views_lendabook($bookid, $userid, $redirect = TRUE) {
   $numberOfBooks = numberOfLendedBooks($userid);
   if ($numberOfBooks < 3) {
     if (isBookLended($bookid)) {
@@ -343,7 +347,10 @@ function bibliothouris_views_lendabook($bookid, $userid) {
     $id = 0;
     drupal_set_message('User already has ' . $numberOfBooks . ' books', 'error');
   }
-  drupal_goto('user/' . $userid);
+  if ($redirect) {
+    drupal_goto('user/' . $userid);
+  }
+ 
   return $id;
 }
 
