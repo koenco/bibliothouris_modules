@@ -12,12 +12,18 @@ function bibliothouris_data_install() {
 
 
 function add_lended_books() {
-  $id = bibliothouris_views_lendabook(1,2, FALSE);
-  bibliothouris_views_bringbookback($id, 2, FALSE);
-  $id = bibliothouris_views_lendabook(2,2, FALSE);
-  bibliothouris_views_bringbookback($id, 2, FALSE);
-  $id = bibliothouris_views_lendabook(3,2, FALSE);
-  bibliothouris_views_bringbookback($id, 2, FALSE);
+
+  $users = array();
+
+  $users[2] = array(7,6,12,2,19,18,3,5,6,8,9,3,2);
+  $users[3] = array(2,6,9,16,14,13,11,17,9,3,1,10);
+
+  foreach ($users as $uid => $books) {
+    foreach ($books as $book) {
+      $id = bibliothouris_views_lendabook($book,$uid, FALSE);
+      bibliothouris_views_bringbookback($id, $uid, FALSE);
+    }
+  }
 }
 
 function add_holidays() {
