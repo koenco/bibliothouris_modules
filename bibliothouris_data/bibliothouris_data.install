@@ -12,23 +12,9 @@ function bibliothouris_data_install() {
 
 
 function add_lended_books() {
-
-  $books = array();
-  $book[] = array(
-    'title' => 'Lended book1',
-  );
-
-  $books[] = array(
-    'title' => 'Lended book2',
-  );
-
-  $books[] = array(
-    'title' => 'Lended book3',
-  );
-
-  create_lended_book(1,2);
-  create_lended_book(2,2);
-  create_lended_book(3,2);
+  bibliothouris_views_lendabook(1,2);
+  bibliothouris_views_lendabook(2,2);
+  bibliothouris_views_lendabook(3,2);
 }
 
 function add_holidays() {
