@@ -24,23 +24,26 @@ function add_lended_books() {
   $users[3]['overdue'] = array(7);
   $users[3]['loaned'] = array(8);
 
-  $ms_per_day = 1000 * 60 * 60 * 24;
   foreach ($users as $uid => $books) {
     foreach ($books['returned'] as $book) {
-      $start_date = REQUEST_TIME - rand(0, 90) * $ms_per_day;
-      $return_date = $start_date + rand(0, 21) * $ms_per_day;
+      $days_ago = rand(0, 90);
+      $days_loaned = rand(1,20);
+      $start_date = strtotime("-$days_ago day", REQUEST_TIME);
+      $return_date = strtotime("+$days_loaned day", $start_date);
       $id = bibliothouris_views_lendabook($book,$uid, FALSE, $start_date);
       bibliothouris_views_bringbookback($id, $uid, FALSE, $return_date);
     }
 
     foreach ($books['overdue'] as $book) {
-      $start_date = REQUEST_TIME - rand(22, 40) * $ms_per_day;
-      $id = bibliothouris_views_lendabook($book,$uid, FALSE, $start_date);
+      $days_ago = rand(22, 40);
+      $start_date = strtotime("-$days_ago day", REQUEST_TIME);
+      bibliothouris_views_lendabook($book,$uid, FALSE, $start_date);
     }
 
     foreach ($books['loaned'] as $book) {
-      $start_date = REQUEST_TIME - rand(0, 20) * $ms_per_day;
-      $id = bibliothouris_views_lendabook($book,$uid, FALSE, $start_date);
+      $days_ago = rand(0, 20);
+      $start_date = strtotime("-$days_ago day", REQUEST_TIME);
+      bibliothouris_views_lendabook($book,$uid, FALSE, $start_date);
     }
   }
 }
