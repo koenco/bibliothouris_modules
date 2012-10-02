@@ -12,9 +12,9 @@ function bibliothouris_data_install() {
 
 
 function add_lended_books() {
-  bibliothouris_views_lendabook(1,2);
-  bibliothouris_views_lendabook(2,2);
-  bibliothouris_views_lendabook(3,2);
+  bibliothouris_views_lendabook(1,2, FALSE);
+  bibliothouris_views_lendabook(2,2, FALSE);
+  bibliothouris_views_lendabook(3,2, FALSE);
 }
 
 function add_holidays() {
