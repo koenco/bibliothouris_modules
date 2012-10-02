@@ -1,57 +1,37 @@
 <?php
 
 function bibliothouris_data_install() {
-  $users = array();
-  $users[1] = array(
-    'last_name' => 'Crijns',
-    'first_name' => 'Frank',
-    'street_number' => 'Waterkasteelstraat 5',
-    'city' => 'Bilzen',
-    'national_number' => '89041727347',
-    'date_of_birth' => '1989-04-17 00:00:00'
+
+  add_users();
+
+  add_holidays();
+
+  add_lended_books();
+
+}
+
+
+function add_lended_books() {
+
+  $books = array();
+  $book[] = array(
+    'title' => 'Lended book1',
   );
 
-  $users[2] = array(
-    'last_name' => 'Schrijvers',
-    'first_name' => 'Bob',
-    'street_number' => 'Schoolstraat 7',
-    'city' => 'Bilzen',
-    'national_number' => '89041727347',
-    'date_of_birth' => '1989-04-17 00:00:00'
+  $books[] = array(
+    'title' => 'Lended book2',
   );
 
-  $users[3] = array(
-    'last_name' => 'Co',
-    'first_name' => 'Koen',
-    'street_number' => 'Kerkstraat 9',
-    'city' => 'Meeuwen',
-    'national_number' => '89041727347',
-    'date_of_birth' => '1989-04-17 00:00:00'
+  $books[] = array(
+    'title' => 'Lended book3',
   );
 
-  foreach ($users as $uid => $user) {
-    foreach ($user as $field => $value) {
-      try {
+  create_lended_book(1,2);
+  create_lended_book(2,2);
+  create_lended_book(3,2);
+}
 
-        db_insert("field_data_field_$field")
-          ->fields(array(
-          'entity_type' => 'user',
-          'bundle' => 'user',
-          'deleted' => 0,
-          'delta' => 0,
-          'entity_id' => $uid,
-          'revision_id' => NULL,
-          'language' => 'und',
-          'field_' . $field . '_value' => "$value",
-        ))
-          ->execute();
-
-      } catch (Exception $e) {
-        echo "Error inserting users. Uid: $uid Field: $field \n";
-      }
-    }
-  }
-
+function add_holidays() {
   $holiday = array();
   $holiday[1] = array(
     'holiday_name' => 'Nieuwjaar',
@@ -114,7 +94,59 @@ function bibliothouris_data_install() {
       echo "Error inserting holiday.\n.$e.\n";
     }
   }
+}
 
+function add_users() {
+  $users = array();
+  $users[1] = array(
+    'last_name' => 'Crijns',
+    'first_name' => 'Frank',
+    'street_number' => 'Waterkasteelstraat 5',
+    'city' => 'Bilzen',
+    'national_number' => '89041727347',
+    'date_of_birth' => '1989-04-17 00:00:00'
+  );
+
+  $users[2] = array(
+    'last_name' => 'Schrijvers',
+    'first_name' => 'Bob',
+    'street_number' => 'Schoolstraat 7',
+    'city' => 'Bilzen',
+    'national_number' => '89041727347',
+    'date_of_birth' => '1989-04-17 00:00:00'
+  );
+
+  $users[3] = array(
+    'last_name' => 'Co',
+    'first_name' => 'Koen',
+    'street_number' => 'Kerkstraat 9',
+    'city' => 'Meeuwen',
+    'national_number' => '89041727347',
+    'date_of_birth' => '1989-04-17 00:00:00'
+  );
+
+  foreach ($users as $uid => $user) {
+    foreach ($user as $field => $value) {
+      try {
+
+        db_insert("field_data_field_$field")
+          ->fields(array(
+          'entity_type' => 'user',
+          'bundle' => 'user',
+          'deleted' => 0,
+          'delta' => 0,
+          'entity_id' => $uid,
+          'revision_id' => NULL,
+          'language' => 'und',
+          'field_' . $field . '_value' => "$value",
+        ))
+          ->execute();
+
+      } catch (Exception $e) {
+        echo "Error inserting users. Uid: $uid Field: $field \n";
+      }
+    }
+  }
 }
 
 function bibliothouris_data_schema() {
