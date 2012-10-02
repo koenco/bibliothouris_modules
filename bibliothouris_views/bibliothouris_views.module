@@ -305,12 +305,12 @@ function getWorkingDays($startDate, $endDate, $holidays) {
  * echo getWorkingDays("2008-12-22","2009-01-02",$holidays)
 */
 
-function bibliothouris_views_bringbookback($lendedbookid, $userid) {
+function bibliothouris_views_bringbookback($lendedbookid, $userid, $return_date = REQUEST_TIME) {
   $node = node_load($lendedbookid);
   $node->field_return_date = array(
     'und' => array(
       array(
-        'value' => date("Y/m/d 00:00:00", REQUEST_TIME),
+        'value' => date("Y/m/d 00:00:00", $return_date),
         'timezone' => 'Europe/Berlin',
         'timezone_db' => 'Europe/Berlin',
         'date_type' => 'datetime',
@@ -380,7 +380,7 @@ function numberOfLendedBooks($userid) {
     AND rd.field_return_date_value IS NULL", array('uid' => $userid))->fetchField();
 }
 
-function create_lended_book($bookid, $userid) {
+function create_lended_book($bookid, $userid, $start_date = REQUEST_TIME) {
   $node = new stdClass();
   $node->type = 'lended_book';
   node_object_prepare($node);
@@ -397,7 +397,7 @@ function create_lended_book($bookid, $userid) {
   $node->field_start_date = array(
     'und' => array(
       array(
-        'value' => date("Y/m/d 00:00:00", REQUEST_TIME),
+        'value' => date("Y/m/d 00:00:00", $start_date),
         'timezone' => 'Europe/Berlin',
         'timezone_db' => 'Europe/Berlin',
         'date_type' => 'datetime',
