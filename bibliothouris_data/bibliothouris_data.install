@@ -20,7 +20,7 @@ function add_lended_books() {
   $users[2]['overdue'] = array(3);
   $users[2]['loaned'] = array(4);
   $users[3] = array();
-  $users[3]['returned'] = array(2,6,9,16,14,13,11,17,9,3,1,10);
+  $users[3]['returned'] = array(2,6,9,12,14,13,11,17,9,5,1,10);
   $users[3]['overdue'] = array(7);
   $users[3]['loaned'] = array(8);
 
